@@ -21,7 +21,7 @@ Você pode usar o sistema agora mesmo pelo link público oficial:
 
 ## 🎥 Tutorial Passo a Passo em Vídeo
 
-Assista ao tutorial completo e detalhado em vídeo (1m45s) mostrando com calma cada recurso e função do sistema:  
+Assista ao tutorial completo e detalhado em vídeo (2m44s), com ritmo calmo, explicações na tela e rolagem minuciosa por todos os recursos do sistema:  
 ▶️ **[Baixar / Assistir Vídeo Tutorial (`demonstracao.mp4`)](./demonstracao.mp4)**
 
 ---
