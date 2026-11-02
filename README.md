@@ -1,7 +1,7 @@
 # 🏫 Ensalamento · Escola Santo Agostinho
 
 [![Acessar Sistema Online](https://img.shields.io/badge/Acessar-Sistema_Web-2ea44f?logo=github&logoColor=white)](https://raimundoalvesstb.github.io/EnsalamentoSantoAgostinho/)
-[![Versão](https://img.shields.io/badge/Vers%C3%A3o-1.2.1-blue.svg)]()
+[![Versão](https://img.shields.io/badge/Vers%C3%A3o-1.2.2-blue.svg)]()
 [![Tecnologias](https://img.shields.io/badge/Tecnologias-HTML5%20%7C%20CSS3%20%7C%20JavaScript-orange.svg)]()
 [![Segurança](https://img.shields.io/badge/Seguran%C3%A7a-CSP%20Strict-blueviolet.svg)]()
 [![Licença](https://img.shields.io/badge/Licen%C3%A7a-MIT-yellow.svg)](./LICENSE)

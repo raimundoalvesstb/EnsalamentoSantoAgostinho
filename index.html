@@ -1479,11 +1479,12 @@ body {
     periodo: 'TARDE',
     frase: 'Cada sala, uma nova oportunidade de aprender e crescer!',
     rodape: 'ORGANIZAÇÃO HOJE, SUCESSO SEMPRE!',
-    versao: '1.2.1',
+    versao: '1.2.2',
     dataDaGrade: '2026-11-02',
     ordemPassadas: 'recentePrimeiro',
     diasSemAula: [],
-    // Definição dos turnos escolares (conforme Gestão Escolar - Ensalamento e Cronograma)
+    planilhaReferencia: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTDShNqmzRfT55s0qN3leOuT2PGT9kEhto3tL8PThs2mgLgQYc7lNrdX-3xE33MB58PJM5QqpNCxwro/pubhtml',
+    // Definição dos turnos escolares conforme planilha oficial de Gestão Escolar
     turnos: {
       MANHA: {
         nome: 'Manhã',
@@ -1494,7 +1495,8 @@ body {
           { numero: 4, inicio: '10:15', fim: '11:05' },
           { numero: 5, inicio: '11:05', fim: '11:55' }
         ],
-        intervalo: { inicio: '10:00', fim: '10:15' }
+        intervalo: { inicio: '10:00', fim: '10:15' },
+        ordemCronograma: ['2B', '3A', '9B', '2A', '3B', '3C', '9A', '1A', '1B', '1C_2C', 'TV_INTERATIVA_M']
       },
       TARDE: {
         nome: 'Tarde',
@@ -1505,7 +1507,8 @@ body {
           { numero: 4, inicio: '15:40', fim: '16:30' },
           { numero: 5, inicio: '16:30', fim: '17:20' }
         ],
-        intervalo: { inicio: '15:30', fim: '15:40' }
+        intervalo: { inicio: '15:30', fim: '15:40' },
+        ordemCronograma: ['7A', '7C', '8A', '6A', '6B', '7B', '7D', '8B', '8C', '9C', 'ROBOTICA']
       }
     },
     // Horários ativos consumidos pelo sistema (Turno da Tarde oficial)
@@ -1522,23 +1525,43 @@ body {
   var ORDEM_DAS_TURMAS = ['9C','6A','6B','7A','7B','7C','7D','8A','8B','8C','ROBOTICA'];
 
   var SALAS_DAS_TURMAS = {
+    // --- TURNO DA TARDE (Oficial em Uso) ---
     // Piso 1: 3 salas (8A, 7C, 7A)
-    '8A': { piso: 1, rotulo: 'Piso 1', salaNome: 'Sala 8º A', tvInterativa: false },
-    '7C': { piso: 1, rotulo: 'Piso 1', salaNome: 'Sala 7º C', tvInterativa: false },
-    '7A': { piso: 1, rotulo: 'Piso 1', salaNome: 'Sala 7º A', tvInterativa: false },
+    '8A': { piso: 1, rotulo: 'Piso 1', salaNome: 'Sala 8º A', tvInterativa: false, turno: 'TARDE' },
+    '7C': { piso: 1, rotulo: 'Piso 1', salaNome: 'Sala 7º C', tvInterativa: false, turno: 'TARDE' },
+    '7A': { piso: 1, rotulo: 'Piso 1', salaNome: 'Sala 7º A', tvInterativa: false, turno: 'TARDE' },
 
     // Piso 2: 4 salas (7D, 6A, 6B, 7B)
-    '7D': { piso: 2, rotulo: 'Piso 2', salaNome: 'Sala 7º D', tvInterativa: false },
-    '6A': { piso: 2, rotulo: 'Piso 2', salaNome: 'Sala 6º A', tvInterativa: false },
-    '6B': { piso: 2, rotulo: 'Piso 2', salaNome: 'Sala 6º B', tvInterativa: false },
-    '7B': { piso: 2, rotulo: 'Piso 2', salaNome: 'Sala 7º B', tvInterativa: false },
+    '7D': { piso: 2, rotulo: 'Piso 2', salaNome: 'Sala 7º D', tvInterativa: false, turno: 'TARDE' },
+    '6A': { piso: 2, rotulo: 'Piso 2', salaNome: 'Sala 6º A', tvInterativa: false, turno: 'TARDE' },
+    '6B': { piso: 2, rotulo: 'Piso 2', salaNome: 'Sala 6º B', tvInterativa: false, turno: 'TARDE' },
+    '7B': { piso: 2, rotulo: 'Piso 2', salaNome: 'Sala 7º B', tvInterativa: false, turno: 'TARDE' },
 
-    // Piso 3: 4 salas (TV Interativa, 9C, 8B, 8C)
-    'ROBOTICA':      { piso: 3, rotulo: 'Piso 3 · TV Interativa', salaNome: 'TV Interativa', tvInterativa: true },
-    'TV_INTERATIVA': { piso: 3, rotulo: 'Piso 3 · TV Interativa', salaNome: 'TV Interativa', tvInterativa: true },
-    '9C':            { piso: 3, rotulo: 'Piso 3', salaNome: 'Sala 9º C', tvInterativa: false },
-    '8B':            { piso: 3, rotulo: 'Piso 3', salaNome: 'Sala 8º B', tvInterativa: false },
-    '8C':            { piso: 3, rotulo: 'Piso 3', salaNome: 'Sala 8º C', tvInterativa: false }
+    // Piso 3 e Oficinas: 4 salas (TV Interativa, 9C, 8B, 8C, Robótica)
+    'ROBOTICA':        { piso: 3, rotulo: 'Piso 3 · TV Interativa', salaNome: 'TV Interativa', tvInterativa: true, turno: 'TARDE' },
+    'ROBOTICA_T':      { piso: 3, rotulo: 'Piso 3 · TV Interativa', salaNome: 'TV Interativa', tvInterativa: true, turno: 'TARDE' },
+    'TV_INTERATIVA':   { piso: 3, rotulo: 'Piso 3 · TV Interativa', salaNome: 'TV Interativa', tvInterativa: true, turno: 'TARDE' },
+    '9C':              { piso: 3, rotulo: 'Piso 3', salaNome: 'Sala 9º C', tvInterativa: false, turno: 'TARDE' },
+    '8B':              { piso: 3, rotulo: 'Piso 3', salaNome: 'Sala 8º B', tvInterativa: false, turno: 'TARDE' },
+    '8C':              { piso: 3, rotulo: 'Piso 3', salaNome: 'Sala 8º C', tvInterativa: false, turno: 'TARDE' },
+
+    // --- TURNO DA MANHÃ (Ensalamento Oficial da Planilha) ---
+    // Piso 1: 3 salas (3A, 2B, 9B)
+    '3A': { piso: 1, rotulo: 'Piso 1', salaNome: 'Sala 3º A', tvInterativa: false, turno: 'MANHA' },
+    '2B': { piso: 1, rotulo: 'Piso 1', salaNome: 'Sala 2º B', tvInterativa: false, turno: 'MANHA' },
+    '9B': { piso: 1, rotulo: 'Piso 1', salaNome: 'Sala 9º B', tvInterativa: false, turno: 'MANHA' },
+
+    // Piso 2: 4 salas (2A, 9A, 3C, 3B)
+    '2A': { piso: 2, rotulo: 'Piso 2', salaNome: 'Sala 2º A', tvInterativa: false, turno: 'MANHA' },
+    '9A': { piso: 2, rotulo: 'Piso 2', salaNome: 'Sala 9º A', tvInterativa: false, turno: 'MANHA' },
+    '3C': { piso: 2, rotulo: 'Piso 2', salaNome: 'Sala 3º C', tvInterativa: false, turno: 'MANHA' },
+    '3B': { piso: 2, rotulo: 'Piso 2', salaNome: 'Sala 3º B', tvInterativa: false, turno: 'MANHA' },
+
+    // Piso 3: 4 salas (TV Interativa, 1A, 1B, 1C/2C)
+    'TV_INTERATIVA_M': { piso: 3, rotulo: 'Piso 3 · TV Interativa', salaNome: 'TV Interativa', tvInterativa: true, turno: 'MANHA' },
+    '1A':              { piso: 3, rotulo: 'Piso 3', salaNome: 'Sala 1º A', tvInterativa: false, turno: 'MANHA' },
+    '1B':              { piso: 3, rotulo: 'Piso 3', salaNome: 'Sala 1º B', tvInterativa: false, turno: 'MANHA' },
+    '1C_2C':           { piso: 3, rotulo: 'Piso 3', salaNome: 'Sala 1º C / 2º C', tvInterativa: false, turno: 'MANHA' }
   };
 
   var DISCIPLINAS = {
@@ -1555,7 +1578,8 @@ body {
     'RECLP': 'Recomposi\u00E7\u00E3o de L\u00EDngua Portuguesa',
     'EDDIG': 'Educa\u00E7\u00E3o Digital',
     '704':   '704',
-    'RPP':   'RPP'
+    'RPP':   'RPP',
+    'TUT':   'Tutoria'
   };
 
   var PROFESSORES = {
@@ -1574,6 +1598,7 @@ body {
     'NOEMI':           'Noemi',
     'PAULO':           'Paulo',
     'PEDRO':           'Pedro',
+    'RAIMUNDO':        'Raimundo',
     'RAPHAEL':         'Raphael',
     'SIMONE':          'Simone',
     'UBIRAJARA':       'Ubirajara',
@@ -1600,7 +1625,7 @@ body {
       ['MAT|UBIRAJARA','LPORT|ELIANA','RECMT|VOLNEI','CIEN|KARINE','GEO|ELIANE','704|SIMONE','EREL|ELIANE PEREIRA','704|MELISSA','HIST|PAULO','MAT|PEDRO',''],
       ['704|MELISSA','EREL|LEONEL','RECMT|VOLNEI','MAT|LILIAN','LPORT|AUREA','EREL|ELIANE PEREIRA','MAT|UBIRAJARA','EDFI|DAVI','MAT|PEDRO','CIEN|KARINE',''],
       ['RECMT|VOLNEI','RECMT|LILIAN','HIST|LEONEL','704|SIMONE','EDFI|DAVI','LPORT|AUREA','LPORT|ELIANA','MAT|UBIRAJARA','704|MELISSA','CIEN|KARINE',''],
-      ['RECMT|VOLNEI','RECMT|LILIAN','EDFI|LEONEL','EREL|ELIANE PEREIRA','704|SIMONE','GEO|ELIANE','LPORT|ELIANA','MAT|UBIRAJARA','LPORT|AUREA','704|MELISSA','']
+      ['RECMT|VOLNEI','RECMT|LILIAN','EDFI|DAVI','EREL|ELIANE PEREIRA','704|SIMONE','GEO|ELIANE','LPORT|ELIANA','MAT|UBIRAJARA','LPORT|AUREA','704|MELISSA','']
     ],
     3: [
       ['LPORT|DANIELE','LING|NOEMI','LPORT|ELIANA','HIST|ELIANE PEREIRA','CIEN|KARINE','EDFI|DAVI','MAT|UBIRAJARA','GEO|ELIANE','MAT|PEDRO','LPORT|AUREA',''],
@@ -1626,14 +1651,47 @@ body {
   };
   /* ===== FIM DE DADOS_DA_GRADE ===== */
 
-  /* ===== DADOS_DA_GRADE_MANHA (Estrutura preparada para inserção futura do Turno da Manhã) ===== */
-  /* Horários matutinos conforme cronograma oficial: 07:30, 08:20, 09:10, 10:15, 11:05 */
+  /* ===== DADOS_DA_GRADE_MANHA (Estrutura conforme Cronograma Geral e Ensalamento da Planilha) ===== */
+  /* Ordem das colunas da Manhã: 2B, 3A, 9B, 2A, 3B, 3C, 9A, 1A, 1B, 1C_2C, TV_INTERATIVA_M
+     Horários matutinos: 07:30, 08:20, 09:10, 10:15, 11:05 (Intervalo 10:00 - 10:15).
+     As células estão vazias aguardando a definição futura dos cronogramas. */
+  var ORDEM_DAS_TURMAS_MANHA = ['2B', '3A', '9B', '2A', '3B', '3C', '9A', '1A', '1B', '1C_2C', 'TV_INTERATIVA_M'];
   var DADOS_DA_GRADE_MANHA = {
-    1: [[], [], [], [], []],
-    2: [[], [], [], [], []],
-    3: [[], [], [], [], []],
-    4: [[], [], [], [], []],
-    5: [[], [], [], [], []]
+    1: [
+      ['','','','','','','','','','',''],
+      ['','','','','','','','','','',''],
+      ['','','','','','','','','','',''],
+      ['','','','','','','','','','',''],
+      ['','','','','','','','','','','']
+    ],
+    2: [
+      ['','','','','','','','','','',''],
+      ['','','','','','','','','','',''],
+      ['','','','','','','','','','',''],
+      ['','','','','','','','','','',''],
+      ['','','','','','','','','','','']
+    ],
+    3: [
+      ['','','','','','','','','','',''],
+      ['','','','','','','','','','',''],
+      ['','','','','','','','','','',''],
+      ['','','','','','','','','','',''],
+      ['','','','','','','','','','','']
+    ],
+    4: [
+      ['','','','','','','','','','',''],
+      ['','','','','','','','','','',''],
+      ['','','','','','','','','','',''],
+      ['','','','','','','','','','',''],
+      ['','','','','','','','','','','']
+    ],
+    5: [
+      ['','','','','','','','','','',''],
+      ['','','','','','','','','','',''],
+      ['','','','','','','','','','',''],
+      ['','','','','','','','','','',''],
+      ['','','','','','','','','','','']
+    ]
   };
 
   var NOMES_DOS_DIAS = ['', 'Segunda-feira', 'Ter\u00E7a-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira'];
@@ -2616,8 +2674,17 @@ body {
   }
 
   function formatarNomeTurma(codigo) {
-    if (codigo === 'ROBOTICA' || codigo === 'TV_INTERATIVA') return 'TV Interativa';
-    return codigo.charAt(0) + '\u00BA ' + codigo.charAt(1);
+    if (!codigo) return '';
+    if (codigo === 'ROBOTICA' || codigo === 'ROBOTICA_T' || codigo === 'TV_INTERATIVA' || codigo === 'TV_INTERATIVA_M') {
+      return 'TV Interativa';
+    }
+    if (codigo === '1C_2C' || codigo === '1C/2C') {
+      return '1º C / 2º C';
+    }
+    if (codigo.length >= 2 && !isNaN(parseInt(codigo.charAt(0), 10))) {
+      return codigo.charAt(0) + '\u00BA ' + codigo.substring(1);
+    }
+    return codigo;
   }
 
   /* ================================================================
