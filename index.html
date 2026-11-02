@@ -1036,10 +1036,29 @@ body {
   margin: 0 4px;
 }
 .rodape-versao {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 6px;
   font-size: clamp(0.55rem, 1.3vw, 0.65rem);
   color: #A0AEC0;
   font-weight: 400;
-  margin-top: 4px;
+  margin-top: 6px;
+}
+.rodape-separador {
+  color: #CBD5E0;
+  user-select: none;
+}
+.rodape-link {
+  color: #718096;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  transition: color 0.2s ease;
+}
+.rodape-link:hover,
+.rodape-link:focus-visible {
+  color: var(--cor-azul-marinho);
 }
 
 /* --- Painel de simulação --- */
@@ -1434,7 +1453,13 @@ body {
       ORGANIZAÇÃO HOJE, SUCESSO SEMPRE!
       <svg class="icone-estrela-rodape"><use href="#icone-estrela" xlink:href="#icone-estrela"/></svg>
     </div>
-    <div class="rodape-versao" id="rodape-versao"></div>
+    <div class="rodape-versao" id="rodape-versao">
+      <span id="rodape-info-versao"></span>
+      <span class="rodape-separador" aria-hidden="true">&middot;</span>
+      <a href="https://github.com/raimundoalvesstb/EnsalamentoSantoAgostinho" target="_blank" rel="noopener noreferrer" class="rodape-link">GitHub</a>
+      <span class="rodape-separador" aria-hidden="true">&middot;</span>
+      <a href="https://www.linkedin.com/in/raimundoalvesstb/" target="_blank" rel="noopener noreferrer" class="rodape-link">LinkedIn</a>
+    </div>
   </footer>
 
   <noscript>Este sistema precisa de JavaScript ativado para funcionar.</noscript>
@@ -1454,7 +1479,7 @@ body {
     periodo: 'TARDE',
     frase: 'Cada sala, uma nova oportunidade de aprender e crescer!',
     rodape: 'ORGANIZAÇÃO HOJE, SUCESSO SEMPRE!',
-    versao: '1.0.0',
+    versao: '1.2.0',
     dataDaGrade: '2026-11-01',
     ordemPassadas: 'recentePrimeiro',
     diasSemAula: [],
@@ -3791,9 +3816,9 @@ body {
     }
 
     // Versão no rodapé
-    var rodapeVersao = document.getElementById('rodape-versao');
-    if (rodapeVersao) {
-      rodapeVersao.textContent = 'v' + CONFIGURACAO.versao + ' \u00B7 Grade de ' + CONFIGURACAO.dataDaGrade + ' \u00B7 ' + CONFIGURACAO.escola;
+    var rodapeInfoVersao = document.getElementById('rodape-info-versao');
+    if (rodapeInfoVersao) {
+      rodapeInfoVersao.textContent = 'v' + CONFIGURACAO.versao + ' \u00B7 Grade de ' + CONFIGURACAO.dataDaGrade + ' \u00B7 ' + CONFIGURACAO.escola;
     }
 
     // Ligar eventos

@@ -1,142 +1,192 @@
 # 🏫 Ensalamento · Escola Santo Agostinho
 
-[![GitHub Pages](https://img.shields.io/badge/Deploy-GitHub%20Pages-blue?logo=github&logoColor=white)](https://raimundoalvesstb.github.io/EnsalamentoSantoAgostinho/)
-[![Versão](https://img.shields.io/badge/Vers%C3%A3o-1.2.0-brightgreen.svg)]()
-[![Tecnologias](https://img.shields.io/badge/Stack-HTML5%20%7C%20CSS3%20%7C%20JS%20Vanilla-orange.svg)]()
-[![Segurança CSP](https://img.shields.io/badge/Seguran%C3%A7a-CSP%20Strict-blueviolet.svg)]()
+[![Acessar Sistema Online](https://img.shields.io/badge/Acessar-Sistema_Web-2ea44f?logo=github&logoColor=white)](https://raimundoalvesstb.github.io/EnsalamentoSantoAgostinho/)
+[![Versão](https://img.shields.io/badge/Vers%C3%A3o-1.2.0-blue.svg)]()
+[![Tecnologias](https://img.shields.io/badge/Tecnologias-HTML5%20%7C%20CSS3%20%7C%20JavaScript-orange.svg)]()
+[![Segurança](https://img.shields.io/badge/Seguran%C3%A7a-CSP%20Strict-blueviolet.svg)]()
 [![Licença](https://img.shields.io/badge/Licen%C3%A7a-MIT-yellow.svg)](./LICENSE)
-[![Offline-First](https://img.shields.io/badge/Modo-100%25%20Offline--First-success.svg)]()
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Raimundo_Alves-%230077B5?logo=linkedin&logoColor=white)](https://www.linkedin.com/in/raimundoalvesstb/)
 
-> Sistema web leve, intuitivo e responsivo para consulta ágil de salas, turmas e horários de aulas dos professores e alunos da **Escola Santo Agostinho**. Desenvolvido em arquivo único (*single-file*), sem dependências externas e pronto para hospedar no **GitHub Pages** ou executar diretamente em qualquer navegador.
-
----
-
-## ✨ Principais Funcionalidades
-
-### 1. 🔍 Consulta por Professor(a)
-* **Lista Completa A-Z:** Chips clicáveis para seleção direta de qualquer professor(a).
-* **Busca Global Inteligente:** Campo de pesquisa unificado com *autocomplete*, tolerante a acentos e maiúsculas/minúsculas. Pressione `/` no teclado para focar no campo de busca imediatamente.
-* **Linha do Tempo da Aula:** Identificação visual automática da aula que está ocorrendo **AGORA**, da **PRÓXIMA** aula a seguir e das aulas já **ENCERRADAS**.
-* **Contagem Regressiva em Tempo Real:** Exibe os minutos restantes para o início ou término de cada aula.
-* **Visualização de Janelas:** Opção para exibir horários livres e intervalos entre aulas.
-
-### 2. 👥 Consulta por Turma e Piso
-* **Navegação Categorizada por Andares:**
-  * **Piso 1:** Turmas 8º A, 7º C e 7º A.
-  * **Piso 2:** Turmas 7º D, 6º A, 6º B e 7º B.
-  * **Piso 3:** TV Interativa / Robótica, 9º C, 8º B e 8º C.
-* Na consulta por turma, cada cartão identifica automaticamente o professor responsável por ministrar a aula no horário.
-
-### 3. 🕒 Visão Panorâmica "Agora na Escola"
-* Painel em tempo real da ocupação simultânea de todas as salas de aula divididas por andar.
-* Indica com clareza se as turmas estão em aula, no intervalo ou com o expediente encerrado naquele momento.
-
-### 4. 🗺️ Mini-Mapa SVG Dinâmico do Andar
-* Cada box de aula inclui uma reprodução visual estilizada em **SVG puro** representando o corredor do piso:
-  * **Badge do Andar:** Selo colorido com identificação do piso (`PISO 1`, `PISO 2` ou `PISO 3`) e ícone de escada/degraus.
-  * **Salas do Corredor:** Disposição em sequência de todas as salas daquele piso.
-  * **Destaque Visual da Sala:** A sala onde a aula ocorre recebe destaque nítido com fundo contrastante, borda ressaltada e marcador de localização, enquanto as salas vizinhas mantêm opacidade atenuada.
-  * **Design Responsivo Adaptativo:** Largura total (100%) em smartphones e largura contida e harmoniosa em tablets, desktops e smart TVs.
-
-### 5. ♿ Acessibilidade e Modos de Exibição
-* **Controle de Escala de Fonte (A- / A+):** Ajuste fino do tamanho do texto (de 85% a 130%), persistido automaticamente no navegador via `localStorage`.
-* **Modo Tela Cheia (Fullscreen):** Botão dedicado na barra superior, ideal para totens de autoatendimento, smart TVs e quiosques nos corredores.
-* **Suporte a Redução de Movimento:** Respeita a preferência de acessibilidade do sistema (`prefers-reduced-motion`).
-* **Modo de Impressão Limpo:** Folha de estilos `@media print` otimizada para impressão física da grade sem elementos de navegação ou botões.
-
-### 6. 🧪 Simulador de Data e Hora Integrado
-* Permite simular e testar o comportamento do ensalamento em qualquer dia da semana e horário.
-* Acessível diretamente pelo parâmetro de URL `#simulador` ou `#diagnostico`.
+> **Sistema digital simples, rápido e visual para consulta de salas, horários e professores da Escola Santo Agostinho.**  
+> Criado para facilitar o dia a dia de professores, coordenadores, funcionários, alunos e famílias. Funciona direto no navegador do celular, computador, tablet ou TV da escola, sem precisar instalar nada e sem precisar de login.
 
 ---
 
-## 🛠️ Arquitetura Técnica
+## 🌐 Link de Acesso Rápido
+
+Você pode usar o sistema agora mesmo pelo link público oficial:  
+👉 **[https://raimundoalvesstb.github.io/EnsalamentoSantoAgostinho/](https://raimundoalvesstb.github.io/EnsalamentoSantoAgostinho/)**
+
+---
+
+## 📖 Manual Prático: Como Usar o Sistema Passo a Passo
+
+> [!NOTE]  
+> **Não precisa ser especialista em informática!** O sistema foi desenhado para ser intuitivo: tudo o que você precisa está à distância de um ou dois cliques.
+
+```
++-----------------------------------------------------------------------------------+
+|  [Relógio em Tempo Real: 14:15]                    [A-] [A+] [Tela Cheia]         |
+|  -------------------------------------------------------------------------------  |
+|  [ 👨‍🏫 Professores ]         [ 🏫 Turmas ]                  [ ⏱️ Agora ]             |
+|  -------------------------------------------------------------------------------  |
+|  [ Seg ]  [ Ter ]  [ Qua* ]  [ Qui ]  [ Sex ]                                     |
+|  -------------------------------------------------------------------------------  |
+|  🔎 [ Digite o nome do professor ou turma...                                  ]  |
++-----------------------------------------------------------------------------------+
+```
+
+---
+
+### 1. Entendendo a Tela Principal
+
+Ao abrir a página, você verá de cima para baixo:
+
+1. **Relógio Oficial da Escola (no topo):** Mostra a data, o dia da semana e a hora exata. Ele se atualiza sozinho a cada segundo.
+2. **Botões de Acessibilidade (no canto superior direito):**
+   * **`A-` e `A+`:** Se você achar as letras pequenas ou grandes demais, clique nestes botões para ajustar o tamanho do texto até ficar confortável para a sua visão. O sistema memoriza o tamanho escolhido no seu aparelho.
+   * **Botão de Tela Cheia (⛶):** Amplia o sistema para a tela inteira, ideal para TVs ou monitores na sala dos professores ou na recepção.
+3. **As 3 Abas Principais de Navegação:**
+   * **👨‍🏫 Professores:** Para consultar a rotina de um(a) professor(a).
+   * **🏫 Turmas:** Para ver as aulas de uma sala de aula específica (ex: 6º B, 7º A).
+   * **⏱️ Agora:** Para ver um resumo de todas as salas da escola neste exato minuto.
+4. **Dias da Semana (Seg, Ter, Qua, Qui, Sex):**
+   * O sistema seleciona **automaticamente o dia de hoje**.
+   * Se quiser planejar as aulas de amanhã ou de outro dia, basta dar um clique no dia desejado.
+
+---
+
+### 2. Como Encontrar a Aula de um(a) Professor(a)
+
+Precisa localizar um professor ou saber em qual sala ele está dando aula? Siga um destes dois caminhos:
+
+#### Opção A — Clicando no nome (Mais fácil):
+1. Fique na aba **Professores**.
+2. Você verá uma lista com botões com os nomes de todos os professores em ordem alfabética (ex: *Alana*, *Aline*, *Davi*, *Josy*, *Thiago*, etc.).
+3. Basta dar **um clique no nome do professor**.
+4. A tela mostrará imediatamente todos os horários e salas daquele professor no dia.
+
+#### Opção B — Usando o campo de busca:
+1. No campo onde diz **"Buscar professor, turma ou horário..."**, digite o nome de quem procura.
+2. Não precisa se preocupar com acentos ou letras maiúsculas (digitar `davi` ou `Davi` dá o mesmo resultado).
+3. Conforme você digita, o sistema já sugere as opções. Clique no resultado desejado.
+
+---
+
+### 3. Como Ler as Informações na Tela
+
+Quando você seleciona um professor ou turma, aparecem **cartões coloridos** na tela. Cada cor tem um significado muito simples:
+
+* 🟡 **Cartão Amarelo em Destaque com o selo "AGORA":**  
+  Significa que a aula está **acontecendo neste exato momento**.  
+  * Abaixo do cartão há um contador em tempo real: *"Termina em X minutos"* ou *"Faltam X minutos para o sinal"*.
+* 🟢 **Cartão Verde com o selo "PRÓXIMA":**  
+  É a **próxima aula** do professor naquele dia, com o horário certinho em que ela vai começar.
+* ⚪ **Cartão Claro ou Cinza ("ENCERRADA"):**  
+  Aulas que já aconteceram mais cedo e já foram finalizadas no dia.
+
+#### 🗺️ O que significa o mapinha do andar que aparece no cartão?
+Cada aula traz um desenho visual que mostra o corredor da escola:
+1. **Selo do Piso à esquerda:** Indica com clareza em qual andar fica a sala (**PISO 1**, **PISO 2** ou **PISO 3**), acompanhado do ícone de escada.
+2. **Quadradinhos das salas:** Representam todas as salas do corredor daquele andar.
+3. **Sala em Destaque:** O quadradinho branco com borda bem visível e um marcador é **exatamente a sala onde a aula está acontecendo**. As outras salas do mesmo piso aparecem apagadinhas ao lado para você se orientar geograficamente no prédio.
+
+---
+
+### 4. Como Consultar as Aulas de uma Turma (Ex: 6º B ou 7º D)
+
+Quer saber a programação de aulas de uma turma inteira?
+1. Clique na aba **Turmas** no topo da tela.
+2. Escolha o andar onde a turma estuda:
+   * **Piso 1:** 8º A, 7º C e 7º A.
+   * **Piso 2:** 7º D, 6º A, 6º B e 7º B.
+   * **Piso 3:** Sala Interativa/Robótica, 9º C, 8º B e 8º C.
+3. Clique sobre o botão da turma desejada (ex: **6º B**).
+4. O sistema exibirá todas as aulas da tarde daquela turma em ordem:
+   * O horário de cada aula (1ª à 5ª aula).
+   * A matéria que está sendo ensinada (ex: Matemática, Português, Educação Física).
+   * O nome do(a) professor(a) responsável.
+   * O mapinha do andar indicando a localização exata da sala.
+
+---
+
+### 5. Como Ver o que Está Acontecendo na Escola Inteira Agora (Aba "Agora")
+
+Ideal para a coordenação, portaria, direção ou inspetoria que precisa saber rapidamente o panorama geral do colégio:
+1. Dê um clique na aba **Agora**.
+2. A tela mostrará todos os andares (Piso 1, Piso 2 e Piso 3) simultaneamente.
+3. Em cada sala, você verá em tempo real:
+   * Se a turma está **em aula** (mostrando a disciplina e o professor).
+   * Se os alunos estão em **intervalo / recreio**.
+   * Se o turno ainda não começou ou se as aulas do dia já foram encerradas.
+
+---
+
+### 6. Como Ver Horários Livres (Janelas de Professores)
+
+Ao consultar um professor, logo abaixo do nome dele existe uma caixinha com o texto **"Mostrar janelas / horários livres"**:
+* Se você marcar essa caixinha, o sistema exibirá também os horários em que o professor **não tem aula** naquele dia, facilitando agendar reuniões de pais, alinhamentos pedagógicos ou planejamentos de aula.
+
+---
+
+### 7. Como Imprimir a Grade de Horários
+
+Se você quiser imprimir para colocar na pasta pedagógica ou colar no mural físico:
+1. Abra a turma ou o professor que deseja imprimir.
+2. Pressione as teclas **`Ctrl` + `P`** no teclado do computador (ou vá no menu do navegador e escolha **Imprimir**).
+3. O sistema já possui um formato especial de impressão que remove automaticamente os botões, menus e fundos desnecessários, gerando uma folha A4 limpa e profissional.
+
+---
+
+## 🔒 Segurança, Privacidade e Confiabilidade
+
+* **100% Gratuito e Livre de Propagandas:** Não há anúncios, pop-ups ou distrações.
+* **Privacidade Total:** O sistema não solicita nem armazena nenhum dado pessoal, e-mail, telefone ou senha.
+* **Funciona Offline:** Não depende de servidores complexos. Uma vez aberta a página, ela continua funcionando perfeitamente mesmo se a conexão cair temporariamente.
+* **Segurança Reforçada (CSP Estrita):** Código protegido contra injeção de scripts maliciosos ou conexões externas desconhecidas.
+
+---
+
+## 🛠️ Arquitetura do Projeto (Para Desenvolvedores)
+
+O projeto é estruturado em **arquivo único (*single-file architecture*)**, eliminando etapas de compilação, instalação de pacotes pesados ou dependências externas:
 
 ```
 EnsalamentoSantoAgostinho/
-├── index.html       # Aplicação completa (HTML5 + CSS3 + JavaScript Vanilla)
-├── README.md        # Documentação do projeto
+├── index.html       # Sistema completo (HTML5 estruturado, CSS3 responsivo e JS nativo)
+├── README.md        # Documentação detalhada e manual de instruções
 ├── LICENSE          # Licença de código aberto MIT
-└── .gitignore       # Arquivos e pastas excluídos do versionamento
+└── .gitignore       # Arquivos excluídos do controle de versão
 ```
 
-* **Single-File Architecture:** Todo o sistema reside no arquivo [`index.html`](./index.html). Não há necessidade de Node.js, Webpack, Vite ou bibliotecas de terceiros.
-* **Zero Dependências:** Funciona 100% offline nativamente. Basta abrir o arquivo em qualquer navegador moderno (Chrome, Edge, Firefox, Safari).
-* **Desempenho Extremo:** Carregamento instantâneo, renderização nativa de elementos DOM e zero requisições externas bloqueantes.
+* **Tecnologias:** HTML5 semântico, CSS3 moderno (Variáveis CSS, CSS Grid, Flexbox, `@media print`) e JavaScript Vanilla (ES5/ES6 compatível com navegadores antigos e modernos).
+* **SVG Puro:** Todos os ícones e os mini-mapas dos corredores são desenhados diretamente em código vetorial SVG integrado, sem imagens externas pesadas.
 
 ---
 
-## 🔒 Segurança e Privacidade
+## 🚀 Como Hospedar no seu Próprio GitHub Pages
 
-O projeto foi construído seguindo diretrizes rigorosas de segurança na web:
-
-1. **Content Security Policy (CSP) Estrita:**
-   O cabeçalho meta CSP está configurado com a política de menor privilégio:
-   ```html
-   <meta http-equiv="Content-Security-Policy"
-         content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src data:; connect-src 'none'; base-uri 'none'; form-action 'none'">
-   ```
-   * Bloqueia injeções de scripts externos maliciosos e impede conexões de rede não autorizadas.
-2. **Zero Telemetria e Coleta de Dados:**
-   * O sistema não possui rastreadores, analytics ou cookies.
-   * As preferências de acessibilidade e aba ativa são mantidas exclusivamente no armazenamento local do usuário (`localStorage`).
-3. **Prevenção contra XSS:**
-   * Toda manipulação de interface utiliza métodos seguros do DOM (`textContent`, `createElementNS`, `setAttribute`), eliminando vulnerabilidades de injeção HTML.
-4. **Política de Referrer Estrita:**
-   * Definido como `no-referrer` para preservar a privacidade do usuário durante a navegação.
-
----
-
-## 🚀 Como Executar e Hospedar
-
-### Execução Local (Sem Servidor)
-1. Clone este repositório:
+1. Faça um **Fork** ou clone este repositório:
    ```bash
    git clone https://github.com/raimundoalvesstb/EnsalamentoSantoAgostinho.git
    ```
-2. Abra a pasta do projeto e dê um duplo clique no arquivo [`index.html`](./index.html).
-3. O sistema funcionará imediatamente em seu navegador padrão.
-
-### Hospedagem Gratuita no GitHub Pages
-1. Acesse o repositório no GitHub: [raimundoalvesstb/EnsalamentoSantoAgostinho](https://github.com/raimundoalvesstb/EnsalamentoSantoAgostinho).
-2. Clique na aba **Settings** (Configurações).
-3. No menu lateral esquerdo, clique em **Pages**.
-4. Na seção **Build and deployment** > **Branch**:
-   * Selecione a branch `main`.
-   * Selecione a pasta `/ (root)`.
-   * Clique em **Save**.
-5. O sistema estará disponível publicamente em:
-   **[https://raimundoalvesstb.github.io/EnsalamentoSantoAgostinho/](https://raimundoalvesstb.github.io/EnsalamentoSantoAgostinho/)**
-
----
-
-## 🤝 Como Contribuir
-
-Contribuições da comunidade escolar e de desenvolvedores são bem-vindas:
-
-1. Faça um **Fork** do repositório.
-2. Crie uma branch para sua modificação:
-   ```bash
-   git checkout -b feature/minha-melhoria
-   ```
-3. Realize suas alterações mantendo o código limpo e dentro do arquivo único.
-4. Salve suas alterações (*commit*):
-   ```bash
-   git commit -m "feat: Adiciona melhoria no sistema de busca"
-   ```
-5. Envie para o seu repositório (*push*):
-   ```bash
-   git push origin feature/minha-melhoria
-   ```
-6. Abra um **Pull Request** explicando as alterações realizadas.
+2. No seu GitHub, vá em **Settings** > **Pages**.
+3. Na opção **Branch**, selecione `main` e a pasta `/(root)`. Clique em **Save**.
+4. Em poucos segundos o seu endereço público estará ativo!
 
 ---
 
 ## 📄 Licença Livre (Open Source)
 
-Este projeto está licenciado sob a **Licença MIT** — você tem liberdade total para usar, estudar, modificar, distribuir e adaptar este software para qualquer instituição educacional ou privada.
+Este projeto está registrado sob a **[Licença MIT](./LICENSE)**. Você pode utilizar, adaptar, compartilhar e implementar esta solução livremente em qualquer escola, colégio ou instituição de ensino.
 
-Consulte o arquivo [`LICENSE`](./LICENSE) para o texto completo da licença.
+---
+
+## 👨‍💻 Autor e Contato
+
+Desenvolvido por **Raimundo Alves Santa Brigida**  
+* 🐙 **GitHub:** [raimundoalvesstb/EnsalamentoSantoAgostinho](https://github.com/raimundoalvesstb/EnsalamentoSantoAgostinho)  
+* 💼 **LinkedIn:** [linkedin.com/in/raimundoalvesstb](https://www.linkedin.com/in/raimundoalvesstb/)  
 
 ---
 
