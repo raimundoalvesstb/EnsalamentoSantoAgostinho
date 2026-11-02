@@ -19,6 +19,13 @@ Você pode usar o sistema agora mesmo pelo link público oficial:
 
 ---
 
+## 🎥 Demonstração Rápida em Vídeo
+
+Assista a uma apresentação didática em vídeo (36 segundos) mostrando na prática o uso do sistema:  
+▶️ **[Baixar / Assistir Vídeo Demonstrativo (`demonstracao.mp4`)](./demonstracao.mp4)**
+
+---
+
 ## 📖 Manual Prático: Como Usar o Sistema Passo a Passo
 
 > [!NOTE]  
@@ -52,7 +59,7 @@ Ao abrir a página, você verá de cima para baixo:
    * **⏱️ Agora:** Para ver um resumo de todas as salas da escola neste exato minuto.
 4. **Dias da Semana (Seg, Ter, Qua, Qui, Sex):**
    * O sistema seleciona **automaticamente o dia de hoje**.
-   * Se quiser planejar as aulas de amanhã ou de outro dia, basta dar um clique no dia desejado.
+   * Se quiser ver as aulas de amanhã ou de outro dia para planejar, basta dar um clique no dia desejado.
 
 ---
 
@@ -153,10 +160,11 @@ O projeto é estruturado em **arquivo único (*single-file architecture*)**, eli
 
 ```
 EnsalamentoSantoAgostinho/
-├── index.html       # Sistema completo (HTML5 estruturado, CSS3 responsivo e JS nativo)
-├── README.md        # Documentação detalhada e manual de instruções
-├── LICENSE          # Licença de código aberto MIT
-└── .gitignore       # Arquivos excluídos do controle de versão
+├── index.html          # Sistema completo (HTML5 estruturado, CSS3 responsivo e JS nativo)
+├── demonstracao.mp4    # Vídeo demonstrativo rápido (MP4 720p didático)
+├── README.md           # Documentação detalhada e manual de instruções
+├── LICENSE             # Licença de código aberto MIT
+└── .gitignore          # Arquivos excluídos do controle de versão
 ```
 
 * **Tecnologias:** HTML5 semântico, CSS3 moderno (Variáveis CSS, CSS Grid, Flexbox, `@media print`) e JavaScript Vanilla (ES5/ES6 compatível com navegadores antigos e modernos).
