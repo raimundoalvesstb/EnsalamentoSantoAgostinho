@@ -1,0 +1,3819 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta http-equiv="Content-Security-Policy"
+      content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src data:; connect-src 'none'; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<meta name="theme-color" content="#1F3A8A">
+<title>Ensalamento · Escola Santo Agostinho</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%231F3A8A'/%3E%3Ctext x='16' y='23' font-size='20' text-anchor='middle' fill='%23FFC81E' font-weight='bold'%3EE%3C/text%3E%3C/svg%3E">
+<style>
+/* ===== 1. VARIÁVEIS ===== */
+:root {
+  --cor-titulo: #1F3A8A;
+  --cor-azul-faixa: #2563C9;
+  --cor-azul-claro: #E6F0FF;
+  --cor-amarelo-sol: #FFC81E;
+  --cor-laranja-tarde: #F58A1F;
+  --cor-piso1: #1E6FD9;
+  --cor-piso2: #2E9D42;
+  --cor-piso3: #7B3FB5;
+  --cor-fundo: #F7FAFF;
+  --cor-cartao: #FFFFFF;
+  --cor-esmaecido-texto: #8A94A6;
+  --cor-erro: #C62828;
+  --cor-borda-cartao: #2563C9;
+  --cor-texto-corpo: #2D3748;
+  --escala-fonte: 1;
+  --raio-borda: 16px;
+  --sombra-cartao: 0 2px 8px rgba(31,58,138,.10);
+  --sombra-destaque: 0 0 0 4px rgba(255,200,30,.40), 0 4px 16px rgba(255,200,30,.18);
+  --transicao: .25s ease;
+}
+
+/* ===== 2. BASE ===== */
+*, *::before, *::after { box-sizing: border-box; }
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+  font-size: calc(100% * var(--escala-fonte, 1));
+}
+body {
+  margin: 0; padding: 0;
+  background: var(--cor-fundo);
+  color: var(--cor-texto-corpo);
+  font-family: "Trebuchet MS", "Segoe UI", "Nunito", system-ui, -apple-system, "Roboto", "Helvetica Neue", Arial, sans-serif;
+  font-size: 1rem;
+  line-height: 1.5;
+  min-height: 100vh;
+  min-height: 100dvh;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* ===== 3. LAYOUT ===== */
+.conteiner-principal {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 12px;
+  padding-left: calc(12px + env(safe-area-inset-left, 0px));
+  padding-right: calc(12px + env(safe-area-inset-right, 0px));
+}
+
+/* ===== 4. COMPONENTES ===== */
+
+/* --- Cabeçalho --- */
+.cabecalho-do-sistema {
+  background: linear-gradient(135deg, var(--cor-titulo) 0%, #2A4BB5 100%);
+  color: #fff;
+  padding: 8px 12px 30px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.cabecalho-barra-topo {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-bottom: 2px;
+  position: relative;
+  z-index: 3;
+}
+.cabecalho-acoes {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(0, 0, 0, 0.22);
+  padding: 4px 6px;
+  border-radius: 12px;
+  backdrop-filter: blur(4px);
+}
+.controles-escala {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+}
+.indicador-escala {
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: var(--cor-amarelo-sol);
+  padding: 0 4px;
+  min-width: 36px;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+  user-select: none;
+}
+.botao-icone {
+  background: rgba(255,255,255,.18);
+  border: 1px solid rgba(255,255,255,.25);
+  color: #fff;
+  width: 36px; height: 36px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.88rem;
+  font-weight: 800;
+  transition: all var(--transicao);
+}
+.botao-icone:hover:not(:disabled) {
+  background: rgba(255,255,255,.32);
+}
+.botao-icone:disabled {
+  cursor: not-allowed;
+  opacity: 0.35;
+}
+.botao-icone:focus-visible {
+  outline: 2px solid var(--cor-amarelo-sol);
+  outline-offset: 2px;
+}
+.cabecalho-conteudo {
+  position: relative;
+  z-index: 2;
+}
+.cabecalho-do-sistema::after {
+  content: '';
+  position: absolute;
+  bottom: -24px; left: -10%;
+  width: 120%; height: 42px;
+  background: var(--cor-fundo);
+  border-radius: 50% 50% 0 0;
+  z-index: 1;
+  pointer-events: none;
+}
+.cabecalho-titulo {
+  font-size: clamp(1.35rem, 4.6vw, 2.3rem);
+  font-weight: 900;
+  letter-spacing: 2px;
+  text-shadow: 2px 2px 0 rgba(0,0,0,.25);
+  margin: 0 0 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: nowrap;
+}
+.cabecalho-titulo-texto {
+  white-space: nowrap;
+}
+.cabecalho-titulo .icone-cabecalho {
+  width: clamp(26px, 4.8vw, 40px);
+  height: clamp(26px, 4.8vw, 40px);
+  flex-shrink: 0;
+}
+.cabecalho-subtitulo {
+  display: inline-block;
+  background: var(--cor-azul-faixa);
+  color: #fff;
+  padding: 4px 18px;
+  border-radius: 20px;
+  font-size: clamp(0.72rem, 1.8vw, 0.92rem);
+  font-weight: 800;
+  margin: 4px 0;
+  letter-spacing: 1.5px;
+  box-shadow: 0 2px 6px rgba(0,0,0,.15);
+}
+.cabecalho-frase {
+  font-style: italic;
+  font-size: clamp(0.68rem, 1.8vw, 0.88rem);
+  opacity: .95;
+  margin: 6px 0 0;
+  line-height: 1.35;
+  padding: 0 8px;
+  text-shadow: 1px 1px 2px rgba(0,0,0,.2);
+}
+
+/* --- Faixa Tarde --- */
+.faixa-tarde {
+  background: linear-gradient(135deg, var(--cor-laranja-tarde) 0%, #E87A10 100%);
+  color: #fff;
+  text-align: center;
+  padding: 8px 18px;
+  font-weight: 800;
+  font-size: clamp(0.88rem, 2.4vw, 1.15rem);
+  letter-spacing: 2px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 3;
+  border-radius: 14px;
+  box-shadow: 0 4px 14px rgba(245,138,31,.35);
+  margin: -10px auto 0;
+  left: 50%;
+  transform: translateX(-50%);
+  max-width: 90%;
+}
+.faixa-tarde .icone-faixa {
+  width: 24px; height: 24px;
+  margin: 0 10px;
+  flex-shrink: 0;
+}
+
+/* --- Relógio e Situação --- */
+.painel-relogio {
+  text-align: center;
+  padding: 22px 8px 10px;
+}
+.relogio-hora {
+  font-size: clamp(1.6rem, 5vw, 2.4rem);
+  font-weight: 900;
+  color: var(--cor-titulo);
+  letter-spacing: 1px;
+  font-variant-numeric: tabular-nums;
+}
+.relogio-data {
+  font-size: clamp(0.75rem, 2vw, 0.95rem);
+  color: #5A6A80;
+  margin-top: 2px;
+}
+.situacao-do-momento {
+  display: inline-block;
+  padding: 4px 14px;
+  border-radius: 20px;
+  font-size: clamp(0.7rem, 1.8vw, 0.85rem);
+  font-weight: 700;
+  margin-top: 6px;
+}
+.situacao--em-aula {
+  background: #E8F5E9;
+  color: #2E7D32;
+}
+.situacao--intervalo {
+  background: #FFF3E0;
+  color: #E65100;
+}
+.situacao--antes {
+  background: var(--cor-azul-claro);
+  color: var(--cor-azul-faixa);
+}
+.situacao--fim {
+  background: #ECEFF1;
+  color: #546E7A;
+}
+.situacao--sem-aula {
+  background: #FFF8E1;
+  color: #F57F17;
+}
+.situacao--consulta {
+  background: #E8EAF6;
+  color: #283593;
+}
+
+/* --- Abas --- */
+.barra-de-abas {
+  display: flex;
+  margin: 12px 0 0;
+  border-radius: 12px;
+  background: var(--cor-azul-claro);
+  padding: 4px;
+}
+.aba-botao {
+  flex: 1;
+  padding: 10px 6px;
+  border: none;
+  background: transparent;
+  color: var(--cor-titulo);
+  font-weight: 700;
+  font-size: clamp(0.72rem, 2vw, 0.88rem);
+  cursor: pointer;
+  border-radius: 10px;
+  transition: all var(--transicao);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.aba-botao .icone-aba {
+  width: 18px; height: 18px;
+  margin-right: 4px;
+  flex-shrink: 0;
+}
+.aba-botao--ativa {
+  background: #fff;
+  color: var(--cor-titulo);
+  box-shadow: 0 2px 8px rgba(31,58,138,.12);
+}
+.aba-botao:hover:not(.aba-botao--ativa) {
+  background: rgba(255,255,255,.5);
+}
+.aba-botao:focus-visible {
+  outline: 2px solid var(--cor-amarelo-sol);
+  outline-offset: -2px;
+}
+
+/* --- Barra de busca global com autocomplete --- */
+.conteiner-busca-global {
+  position: relative;
+  margin: 12px 0 10px;
+  width: 100%;
+}
+.campo-busca-envoltura {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+.icone-busca-global {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  color: #718096;
+  pointer-events: none;
+}
+.campo-busca-global {
+  width: 100%;
+  padding: 12px 42px 12px 42px;
+  border: 2px solid #CBD5E0;
+  border-radius: 12px;
+  font-size: clamp(0.88rem, 2.3vw, 1rem);
+  font-family: inherit;
+  font-weight: 500;
+  color: var(--cor-titulo);
+  background: #FFFFFF;
+  box-shadow: 0 2px 6px rgba(15,23,42,.04);
+  transition: border-color var(--transicao), box-shadow var(--transicao);
+  -webkit-appearance: none;
+  appearance: none;
+}
+.campo-busca-global:focus {
+  outline: none;
+  border-color: var(--cor-azul-faixa);
+  box-shadow: 0 0 0 3px rgba(37,99,201,.18);
+}
+.campo-busca-global::placeholder {
+  color: #A0AEC0;
+  font-weight: 400;
+}
+.campo-busca-global::-webkit-search-cancel-button,
+.campo-busca-global::-webkit-search-decoration {
+  -webkit-appearance: none;
+  display: none;
+}
+.botao-limpar-busca {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 26px;
+  height: 26px;
+  border: none;
+  background: #E2E8F0;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #4A5568;
+  padding: 0;
+  transition: background var(--transicao), color var(--transicao);
+}
+.botao-limpar-busca:hover {
+  background: #CBD5E0;
+  color: #1A202C;
+}
+.botao-limpar-busca:focus-visible {
+  outline: 2px solid var(--cor-azul-faixa);
+  outline-offset: 1px;
+}
+.botao-limpar-busca svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* --- Dropdown de Autocomplete --- */
+.menu-autocomplete {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background: #FFFFFF;
+  border: 1.5px solid #CBD5E0;
+  border-radius: 12px;
+  box-shadow: 0 12px 28px -4px rgba(15,23,42,.18), 0 4px 10px -2px rgba(15,23,42,.08);
+  max-height: 380px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 6px 0;
+}
+.autocomplete-grupo {
+  padding: 4px 0;
+}
+.autocomplete-grupo + .autocomplete-grupo {
+  border-top: 1px solid #E2E8F0;
+  margin-top: 4px;
+  padding-top: 6px;
+}
+.autocomplete-grupo-cabecalho {
+  padding: 6px 14px 4px;
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #718096;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.autocomplete-grupo-tag {
+  background: #EDF2F7;
+  color: #4A5568;
+  font-size: 0.68rem;
+  padding: 1px 7px;
+  border-radius: 10px;
+  font-weight: 700;
+}
+.autocomplete-item {
+  display: flex;
+  align-items: center;
+  padding: 9px 14px;
+  cursor: pointer;
+  transition: background 0.12s ease;
+  user-select: none;
+}
+.autocomplete-item:hover,
+.autocomplete-item--ativo {
+  background: #EBF4FF;
+}
+.autocomplete-icone-bloco {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 12px;
+  flex-shrink: 0;
+}
+.autocomplete-icone-bloco svg {
+  width: 18px;
+  height: 18px;
+}
+.autocomplete-icone-bloco--prof {
+  background: #E0E7FF;
+  color: #3730A3;
+}
+.autocomplete-icone-bloco--piso-1 {
+  background: rgba(37,99,201,.12);
+  color: var(--cor-azul-faixa);
+}
+.autocomplete-icone-bloco--piso-2 {
+  background: rgba(34,139,34,.12);
+  color: var(--cor-verde-folha);
+}
+.autocomplete-icone-bloco--piso-3 {
+  background: rgba(147,51,234,.14);
+  color: var(--cor-roxo-piso3);
+}
+.autocomplete-info {
+  flex: 1;
+  min-width: 0;
+}
+.autocomplete-titulo {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--cor-titulo);
+  line-height: 1.25;
+}
+.autocomplete-subtitulo {
+  font-size: 0.76rem;
+  color: #718096;
+  margin-top: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.autocomplete-badge {
+  font-size: 0.7rem;
+  font-weight: 800;
+  padding: 3px 8px;
+  border-radius: 6px;
+  margin-left: 10px;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+.autocomplete-badge--prof {
+  background: #EEF2FF;
+  color: #4338CA;
+}
+.autocomplete-badge--piso-1 {
+  background: #EBF3FD;
+  color: #174EB0;
+}
+.autocomplete-badge--piso-2 {
+  background: #E8F5E9;
+  color: #1B7A2D;
+}
+.autocomplete-badge--piso-3 {
+  background: #F3E8FF;
+  color: #5B2B8E;
+}
+.autocomplete-vazio {
+  padding: 20px 14px;
+  text-align: center;
+  color: #718096;
+  font-size: 0.88rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+.autocomplete-vazio svg {
+  width: 28px;
+  height: 28px;
+  color: #A0AEC0;
+}
+
+/* Compatibilidade caso referenciado */
+.campo-de-busca-conteiner { position: relative; margin: 12px 0 8px; }
+.campo-de-busca { width: 100%; padding: 12px 44px 12px 16px; border: 2px solid #CBD5E0; border-radius: 12px; }
+
+
+/* --- Seletor de dia --- */
+.seletor-de-dia {
+  display: flex;
+  align-items: center;
+  margin: 10px 0;
+  gap: 4px;
+  flex-wrap: nowrap;
+}
+.dia-botao {
+  flex: 1 1 0;
+  min-width: 38px;
+  min-height: 42px;
+  padding: 6px 2px;
+  border: 2px solid transparent;
+  background: #EDF3FC;
+  color: var(--cor-titulo);
+  font-weight: 700;
+  font-size: clamp(0.72rem, 1.8vw, 0.85rem);
+  cursor: pointer;
+  border-radius: 8px;
+  transition: all var(--transicao);
+}
+.dia-botao--ativo {
+  background: var(--cor-titulo);
+  color: #fff;
+  box-shadow: 0 2px 6px rgba(31,58,138,.2);
+}
+.dia-botao--hoje:not(.dia-botao--ativo) {
+  border-color: var(--cor-azul-faixa);
+}
+.dia-botao:hover:not(.dia-botao--ativo) {
+  background: #DFEBFB;
+}
+.dia-botao:focus-visible {
+  outline: 2px solid var(--cor-amarelo-sol);
+  outline-offset: 2px;
+}
+.botao-hoje {
+  flex: 0 0 auto;
+  min-height: 42px;
+  padding: 6px 14px;
+  border: 2px solid var(--cor-azul-faixa);
+  background: #fff;
+  color: var(--cor-azul-faixa);
+  font-weight: 800;
+  font-size: clamp(0.72rem, 1.8vw, 0.85rem);
+  cursor: pointer;
+  border-radius: 8px;
+  transition: all var(--transicao);
+  white-space: nowrap;
+}
+.botao-hoje:hover {
+  background: var(--cor-azul-claro);
+}
+.botao-hoje:focus-visible {
+  outline: 2px solid var(--cor-amarelo-sol);
+  outline-offset: 2px;
+}
+
+/* --- Sugestões --- */
+.lista-de-sugestoes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 8px 0;
+}
+.sugestao-chip {
+  padding: 8px 14px;
+  border: 2px solid var(--cor-azul-faixa);
+  background: #fff;
+  color: var(--cor-titulo);
+  font-weight: 600;
+  font-size: clamp(0.75rem, 2vw, 0.88rem);
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all var(--transicao);
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+}
+.sugestao-chip:hover, .sugestao-chip:focus-visible {
+  background: var(--cor-azul-faixa);
+  color: #fff;
+}
+.sugestao-chip:focus-visible {
+  outline: 2px solid var(--cor-amarelo-sol);
+  outline-offset: 2px;
+}
+.sugestao-chip svg {
+  width: 18px;
+  height: 18px;
+  max-width: 18px;
+  max-height: 18px;
+  flex-shrink: 0;
+  margin-right: 6px;
+  vertical-align: middle;
+}
+.sugestao-chip--turma {
+  min-width: 60px;
+  justify-content: center;
+}
+.sugestao-chip--piso-1 {
+  border-color: var(--cor-piso1);
+  color: #174EB0;
+}
+.sugestao-chip--piso-1:hover, .sugestao-chip--piso-1:focus-visible {
+  background: var(--cor-piso1);
+  color: #fff;
+}
+.sugestao-chip--piso-2 {
+  border-color: var(--cor-piso2);
+  color: #1B7A2D;
+}
+.sugestao-chip--piso-2:hover, .sugestao-chip--piso-2:focus-visible {
+  background: var(--cor-piso2);
+  color: #fff;
+}
+.sugestao-chip--piso-3 {
+  border-color: var(--cor-piso3);
+  color: #5B2B8E;
+}
+.sugestao-chip--piso-3:hover, .sugestao-chip--piso-3:focus-visible {
+  background: var(--cor-piso3);
+  color: #fff;
+}
+
+/* --- Grade de turmas por piso --- */
+.grade-de-turmas {
+  margin: 12px 0;
+}
+.grupo-piso {
+  margin-bottom: 14px;
+}
+.grupo-piso-titulo {
+  display: flex;
+  align-items: center;
+  font-weight: 800;
+  font-size: clamp(0.75rem, 2vw, 0.9rem);
+  padding: 6px 12px;
+  border-radius: 8px;
+  margin-bottom: 8px;
+  color: #fff;
+}
+.grupo-piso-titulo--1 { background: var(--cor-piso1); }
+.grupo-piso-titulo--2 { background: var(--cor-piso2); }
+.grupo-piso-titulo--3 { background: var(--cor-piso3); }
+.grupo-piso-titulo .icone-degraus {
+  width: 18px; height: 18px;
+  margin-right: 6px;
+}
+.grupo-piso-turmas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* --- Cartão de aula (boxes das aulas por cor do piso) --- */
+.cartao-aula {
+  background: var(--cor-cartao);
+  border: 3px solid #CBD5E0;
+  border-radius: var(--raio-borda);
+  padding: 14px 16px;
+  margin: 0 0 12px;
+  box-shadow: var(--sombra-cartao);
+  transition: all var(--transicao);
+  position: relative;
+}
+
+/* Piso 1: Box Azul (Ensalamento.jpeg) */
+.cartao-aula--piso-1 {
+  border-color: var(--cor-piso1);
+  box-shadow: 0 3px 12px rgba(30, 111, 217, 0.12);
+}
+.cartao-aula--piso-1 .cartao-disciplina {
+  color: #174EB0;
+}
+
+/* Piso 2: Box Verde (Ensalamento.jpeg) */
+.cartao-aula--piso-2 {
+  border-color: var(--cor-piso2);
+  box-shadow: 0 3px 12px rgba(46, 157, 66, 0.12);
+}
+.cartao-aula--piso-2 .cartao-disciplina {
+  color: #1B7A2D;
+}
+
+/* Piso 3: Box Roxo (Ensalamento.jpeg) */
+.cartao-aula--piso-3 {
+  border-color: var(--cor-piso3);
+  box-shadow: 0 3px 12px rgba(123, 63, 181, 0.12);
+}
+.cartao-aula--piso-3 .cartao-disciplina {
+  color: #5B2B8E;
+}
+
+/* Estado AGORA mantendo a cor do piso */
+.cartao-aula--agora {
+  border-width: 3.5px;
+  box-shadow: 0 0 0 3.5px rgba(255, 200, 30, 0.50), 0 6px 18px rgba(0, 0, 0, 0.12);
+}
+.cartao-aula--agora::before {
+  content: '';
+  position: absolute;
+  top: -1px; left: -1px; right: -1px; bottom: -1px;
+  border-radius: var(--raio-borda);
+  background: linear-gradient(135deg, rgba(255,200,30,.10), rgba(255,200,30,.02));
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Estado PRÓXIMA (borda tracejada na cor do piso) */
+.cartao-aula--proxima {
+  border-style: dashed;
+}
+.cartao-aula--piso-1.cartao-aula--proxima { border-color: var(--cor-piso1); }
+.cartao-aula--piso-2.cartao-aula--proxima { border-color: var(--cor-piso2); }
+.cartao-aula--piso-3.cartao-aula--proxima { border-color: var(--cor-piso3); }
+
+/* Estado PASSADA */
+.cartao-aula--passada {
+  opacity: .55;
+  filter: grayscale(.45);
+}
+/* Estado FUTURA: mantém a cor padrão do piso já configurada */
+
+.cartao-cabecalho {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 6px;
+  position: relative;
+  z-index: 1;
+}
+.cartao-horario {
+  font-weight: 800;
+  font-size: clamp(0.8rem, 2.2vw, 1rem);
+  color: var(--cor-titulo);
+}
+.cartao-numero-aula {
+  font-size: clamp(0.65rem, 1.6vw, 0.78rem);
+  color: #5A6A80;
+  font-weight: 600;
+}
+.cartao-corpo {
+  position: relative;
+  z-index: 1;
+}
+.cartao-disciplina {
+  font-weight: 800;
+  font-size: clamp(0.88rem, 2.5vw, 1.1rem);
+  color: var(--cor-titulo);
+  margin-bottom: 2px;
+}
+.cartao-professor, .cartao-turma-info {
+  font-size: clamp(0.78rem, 2vw, 0.92rem);
+  color: #4A5568;
+}
+.cartao-rodape {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 8px;
+  position: relative;
+  z-index: 1;
+}
+
+/* --- Selos --- */
+.selo {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 10px;
+  border-radius: 12px;
+  font-size: clamp(0.6rem, 1.5vw, 0.72rem);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+}
+.selo--agora {
+  background: var(--cor-amarelo-sol);
+  color: var(--cor-titulo);
+  animation: pulsar-selo 2s ease-in-out infinite;
+}
+.selo--proxima {
+  background: var(--cor-azul-faixa);
+  color: #fff;
+}
+.selo--a-seguir {
+  background: var(--cor-azul-claro);
+  color: var(--cor-azul-faixa);
+}
+.selo--intervalo {
+  background: var(--cor-laranja-tarde);
+  color: #fff;
+}
+.selo--encerrada {
+  background: #ECEFF1;
+  color: #78909C;
+}
+.selo--aula-dupla {
+  background: #E8EAF6;
+  color: #3F51B5;
+  font-size: clamp(0.55rem, 1.3vw, 0.65rem);
+}
+
+/* --- Selo de piso --- */
+.selo-piso {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 10px;
+  border-radius: 10px;
+  font-size: clamp(0.62rem, 1.5vw, 0.75rem);
+  font-weight: 700;
+  color: #fff;
+}
+.selo-piso--1 { background: var(--cor-piso1); }
+.selo-piso--2 { background: var(--cor-piso2); }
+.selo-piso--3 { background: var(--cor-piso3); }
+.icone-piso-pequeno {
+  width: 16px;
+  height: 16px;
+  margin-right: 6px;
+  flex-shrink: 0;
+  vertical-align: middle;
+}
+.selo-piso .icone-piso-pequeno {
+  width: 14px;
+  height: 14px;
+  margin-right: 4px;
+}
+
+/* --- Contagem regressiva --- */
+/* --- Mini Mapa SVG do Piso --- */
+.mini-mapa-piso {
+  margin-top: 10px;
+  width: 100%;
+}
+.mini-mapa-piso svg {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+}
+
+/* Apenas para telas maiores: limita a largura a um tamanho confortável e amigável */
+@media (min-width: 768px) {
+  .mini-mapa-piso svg {
+    width: 100%;
+    max-width: 420px;
+    height: auto;
+  }
+}
+
+@media (min-width: 1024px) {
+  .mini-mapa-piso svg {
+    width: 100%;
+    max-width: 440px;
+    height: auto;
+  }
+}
+
+.contagem-regressiva {
+  font-size: clamp(0.65rem, 1.6vw, 0.78rem);
+  color: #5A6A80;
+  font-weight: 600;
+}
+
+/* --- Lista de professores A-Z --- */
+.lista-professores-az {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 12px 0;
+}
+
+/* --- Seção de resultados --- */
+.secao-rotulo {
+  font-weight: 800;
+  font-size: clamp(0.72rem, 1.8vw, 0.85rem);
+  color: var(--cor-titulo);
+  padding: 6px 0;
+  margin-top: 8px;
+  border-bottom: 2px solid var(--cor-azul-claro);
+  display: flex;
+  align-items: center;
+}
+.secao-rotulo .icone-secao {
+  width: 16px; height: 16px;
+  margin-right: 6px;
+}
+
+/* --- Cabeçalho turma --- */
+.cabecalho-turma-resultado {
+  background: var(--cor-azul-claro);
+  border-radius: 12px;
+  padding: 10px 14px;
+  margin: 8px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.cabecalho-turma-nome {
+  font-weight: 800;
+  font-size: clamp(1rem, 3vw, 1.3rem);
+  color: var(--cor-titulo);
+}
+
+/* --- Mensagens de estado --- */
+.mensagem-estado {
+  text-align: center;
+  padding: 32px 16px;
+  color: #5A6A80;
+}
+.mensagem-estado .icone-estado {
+  width: 56px; height: 56px;
+  margin-bottom: 12px;
+  opacity: .6;
+}
+.mensagem-estado-texto {
+  font-size: clamp(0.85rem, 2.2vw, 1rem);
+  line-height: 1.6;
+}
+
+/* --- Painel Agora na escola --- */
+.painel-agora {
+  margin: 12px 0;
+}
+.painel-agora-piso {
+  margin-bottom: 16px;
+}
+.painel-agora-turma {
+  background: #fff;
+  border: 2px solid #E2E8F0;
+  border-radius: 12px;
+  padding: 10px 14px;
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 6px;
+  transition: all var(--transicao);
+}
+.painel-agora-turma--piso-1 { border-left: 5px solid var(--cor-piso1); }
+.painel-agora-turma--piso-2 { border-left: 5px solid var(--cor-piso2); }
+.painel-agora-turma--piso-3 { border-left: 5px solid var(--cor-piso3); }
+.painel-agora-turma-nome {
+  font-weight: 800;
+  font-size: clamp(0.85rem, 2.2vw, 1rem);
+  color: var(--cor-titulo);
+}
+.painel-agora-professor {
+  font-size: clamp(0.75rem, 2vw, 0.9rem);
+  color: #4A5568;
+}
+.painel-agora-disciplina {
+  font-size: clamp(0.7rem, 1.8vw, 0.82rem);
+  color: #718096;
+  font-weight: 600;
+}
+
+/* --- Checkbox Janelas --- */
+.checkbox-janelas {
+  display: flex;
+  align-items: center;
+  margin: 8px 0;
+  font-size: clamp(0.72rem, 1.8vw, 0.85rem);
+  color: #5A6A80;
+  cursor: pointer;
+}
+.checkbox-janelas input {
+  margin-right: 8px;
+  width: 18px; height: 18px;
+  cursor: pointer;
+}
+
+/* --- Rodapé --- */
+.rodape-do-sistema {
+  text-align: center;
+  padding: 20px 12px 16px;
+  color: var(--cor-titulo);
+  font-weight: 800;
+  font-size: clamp(0.7rem, 2vw, 0.88rem);
+  letter-spacing: 1px;
+}
+.rodape-frase {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.rodape-frase .icone-estrela-rodape {
+  width: 18px; height: 18px;
+  margin: 0 4px;
+}
+.rodape-versao {
+  font-size: clamp(0.55rem, 1.3vw, 0.65rem);
+  color: #A0AEC0;
+  font-weight: 400;
+  margin-top: 4px;
+}
+
+/* --- Painel de simulação --- */
+.painel-simulacao {
+  background: #FFF8E1;
+  border: 2px solid var(--cor-amarelo-sol);
+  border-radius: 12px;
+  padding: 12px 14px;
+  margin: 8px 0;
+  display: none;
+}
+.painel-simulacao.aberto { display: block; }
+.painel-simulacao-titulo {
+  font-weight: 800;
+  font-size: clamp(0.78rem, 2vw, 0.92rem);
+  color: var(--cor-titulo);
+  margin-bottom: 8px;
+}
+.painel-simulacao label {
+  font-size: clamp(0.72rem, 1.8vw, 0.85rem);
+  color: #5A6A80;
+  display: block;
+  margin-bottom: 4px;
+}
+.painel-simulacao input[type="datetime-local"] {
+  width: 100%;
+  padding: 8px 12px;
+  border: 2px solid #CBD5E0;
+  border-radius: 8px;
+  font-size: clamp(0.78rem, 2vw, 0.88rem);
+  font-family: inherit;
+  margin-bottom: 8px;
+}
+.painel-simulacao-botoes {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.painel-simulacao-botoes button {
+  padding: 8px 14px;
+  border: 2px solid var(--cor-azul-faixa);
+  background: #fff;
+  color: var(--cor-azul-faixa);
+  font-weight: 700;
+  font-size: clamp(0.7rem, 1.8vw, 0.82rem);
+  border-radius: 8px;
+  cursor: pointer;
+  min-height: 44px;
+  transition: all var(--transicao);
+}
+.painel-simulacao-botoes button:hover {
+  background: var(--cor-azul-faixa);
+  color: #fff;
+}
+.painel-simulacao-indicador {
+  background: var(--cor-amarelo-sol);
+  color: var(--cor-titulo);
+  padding: 4px 10px;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: clamp(0.65rem, 1.6vw, 0.78rem);
+  text-align: center;
+  margin-top: 6px;
+  display: none;
+}
+.painel-simulacao-indicador.ativo { display: block; }
+
+/* --- Diagnóstico --- */
+.painel-diagnostico {
+  background: #FFF3E0;
+  border: 2px solid #FF9800;
+  border-radius: 12px;
+  padding: 12px 14px;
+  margin: 8px 0;
+  display: none;
+  font-size: clamp(0.7rem, 1.8vw, 0.82rem);
+}
+.painel-diagnostico.aberto { display: block; }
+.painel-diagnostico-titulo {
+  font-weight: 800;
+  color: #E65100;
+  margin-bottom: 6px;
+}
+.painel-diagnostico ul {
+  margin: 0; padding: 0 0 0 18px;
+}
+.painel-diagnostico li {
+  margin-bottom: 4px;
+  color: #BF360C;
+}
+
+/* --- Erro --- */
+.erro-global {
+  background: #FFEBEE;
+  border: 2px solid var(--cor-erro);
+  color: var(--cor-erro);
+  border-radius: 12px;
+  padding: 16px;
+  margin: 16px 12px;
+  text-align: center;
+  font-weight: 700;
+}
+
+/* ===== 5. ESTADOS / ANIMAÇÕES ===== */
+@keyframes pulsar-selo {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+/* ===== 6. RESPONSIVO (mobile-first) ===== */
+@media (min-width: 480px) {
+  .conteiner-principal { padding: 0 20px; }
+  .cartao-aula { padding: 16px 20px; }
+}
+
+@media (min-width: 768px) {
+  .cabecalho-barra-topo {
+    position: absolute;
+    top: 12px; right: 16px;
+    margin-bottom: 0;
+  }
+  .cabecalho-do-sistema {
+    padding: 18px 24px 34px;
+  }
+  .conteiner-principal { padding: 0 28px; }
+  .painel-agora-piso .grupo-piso-turmas-agora {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .painel-agora-turma {
+    flex: 1 1 calc(50% - 8px);
+    min-width: 260px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .conteiner-principal { max-width: 1100px; }
+  .painel-agora-turma {
+    flex: 1 1 calc(33% - 8px);
+  }
+}
+
+@media (min-width: 1920px) {
+  .conteiner-principal { max-width: 1400px; }
+  body { font-size: calc(1.1rem * var(--escala-fonte)); }
+}
+
+@media (orientation: landscape) and (max-height: 480px) {
+  .cabecalho-do-sistema { padding: 8px 12px 6px; }
+  .cabecalho-titulo { font-size: 1.2rem; }
+  .cabecalho-subtitulo { margin: 4px 0 2px; font-size: 0.7rem; }
+  .cabecalho-frase { display: none; }
+  .faixa-tarde { margin-top: -4px; padding: 4px 12px; }
+}
+
+/* ===== 7. IMPRESSÃO ===== */
+@media print {
+  body { background: #fff; color: #000; }
+  .cabecalho-do-sistema, .faixa-tarde, .barra-de-abas, .conteiner-busca-global,
+  .campo-de-busca-conteiner, .seletor-de-dia, .painel-simulacao,
+  .cabecalho-acoes, .checkbox-janelas, .painel-diagnostico { display: none !important; }
+  .cartao-aula { border-color: #000 !important; box-shadow: none !important; page-break-inside: avoid; }
+  .cartao-aula--passada { opacity: 1; filter: none; }
+  .rodape-do-sistema { color: #000; }
+  @page { margin: 1cm; }
+}
+
+/* ===== REDUCED MOTION ===== */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+</style>
+</head>
+<body>
+  <!-- ===== Biblioteca de símbolos SVG ===== -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <symbol id="icone-sol" viewBox="0 0 64 64">
+      <circle cx="32" cy="32" r="14" fill="#FFC81E"/>
+      <g stroke="#FFC81E" stroke-width="3" stroke-linecap="round">
+        <line x1="32" y1="6" x2="32" y2="14"/>
+        <line x1="32" y1="50" x2="32" y2="58"/>
+        <line x1="6" y1="32" x2="14" y2="32"/>
+        <line x1="50" y1="32" x2="58" y2="32"/>
+        <line x1="13.6" y1="13.6" x2="19.3" y2="19.3"/>
+        <line x1="44.7" y1="44.7" x2="50.4" y2="50.4"/>
+        <line x1="13.6" y1="50.4" x2="19.3" y2="44.7"/>
+        <line x1="44.7" y1="19.3" x2="50.4" y2="13.6"/>
+      </g>
+      <circle cx="27" cy="29" r="2" fill="#1F3A8A"/>
+      <circle cx="37" cy="29" r="2" fill="#1F3A8A"/>
+      <path d="M26 36 Q32 42 38 36" stroke="#1F3A8A" stroke-width="2" fill="none" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="icone-maca" viewBox="0 0 64 64">
+      <path d="M32 14 C24 6 12 12 12 26 C12 44 32 58 32 58 C32 58 52 44 52 26 C52 12 40 6 32 14Z" fill="#E53935"/>
+      <path d="M32 14 C34 8 38 6 40 4" stroke="#4CAF50" stroke-width="3" fill="none" stroke-linecap="round"/>
+      <ellipse cx="36" cy="6" rx="6" ry="3" fill="#4CAF50" transform="rotate(-20 36 6)"/>
+    </symbol>
+    <symbol id="icone-livros" viewBox="0 0 64 64">
+      <rect x="10" y="34" width="44" height="10" rx="2" fill="#2196F3" transform="rotate(-5 32 39)"/>
+      <rect x="12" y="24" width="40" height="10" rx="2" fill="#4CAF50" transform="rotate(3 32 29)"/>
+      <rect x="14" y="14" width="36" height="10" rx="2" fill="#FF9800"/>
+    </symbol>
+    <symbol id="icone-aviao-papel" viewBox="0 0 64 64">
+      <path d="M8 32 L56 8 L36 56 L28 36Z" fill="#2196F3"/>
+      <path d="M28 36 L56 8" stroke="#1565C0" stroke-width="1.5" fill="none"/>
+      <path d="M28 36 L32 28" stroke="#fff" stroke-width="1" fill="none" opacity=".5"/>
+    </symbol>
+    <symbol id="icone-mochila" viewBox="0 0 64 64">
+      <rect x="16" y="20" width="32" height="36" rx="8" fill="#F58A1F"/>
+      <rect x="22" y="32" width="20" height="12" rx="4" fill="#FFB74D"/>
+      <path d="M24 20 C24 10 40 10 40 20" stroke="#E65100" stroke-width="4" fill="none" stroke-linecap="round"/>
+      <circle cx="32" cy="38" r="2" fill="#E65100"/>
+    </symbol>
+    <symbol id="icone-estrela" viewBox="0 0 64 64">
+      <path d="M32 8 L38 24 L56 26 L42 38 L46 56 L32 46 L18 56 L22 38 L8 26 L26 24Z" fill="#FFC81E"/>
+    </symbol>
+    <symbol id="icone-degraus" viewBox="0 0 64 64">
+      <rect x="8" y="44" width="48" height="8" rx="2" fill="currentColor"/>
+      <rect x="16" y="32" width="40" height="8" rx="2" fill="currentColor" opacity=".8"/>
+      <rect x="24" y="20" width="32" height="8" rx="2" fill="currentColor" opacity=".6"/>
+    </symbol>
+    <symbol id="icone-tv" viewBox="0 0 64 64">
+      <rect x="8" y="14" width="48" height="32" rx="4" fill="#7B3FB5"/>
+      <rect x="12" y="18" width="40" height="24" rx="2" fill="#E8D5F5"/>
+      <rect x="24" y="48" width="16" height="4" rx="1" fill="#7B3FB5"/>
+      <rect x="20" y="52" width="24" height="3" rx="1" fill="#9E9E9E"/>
+    </symbol>
+    <symbol id="icone-relogio" viewBox="0 0 64 64">
+      <circle cx="32" cy="32" r="24" fill="none" stroke="currentColor" stroke-width="4"/>
+      <circle cx="32" cy="32" r="2" fill="currentColor"/>
+      <line x1="32" y1="32" x2="32" y2="16" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+      <line x1="32" y1="32" x2="44" y2="32" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="icone-busca" viewBox="0 0 64 64">
+      <circle cx="28" cy="28" r="16" fill="none" stroke="currentColor" stroke-width="4"/>
+      <line x1="40" y1="40" x2="54" y2="54" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="icone-professor" viewBox="0 0 64 64">
+      <circle cx="32" cy="20" r="10" fill="currentColor"/>
+      <path d="M14 54 C14 38 50 38 50 54" fill="currentColor"/>
+    </symbol>
+    <symbol id="icone-turma" viewBox="0 0 64 64">
+      <circle cx="22" cy="18" r="8" fill="currentColor"/>
+      <circle cx="42" cy="18" r="8" fill="currentColor"/>
+      <path d="M6 48 C6 34 38 34 38 48" fill="currentColor" opacity=".8"/>
+      <path d="M26 48 C26 34 58 34 58 48" fill="currentColor" opacity=".8"/>
+    </symbol>
+    <symbol id="icone-sala" viewBox="0 0 64 64">
+      <rect x="12" y="8" width="40" height="48" rx="4" fill="none" stroke="currentColor" stroke-width="3"/>
+      <circle cx="42" cy="32" r="3" fill="currentColor"/>
+      <rect x="16" y="12" width="14" height="18" rx="2" fill="currentColor" opacity=".3"/>
+    </symbol>
+    <symbol id="icone-tela-cheia" viewBox="0 0 64 64">
+      <path d="M8 24 L8 8 L24 8" stroke="currentColor" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M56 24 L56 8 L40 8" stroke="currentColor" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M8 40 L8 56 L24 56" stroke="currentColor" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M56 40 L56 56 L40 56" stroke="currentColor" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="icone-seta" viewBox="0 0 64 64">
+      <path d="M20 8 L44 32 L20 56" stroke="currentColor" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="icone-lapis" viewBox="0 0 64 64">
+      <rect x="26" y="8" width="12" height="40" rx="2" fill="#FFC81E" transform="rotate(5 32 28)"/>
+      <polygon points="28,48 36,48 32,58" fill="#FFB74D" transform="rotate(5 32 53)"/>
+      <rect x="28" y="8" width="8" height="6" rx="1" fill="#E53935" transform="rotate(5 32 11)"/>
+    </symbol>
+    <symbol id="icone-caderno" viewBox="0 0 64 64">
+      <rect x="14" y="8" width="36" height="48" rx="4" fill="#42A5F5"/>
+      <rect x="18" y="12" width="28" height="40" rx="2" fill="#E3F2FD"/>
+      <line x1="22" y1="22" x2="42" y2="22" stroke="#90CAF9" stroke-width="1.5"/>
+      <line x1="22" y1="28" x2="42" y2="28" stroke="#90CAF9" stroke-width="1.5"/>
+      <line x1="22" y1="34" x2="38" y2="34" stroke="#90CAF9" stroke-width="1.5"/>
+      <rect x="10" y="16" width="6" height="4" rx="1" fill="#1565C0"/>
+      <rect x="10" y="26" width="6" height="4" rx="1" fill="#1565C0"/>
+      <rect x="10" y="36" width="6" height="4" rx="1" fill="#1565C0"/>
+    </symbol>
+  </svg>
+
+  <!-- ===== Cabeçalho ===== -->
+  <header class="cabecalho-do-sistema" id="cabecalho-do-sistema">
+    <div class="cabecalho-barra-topo">
+      <div class="cabecalho-acoes" role="toolbar" aria-label="Acessibilidade e exibição">
+        <div class="controles-escala" role="group" aria-label="Tamanho da fonte">
+          <button class="botao-icone" id="botao-fonte-menor" title="Diminuir fonte (A-)" aria-label="Diminuir tamanho da fonte">A−</button>
+          <span class="indicador-escala" id="indicador-escala" title="Tamanho atual da fonte" aria-live="polite">100%</span>
+          <button class="botao-icone" id="botao-fonte-maior" title="Aumentar fonte (A+)" aria-label="Aumentar tamanho da fonte">A+</button>
+        </div>
+        <button class="botao-icone" id="botao-tela-cheia" title="Alternar modo tela cheia" aria-label="Alternar modo tela cheia">
+          <svg width="18" height="18" aria-hidden="true"><use href="#icone-tela-cheia" xlink:href="#icone-tela-cheia"/></svg>
+        </button>
+      </div>
+    </div>
+    <div class="cabecalho-conteudo">
+      <h1 class="cabecalho-titulo">
+        <svg class="icone-cabecalho" aria-hidden="true"><use href="#icone-livros" xlink:href="#icone-livros"/></svg>
+        <span class="cabecalho-titulo-texto">ENSALAMENTO</span>
+        <svg class="icone-cabecalho" aria-hidden="true"><use href="#icone-maca" xlink:href="#icone-maca"/></svg>
+      </h1>
+      <div><span class="cabecalho-subtitulo">3º TRIMESTRE</span></div>
+      <p class="cabecalho-frase">Cada sala, uma nova oportunidade de aprender e crescer!</p>
+    </div>
+  </header>
+
+  <!-- ===== Faixa Tarde ===== -->
+  <div class="faixa-tarde" role="banner">
+    <svg class="icone-faixa"><use href="#icone-sol" xlink:href="#icone-sol"/></svg>
+    TARDE
+    <svg class="icone-faixa"><use href="#icone-mochila" xlink:href="#icone-mochila"/></svg>
+  </div>
+
+  <!-- ===== Conteúdo principal ===== -->
+  <div class="conteiner-principal">
+    <!-- Relógio -->
+    <div class="painel-relogio" id="painel-relogio">
+      <div class="relogio-hora" id="relogio-do-sistema" aria-live="off">--:--:--</div>
+      <div class="relogio-data" id="relogio-data">---</div>
+      <div class="situacao-do-momento" id="situacao-do-momento" aria-live="polite">Carregando...</div>
+    </div>
+
+    <!-- Simulação -->
+    <div class="painel-simulacao" id="painel-simulacao" role="region" aria-label="Simulador de data e hora">
+      <div class="painel-simulacao-titulo">🧪 Simulador de Data/Hora</div>
+      <label for="campo-simulacao">Escolha data e hora para simular:</label>
+      <input type="datetime-local" id="campo-simulacao">
+      <div class="painel-simulacao-botoes">
+        <button id="botao-aplicar-simulacao" type="button">Aplicar</button>
+        <button id="botao-limpar-simulacao" type="button">Voltar ao real</button>
+      </div>
+      <div class="painel-simulacao-indicador" id="indicador-simulacao">⏱ Modo simulação ativo</div>
+    </div>
+
+    <!-- Diagnóstico -->
+    <div class="painel-diagnostico" id="painel-diagnostico" role="region" aria-label="Diagnóstico do sistema">
+      <div class="painel-diagnostico-titulo">⚠ Diagnóstico</div>
+      <ul id="lista-diagnostico"></ul>
+    </div>
+
+    <!-- Barra de busca global com autocomplete -->
+    <div class="conteiner-busca-global" id="conteiner-busca-global" role="search" aria-label="Busca de professores e turmas">
+      <div class="campo-busca-envoltura">
+        <svg class="icone-busca-global" aria-hidden="true"><use href="#icone-busca" xlink:href="#icone-busca"/></svg>
+        <input 
+          type="search" 
+          id="campo-de-busca-global" 
+          class="campo-busca-global" 
+          placeholder="Buscar professor(a), turma ou sala..." 
+          autocomplete="off" 
+          spellcheck="false"
+          role="combobox"
+          aria-autocomplete="list"
+          aria-expanded="false"
+          aria-controls="menu-autocomplete"
+        >
+        <button type="button" id="botao-limpar-busca" class="botao-limpar-busca" aria-label="Limpar pesquisa" title="Limpar pesquisa" style="display: none;">
+          <svg viewBox="0 0 24 24" class="icone-limpar"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" fill="currentColor"/></svg>
+        </button>
+      </div>
+      <div id="menu-autocomplete" class="menu-autocomplete" role="listbox" aria-label="Sugestões de busca" style="display: none;"></div>
+    </div>
+
+    <!-- Abas -->
+    <nav class="barra-de-abas" role="tablist" aria-label="Modo de consulta">
+      <button class="aba-botao aba-botao--ativa" role="tab" id="aba-professor" aria-selected="true" aria-controls="painel-professor">
+        <svg class="icone-aba"><use href="#icone-professor" xlink:href="#icone-professor"/></svg>
+        Professor(a)
+      </button>
+      <button class="aba-botao" role="tab" id="aba-turma" aria-selected="false" aria-controls="painel-turma">
+        <svg class="icone-aba"><use href="#icone-turma" xlink:href="#icone-turma"/></svg>
+        Turma
+      </button>
+      <button class="aba-botao" role="tab" id="aba-agora" aria-selected="false" aria-controls="painel-agora">
+        <svg class="icone-aba"><use href="#icone-relogio" xlink:href="#icone-relogio"/></svg>
+        Agora
+      </button>
+    </nav>
+
+    <!-- Área principal de resultados -->
+    <main id="area-principal" aria-live="polite">
+      <!-- Preenchido via JS -->
+    </main>
+  </div>
+
+  <!-- ===== Rodapé ===== -->
+  <footer class="rodape-do-sistema" id="rodape-do-sistema">
+    <div class="rodape-frase">
+      <svg class="icone-estrela-rodape"><use href="#icone-estrela" xlink:href="#icone-estrela"/></svg>
+      ORGANIZAÇÃO HOJE, SUCESSO SEMPRE!
+      <svg class="icone-estrela-rodape"><use href="#icone-estrela" xlink:href="#icone-estrela"/></svg>
+    </div>
+    <div class="rodape-versao" id="rodape-versao"></div>
+  </footer>
+
+  <noscript>Este sistema precisa de JavaScript ativado para funcionar.</noscript>
+
+<script>
+(function () {
+  'use strict';
+
+  /* ================================================================
+     BLOCO 1: CONFIGURACAO, SALAS_DAS_TURMAS, DISCIPLINAS, PROFESSORES
+     ================================================================ */
+
+  var CONFIGURACAO = {
+    escola: 'Escola Santo Agostinho',
+    cidade: 'Curitiba-PR',
+    trimestre: '3º TRIMESTRE',
+    periodo: 'TARDE',
+    frase: 'Cada sala, uma nova oportunidade de aprender e crescer!',
+    rodape: 'ORGANIZAÇÃO HOJE, SUCESSO SEMPRE!',
+    versao: '1.0.0',
+    dataDaGrade: '2026-11-01',
+    ordemPassadas: 'recentePrimeiro',
+    diasSemAula: [],
+    horarios: [
+      { numero: 1, inicio: '13:00', fim: '13:50' },
+      { numero: 2, inicio: '13:50', fim: '14:40' },
+      { numero: 3, inicio: '14:40', fim: '15:30' },
+      { numero: 4, inicio: '15:40', fim: '16:30' },
+      { numero: 5, inicio: '16:30', fim: '17:20' }
+    ],
+    intervalo: { inicio: '15:30', fim: '15:40' }
+  };
+
+  var ORDEM_DAS_TURMAS = ['9C','6A','6B','7A','7B','7C','7D','8A','8B','8C','ROBOTICA'];
+
+  var SALAS_DAS_TURMAS = {
+    // Piso 1: 3 salas (8A, 7C, 7A)
+    '8A': { piso: 1, rotulo: 'Piso 1', salaNome: 'Sala 8º A', tvInterativa: false },
+    '7C': { piso: 1, rotulo: 'Piso 1', salaNome: 'Sala 7º C', tvInterativa: false },
+    '7A': { piso: 1, rotulo: 'Piso 1', salaNome: 'Sala 7º A', tvInterativa: false },
+
+    // Piso 2: 4 salas (7D, 6A, 6B, 7B)
+    '7D': { piso: 2, rotulo: 'Piso 2', salaNome: 'Sala 7º D', tvInterativa: false },
+    '6A': { piso: 2, rotulo: 'Piso 2', salaNome: 'Sala 6º A', tvInterativa: false },
+    '6B': { piso: 2, rotulo: 'Piso 2', salaNome: 'Sala 6º B', tvInterativa: false },
+    '7B': { piso: 2, rotulo: 'Piso 2', salaNome: 'Sala 7º B', tvInterativa: false },
+
+    // Piso 3: 4 salas (TV Interativa, 9C, 8B, 8C)
+    'ROBOTICA':      { piso: 3, rotulo: 'Piso 3 · TV Interativa', salaNome: 'TV Interativa', tvInterativa: true },
+    'TV_INTERATIVA': { piso: 3, rotulo: 'Piso 3 · TV Interativa', salaNome: 'TV Interativa', tvInterativa: true },
+    '9C':            { piso: 3, rotulo: 'Piso 3', salaNome: 'Sala 9º C', tvInterativa: false },
+    '8B':            { piso: 3, rotulo: 'Piso 3', salaNome: 'Sala 8º B', tvInterativa: false },
+    '8C':            { piso: 3, rotulo: 'Piso 3', salaNome: 'Sala 8º C', tvInterativa: false }
+  };
+
+  var DISCIPLINAS = {
+    'HIST':  'Hist\u00F3ria',
+    'GEO':   'Geografia',
+    'MAT':   'Matem\u00E1tica',
+    'CIEN':  'Ci\u00EAncias',
+    'LPORT': 'L\u00EDngua Portuguesa',
+    'LING':  'L\u00EDngua Inglesa',
+    'EDFI':  'Educa\u00E7\u00E3o F\u00EDsica',
+    'EREL':  'Ensino Religioso',
+    'REDA':  'Reda\u00E7\u00E3o',
+    'RECMT': 'Recomposi\u00E7\u00E3o de Matem\u00E1tica',
+    'RECLP': 'Recomposi\u00E7\u00E3o de L\u00EDngua Portuguesa',
+    'EDDIG': 'Educa\u00E7\u00E3o Digital',
+    '704':   '704',
+    'RPP':   'RPP'
+  };
+
+  var PROFESSORES = {
+    'AUREA':           '\u00C1urea',
+    'DANIELE':         'Daniele',
+    'DAVI':            'Davi',
+    'ELIANA':          'Eliana',
+    'ELIANE':          'Eliane',
+    'ELIANE PEREIRA':  'Eliane Pereira',
+    'EMANOEL':         'Emanoel',
+    'KARINE':          'Karine',
+    'LEONEL':          'Leonel',
+    'LILIAN':          'Lilian',
+    'MARCIA':          'M\u00E1rcia',
+    'MELISSA':         'Melissa',
+    'NOEMI':           'Noemi',
+    'PAULO':           'Paulo',
+    'PEDRO':           'Pedro',
+    'RAPHAEL':         'Raphael',
+    'SIMONE':          'Simone',
+    'UBIRAJARA':       'Ubirajara',
+    'VOLNEI':          'Volnei'
+  };
+
+  /* ================================================================
+     BLOCO 2: DADOS_DA_GRADE
+     ================================================================ */
+
+  /* ===== DADOS_DA_GRADE ===== */
+  /* Ordem das colunas: 9C, 6A, 6B, 7A, 7B, 7C, 7D, 8A, 8B, 8C, ROBOTICA
+     Cada dia tem 5 linhas (13:00, 13:50, 14:40, 15:40, 16:30). Célula vazia = sem aula. */
+  var DADOS_DA_GRADE = {
+    1: [
+      ['HIST|LEONEL','EDFI|DAVI','GEO|ELIANE','LPORT|ELIANA','CIEN|KARINE','MAT|UBIRAJARA','HIST|ELIANE PEREIRA','LPORT|AUREA','704|MELISSA','LING|NOEMI','RPP|RAPHAEL'],
+      ['HIST|LEONEL','704|SIMONE','LING|NOEMI','LPORT|ELIANA','EREL|ELIANE PEREIRA','MAT|UBIRAJARA','EDFI|DAVI','LPORT|AUREA','CIEN|KARINE','704|MELISSA','RPP|RAPHAEL'],
+      ['MAT|UBIRAJARA','MAT|LILIAN','LPORT|ELIANA','GEO|ELIANE','CIEN|KARINE','HIST|ELIANE PEREIRA','704|MELISSA','LING|NOEMI','REDA|AUREA','EDFI|DAVI',''],
+      ['704|MELISSA','CIEN|EMANOEL','HIST|LEONEL','HIST|ELIANE PEREIRA','LING|NOEMI','REDA|ELIANA','MAT|UBIRAJARA','GEO|ELIANE','CIEN|KARINE','REDA|AUREA',''],
+      ['CIEN|EMANOEL','HIST|LEONEL','704|SIMONE','MAT|LILIAN','MAT|UBIRAJARA','REDA|ELIANA','LING|NOEMI','704|MELISSA','EDFI|DAVI','REDA|AUREA','']
+    ],
+    2: [
+      ['EDFI|DAVI','HIST|LEONEL','EREL|ELIANE PEREIRA','REDA|ELIANA','GEO|ELIANE','CIEN|KARINE','704|MELISSA','REDA|AUREA','HIST|PAULO','MAT|PEDRO',''],
+      ['MAT|UBIRAJARA','LPORT|ELIANA','RECMT|VOLNEI','CIEN|KARINE','GEO|ELIANE','704|SIMONE','EREL|ELIANE PEREIRA','704|MELISSA','HIST|PAULO','MAT|PEDRO',''],
+      ['704|MELISSA','EREL|LEONEL','RECMT|VOLNEI','MAT|LILIAN','LPORT|AUREA','EREL|ELIANE PEREIRA','MAT|UBIRAJARA','EDFI|DAVI','MAT|PEDRO','CIEN|KARINE',''],
+      ['RECMT|VOLNEI','RECMT|LILIAN','HIST|LEONEL','704|SIMONE','EDFI|DAVI','LPORT|AUREA','LPORT|ELIANA','MAT|UBIRAJARA','704|MELISSA','CIEN|KARINE',''],
+      ['RECMT|VOLNEI','RECMT|LILIAN','EDFI|DAVI','EREL|ELIANE PEREIRA','704|SIMONE','GEO|ELIANE','LPORT|ELIANA','MAT|UBIRAJARA','LPORT|AUREA','704|MELISSA','']
+    ],
+    3: [
+      ['LPORT|DANIELE','LING|NOEMI','LPORT|ELIANA','HIST|ELIANE PEREIRA','CIEN|KARINE','EDFI|DAVI','MAT|UBIRAJARA','GEO|ELIANE','MAT|PEDRO','LPORT|AUREA',''],
+      ['LING|NOEMI','RECLP|ELIANA','CIEN|EMANOEL','EDFI|DAVI','HIST|ELIANE PEREIRA','GEO|ELIANE','MAT|UBIRAJARA','EDDIG|VOLNEI','CIEN|KARINE','LPORT|AUREA',''],
+      ['CIEN|EMANOEL','RECLP|ELIANA','GEO|ELIANE','MAT|LILIAN','HIST|ELIANE PEREIRA','MAT|UBIRAJARA','CIEN|KARINE','EDDIG|VOLNEI','LING|NOEMI','EDFI|DAVI',''],
+      ['MAT|UBIRAJARA','MAT|LILIAN','CIEN|EMANOEL','GEO|ELIANE','REDA|ELIANA','LING|NOEMI','CIEN|KARINE','LPORT|AUREA','EDFI|DAVI','EDDIG|VOLNEI',''],
+      ['MAT|UBIRAJARA','CIEN|EMANOEL','MAT|LILIAN','GEO|ELIANE','REDA|ELIANA','LPORT|AUREA','EDFI|DAVI','CIEN|KARINE','EDDIG|VOLNEI','LING|NOEMI','']
+    ],
+    4: [
+      ['GEO|MARCIA','GEO|ELIANE','LPORT|ELIANA','LING|NOEMI','MAT|UBIRAJARA','LPORT|AUREA','REDA|DANIELE','CIEN|KARINE','MAT|PEDRO','HIST|PAULO',''],
+      ['GEO|MARCIA','LING|NOEMI','LPORT|ELIANA','MAT|LILIAN','MAT|UBIRAJARA','CIEN|KARINE','REDA|DANIELE','HIST|PAULO','MAT|PEDRO','EDDIG|VOLNEI',''],
+      ['MAT|UBIRAJARA','LPORT|ELIANA','MAT|LILIAN','CIEN|KARINE','LPORT|AUREA','GEO|ELIANE','GEO|MARCIA','LING|NOEMI','EDDIG|VOLNEI','MAT|PEDRO',''],
+      ['RECLP|DANIELE','GEO|ELIANE','MAT|LILIAN','LPORT|ELIANA','EDFI|DAVI','HIST|ELIANE PEREIRA','LING|NOEMI','MAT|UBIRAJARA','GEO|MARCIA','MAT|PEDRO',''],
+      ['RECLP|DANIELE','MAT|LILIAN','LING|NOEMI','REDA|ELIANA','GEO|ELIANE','MAT|UBIRAJARA','HIST|ELIANE PEREIRA','EDFI|DAVI','REDA|AUREA','GEO|MARCIA','']
+    ],
+    5: [
+      ['LPORT|DANIELE','LPORT|ELIANA','EDFI|DAVI','CIEN|KARINE','LING|NOEMI','704|SIMONE','GEO|MARCIA','MAT|UBIRAJARA','LPORT|AUREA','HIST|PAULO',''],
+      ['LPORT|DANIELE','LPORT|ELIANA','704|SIMONE','EDFI|DAVI','MAT|UBIRAJARA','LING|NOEMI','GEO|MARCIA','CIEN|KARINE','LPORT|AUREA','HIST|PAULO',''],
+      ['EDFI|DAVI','704|SIMONE','MAT|LILIAN','LING|NOEMI','MAT|UBIRAJARA','CIEN|KARINE','LPORT|ELIANA','REDA|AUREA','HIST|PAULO','GEO|MARCIA',''],
+      ['GEO|MARCIA','EDFI|DAVI','RECLP|ELIANA','MAT|LILIAN','704|SIMONE','MAT|UBIRAJARA','CIEN|KARINE','HIST|PAULO','LING|NOEMI','LPORT|AUREA',''],
+      ['LING|NOEMI','MAT|LILIAN','RECLP|ELIANA','704|SIMONE','LPORT|AUREA','EDFI|DAVI','MAT|UBIRAJARA','HIST|PAULO','GEO|MARCIA','CIEN|KARINE','']
+    ]
+  };
+  /* ===== FIM DE DADOS_DA_GRADE ===== */
+
+  var NOMES_DOS_DIAS = ['', 'Segunda-feira', 'Ter\u00E7a-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira'];
+  var NOMES_CURTOS_DOS_DIAS = ['', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex'];
+  var NOMES_DOS_MESES = ['janeiro','fevereiro','mar\u00E7o','abril','maio','junho','julho','agosto','setembro','outubro','novembro','dezembro'];
+
+  /* ================================================================
+     BLOCO 3: UTILITÁRIOS
+     ================================================================ */
+
+  var TABELA_DE_ACENTOS = {
+    '\u00E0':'a','\u00E1':'a','\u00E2':'a','\u00E3':'a','\u00E4':'a',
+    '\u00E8':'e','\u00E9':'e','\u00EA':'e','\u00EB':'e',
+    '\u00EC':'i','\u00ED':'i','\u00EE':'i','\u00EF':'i',
+    '\u00F2':'o','\u00F3':'o','\u00F4':'o','\u00F5':'o','\u00F6':'o',
+    '\u00F9':'u','\u00FA':'u','\u00FB':'u','\u00FC':'u',
+    '\u00E7':'c','\u00F1':'n',
+    '\u00C0':'a','\u00C1':'a','\u00C2':'a','\u00C3':'a','\u00C4':'a',
+    '\u00C8':'e','\u00C9':'e','\u00CA':'e','\u00CB':'e',
+    '\u00CC':'i','\u00CD':'i','\u00CE':'i','\u00CF':'i',
+    '\u00D2':'o','\u00D3':'o','\u00D4':'o','\u00D5':'o','\u00D6':'o',
+    '\u00D9':'u','\u00DA':'u','\u00DB':'u','\u00DC':'u',
+    '\u00C7':'c','\u00D1':'n'
+  };
+
+  function normalizarTextoParaBusca(texto) {
+    if (!texto) return '';
+    texto = texto.toLowerCase();
+    if (typeof texto.normalize === 'function') {
+      texto = texto.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+    } else {
+      var resultado = '';
+      for (var i = 0; i < texto.length; i++) {
+        resultado += TABELA_DE_ACENTOS[texto[i]] || texto[i];
+      }
+      texto = resultado;
+    }
+    texto = texto.replace(/[^a-z0-9 ]/g, ' ').replace(/\s+/g, ' ').trim();
+    return texto;
+  }
+
+  function normalizarCodigoDaTurma(texto) {
+    if (!texto) return null;
+    var t = texto.toLowerCase().trim();
+    t = t.replace(/[º°ª_\-\s]/g, '');
+    var normalizado = normalizarTextoParaBusca(t);
+    if (normalizado === 'robotica' || normalizado === 'tv' || normalizado === 'tvinterativa' || normalizado === 'interativa') return 'ROBOTICA';
+    var match = normalizado.match(/^([6-9])([a-d])$/);
+    if (match) return match[1] + match[2].toUpperCase();
+    return null;
+  }
+
+  function converterHoraParaMinutos(hora) {
+    var partes = hora.split(':');
+    return parseInt(partes[0], 10) * 60 + parseInt(partes[1], 10);
+  }
+
+  function formatarMinutosComoHora(minutos) {
+    var h = Math.floor(minutos / 60);
+    var m = minutos % 60;
+    return (h < 10 ? '0' : '') + h + ':' + (m < 10 ? '0' : '') + m;
+  }
+
+  function formatarDataPorExtenso(data) {
+    var dia = data.getDate();
+    var mes = NOMES_DOS_MESES[data.getMonth()];
+    var ano = data.getFullYear();
+    var diaSemana = data.getDay();
+    var nomesDiaSemana = ['Domingo','Segunda-feira','Ter\u00E7a-feira','Quarta-feira','Quinta-feira','Sexta-feira','S\u00E1bado'];
+    return nomesDiaSemana[diaSemana] + ', ' + dia + ' de ' + mes + ' de ' + ano;
+  }
+
+  function formatarHoraComSegundos(data) {
+    var h = data.getHours();
+    var m = data.getMinutes();
+    var s = data.getSeconds();
+    return (h < 10 ? '0' : '') + h + ':' + (m < 10 ? '0' : '') + m + ':' + (s < 10 ? '0' : '') + s;
+  }
+
+  function criarElementoSeguro(tag, atributos, texto) {
+    var el = document.createElement(tag);
+    if (atributos) {
+      for (var chave in atributos) {
+        if (atributos.hasOwnProperty(chave)) {
+          if (chave === 'className') {
+            el.className = atributos[chave];
+          } else {
+            el.setAttribute(chave, atributos[chave]);
+          }
+        }
+      }
+    }
+    if (texto !== undefined && texto !== null) {
+      el.textContent = texto;
+    }
+    return el;
+  }
+
+  function criarSvgUse(idSimbolo, classe, largura, altura) {
+    var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    if (classe) svg.setAttribute('class', classe);
+    if (largura) svg.setAttribute('width', String(largura));
+    if (altura) svg.setAttribute('height', String(altura));
+    var use = document.createElementNS('http://www.w3.org/2000/svg', 'use');
+    use.setAttribute('href', '#' + idSimbolo);
+    use.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', '#' + idSimbolo);
+    svg.appendChild(use);
+    return svg;
+  }
+
+  function limparElemento(el) {
+    while (el.firstChild) {
+      el.removeChild(el.firstChild);
+    }
+  }
+
+  /* ================================================================
+     BLOCO 4: REGRAS DE NEGÓCIO
+     ================================================================ */
+
+  var indicePorProfessor = {};
+  var indicePorTurma = {};
+  var listaDeProfessoresOrdenada = [];
+  var disciplinasPorProfessor = {};
+
+  function construirIndicesDeBusca() {
+    indicePorProfessor = {};
+    indicePorTurma = {};
+    disciplinasPorProfessor = {};
+    var chavesProfessores = {};
+
+    for (var dia = 1; dia <= 5; dia++) {
+      var linhasDoDia = DADOS_DA_GRADE[dia];
+      if (!linhasDoDia) continue;
+      for (var h = 0; h < linhasDoDia.length; h++) {
+        var linha = linhasDoDia[h];
+        for (var t = 0; t < ORDEM_DAS_TURMAS.length; t++) {
+          var celula = linha[t];
+          if (!celula || celula.trim() === '') continue;
+          var partes = celula.split('|');
+          if (partes.length < 2) continue;
+          var sigla = partes[0].trim();
+          var chaveProf = partes[1].trim().toUpperCase();
+          var codigoTurma = ORDEM_DAS_TURMAS[t];
+          var horario = CONFIGURACAO.horarios[h];
+          var sala = SALAS_DAS_TURMAS[codigoTurma] || { piso: 0, rotulo: 'Desconhecida', tvInterativa: false };
+          var nomeDisc = DISCIPLINAS[sigla] || sigla;
+
+          var aula = {
+            dia: dia,
+            numeroDaAula: horario.numero,
+            inicio: horario.inicio,
+            fim: horario.fim,
+            inicioEmMinutos: converterHoraParaMinutos(horario.inicio),
+            fimEmMinutos: converterHoraParaMinutos(horario.fim),
+            turma: codigoTurma,
+            disciplinaSigla: sigla,
+            disciplinaNome: nomeDisc,
+            professorChave: chaveProf,
+            professorNome: PROFESSORES[chaveProf] || chaveProf,
+            sala: sala,
+            aulaDupla: null
+          };
+
+          if (!indicePorProfessor[chaveProf]) indicePorProfessor[chaveProf] = {};
+          if (!indicePorProfessor[chaveProf][dia]) indicePorProfessor[chaveProf][dia] = [];
+          indicePorProfessor[chaveProf][dia].push(aula);
+
+          if (!indicePorTurma[codigoTurma]) indicePorTurma[codigoTurma] = {};
+          if (!indicePorTurma[codigoTurma][dia]) indicePorTurma[codigoTurma][dia] = [];
+          indicePorTurma[codigoTurma][dia].push(aula);
+
+          if (!disciplinasPorProfessor[chaveProf]) disciplinasPorProfessor[chaveProf] = [];
+          if (disciplinasPorProfessor[chaveProf].indexOf(nomeDisc) === -1) {
+            disciplinasPorProfessor[chaveProf].push(nomeDisc);
+          }
+
+          chavesProfessores[chaveProf] = PROFESSORES[chaveProf] || chaveProf;
+        }
+      }
+    }
+
+    // Ordenar professores A-Z
+    var chaves = [];
+    for (var c in chavesProfessores) {
+      if (chavesProfessores.hasOwnProperty(c)) {
+        chaves.push({ chave: c, nome: chavesProfessores[c] });
+      }
+    }
+    chaves.sort(function(a, b) {
+      return normalizarTextoParaBusca(a.nome).localeCompare(normalizarTextoParaBusca(b.nome));
+    });
+    listaDeProfessoresOrdenada = chaves;
+
+    // Marcar aulas duplas
+    for (var cp in indicePorProfessor) {
+      if (indicePorProfessor.hasOwnProperty(cp)) {
+        for (var d = 1; d <= 5; d++) {
+          if (indicePorProfessor[cp][d]) {
+            marcarAulasDuplas(indicePorProfessor[cp][d]);
+          }
+        }
+      }
+    }
+  }
+
+  function marcarAulasDuplas(listaDeAulas) {
+    listaDeAulas.sort(function(a, b) { return a.inicioEmMinutos - b.inicioEmMinutos; });
+    for (var i = 0; i < listaDeAulas.length - 1; i++) {
+      var atual = listaDeAulas[i];
+      var prox = listaDeAulas[i + 1];
+      if (atual.turma === prox.turma &&
+          atual.professorChave === prox.professorChave &&
+          atual.fimEmMinutos === prox.inicioEmMinutos) {
+        atual.aulaDupla = { parte: 1, total: 2 };
+        prox.aulaDupla = { parte: 2, total: 2 };
+      }
+    }
+    return listaDeAulas;
+  }
+
+  function listarProfessoresOrdenados() {
+    return listaDeProfessoresOrdenada;
+  }
+
+  function buscarProfessoresPorTexto(texto) {
+    var normalizado = normalizarTextoParaBusca(texto);
+    if (!normalizado) return [];
+    var resultados = [];
+    for (var i = 0; i < listaDeProfessoresOrdenada.length; i++) {
+      var prof = listaDeProfessoresOrdenada[i];
+      var nomeNorm = normalizarTextoParaBusca(prof.nome);
+      if (nomeNorm.indexOf(normalizado) !== -1) {
+        resultados.push(prof);
+      }
+    }
+    // Priorizar correspondência exata
+    resultados.sort(function(a, b) {
+      var normA = normalizarTextoParaBusca(a.nome);
+      var normB = normalizarTextoParaBusca(b.nome);
+      var exataA = normA === normalizado ? 0 : 1;
+      var exataB = normB === normalizado ? 0 : 1;
+      if (exataA !== exataB) return exataA - exataB;
+      return normA.localeCompare(normB);
+    });
+    return resultados;
+  }
+
+  function buscarTurmasPorTexto(texto) {
+    var codigo = normalizarCodigoDaTurma(texto);
+    if (!codigo) return [];
+    if (indicePorTurma[codigo]) return [codigo];
+    return [];
+  }
+
+  /* ================================================================
+     BLOCO: BUSCA GLOBAL UNIFICADA COM AUTOCOMPLETE
+     ================================================================ */
+
+  var indiceSugestaoAtiva = -1;
+  var itensSugestoesAtuais = [];
+
+  function buscarSugestoesAutocomplete(termo) {
+    var termoNorm = normalizarTextoParaBusca(termo);
+    if (!termoNorm) return { turmas: [], professores: [] };
+
+    // 1. Turmas e Salas
+    var turmasResultados = [];
+    var todasTurmas = [
+      { codigo: '8A', nome: '8º A', piso: 1, rotuloPiso: 'Piso 1', salaNome: 'Sala 8º A', tv: false },
+      { codigo: '7C', nome: '7º C', piso: 1, rotuloPiso: 'Piso 1', salaNome: 'Sala 7º C', tv: false },
+      { codigo: '7A', nome: '7º A', piso: 1, rotuloPiso: 'Piso 1', salaNome: 'Sala 7º A', tv: false },
+      { codigo: '7D', nome: '7º D', piso: 2, rotuloPiso: 'Piso 2', salaNome: 'Sala 7º D', tv: false },
+      { codigo: '6A', nome: '6º A', piso: 2, rotuloPiso: 'Piso 2', salaNome: 'Sala 6º A', tv: false },
+      { codigo: '6B', nome: '6º B', piso: 2, rotuloPiso: 'Piso 2', salaNome: 'Sala 6º B', tv: false },
+      { codigo: '7B', nome: '7º B', piso: 2, rotuloPiso: 'Piso 2', salaNome: 'Sala 7º B', tv: false },
+      { codigo: 'ROBOTICA', nome: 'TV Interativa', piso: 3, rotuloPiso: 'Piso 3', salaNome: 'TV Interativa', tv: true },
+      { codigo: '9C', nome: '9º C', piso: 3, rotuloPiso: 'Piso 3', salaNome: 'Sala 9º C', tv: false },
+      { codigo: '8B', nome: '8º B', piso: 3, rotuloPiso: 'Piso 3', salaNome: 'Sala 8º B', tv: false },
+      { codigo: '8C', nome: '8º C', piso: 3, rotuloPiso: 'Piso 3', salaNome: 'Sala 8º C', tv: false }
+    ];
+
+    for (var t = 0; t < todasTurmas.length; t++) {
+      var tm = todasTurmas[t];
+      var codNorm = normalizarTextoParaBusca(tm.codigo);
+      var nomeNorm = normalizarTextoParaBusca(tm.nome);
+      var pisoNorm = normalizarTextoParaBusca(tm.rotuloPiso);
+      var salaNorm = normalizarTextoParaBusca(tm.salaNome);
+
+      var bateu = false;
+      if (codNorm.indexOf(termoNorm) !== -1 ||
+          nomeNorm.indexOf(termoNorm) !== -1 ||
+          pisoNorm.indexOf(termoNorm) !== -1 ||
+          salaNorm.indexOf(termoNorm) !== -1) {
+        bateu = true;
+      } else if (tm.tv && (termoNorm.indexOf('tv') !== -1 || termoNorm.indexOf('interativ') !== -1 || termoNorm.indexOf('rob') !== -1)) {
+        bateu = true;
+      } else {
+        var limpo = termoNorm.replace(/\s+/g, '');
+        if (codNorm === limpo || codNorm.indexOf(limpo) === 0) bateu = true;
+      }
+
+      if (bateu) {
+        turmasResultados.push(tm);
+      }
+    }
+
+    // 2. Professores(as)
+    var profsResultados = [];
+    for (var i = 0; i < listaDeProfessoresOrdenada.length; i++) {
+      var prof = listaDeProfessoresOrdenada[i];
+      var pNomeNorm = normalizarTextoParaBusca(prof.nome);
+      var discNorm = '';
+      var discLista = disciplinasPorProfessor[prof.chave] || [];
+      for (var d = 0; d < discLista.length; d++) {
+        discNorm += ' ' + normalizarTextoParaBusca(discLista[d]);
+      }
+
+      if (pNomeNorm.indexOf(termoNorm) !== -1 || discNorm.indexOf(termoNorm) !== -1) {
+        profsResultados.push({
+          chave: prof.chave,
+          nome: prof.nome,
+          disciplinas: discLista.join(', ')
+        });
+      }
+    }
+
+    profsResultados.sort(function(a, b) {
+      var aNorm = normalizarTextoParaBusca(a.nome);
+      var bNorm = normalizarTextoParaBusca(b.nome);
+      var aExato = aNorm === termoNorm ? 0 : 1;
+      var bExato = bNorm === termoNorm ? 0 : 1;
+      if (aExato !== bExato) return aExato - bExato;
+      var aComeca = aNorm.indexOf(termoNorm) === 0 ? 0 : 1;
+      var bComeca = bNorm.indexOf(termoNorm) === 0 ? 0 : 1;
+      if (aComeca !== bComeca) return aComeca - bComeca;
+      return aNorm.localeCompare(bNorm);
+    });
+
+    return {
+      turmas: turmasResultados,
+      professores: profsResultados
+    };
+  }
+
+  function fecharMenuAutocomplete() {
+    var menu = document.getElementById('menu-autocomplete');
+    var campo = document.getElementById('campo-de-busca-global');
+    if (menu) {
+      menu.style.display = 'none';
+      limparElemento(menu);
+    }
+    if (campo) {
+      campo.setAttribute('aria-expanded', 'false');
+      campo.removeAttribute('aria-activedescendant');
+    }
+    indiceSugestaoAtiva = -1;
+    itensSugestoesAtuais = [];
+  }
+
+  function renderizarMenuAutocomplete(dados, termo) {
+    var menu = document.getElementById('menu-autocomplete');
+    var campo = document.getElementById('campo-de-busca-global');
+    if (!menu || !campo) return;
+
+    limparElemento(menu);
+    indiceSugestaoAtiva = -1;
+    itensSugestoesAtuais = [];
+
+    var totalResultados = dados.turmas.length + dados.professores.length;
+    if (totalResultados === 0) {
+      var vazio = criarElementoSeguro('div', { className: 'autocomplete-vazio' });
+      var ico = criarSvgUse('icone-caderno', '', 28, 28);
+      vazio.appendChild(ico);
+      var txt = criarElementoSeguro('span', {}, 'Nenhum professor(a) ou turma encontrado para "' + termo + '".');
+      vazio.appendChild(txt);
+      menu.appendChild(vazio);
+      menu.style.display = 'block';
+      campo.setAttribute('aria-expanded', 'true');
+      return;
+    }
+
+    var contadorItem = 0;
+
+    // Seção Turmas / Salas
+    if (dados.turmas.length > 0) {
+      var grupoTurmas = criarElementoSeguro('div', { className: 'autocomplete-grupo' });
+      var cabTurmas = criarElementoSeguro('div', { className: 'autocomplete-grupo-cabecalho' });
+      cabTurmas.appendChild(document.createTextNode('Turmas / Salas'));
+      var badgeContagemT = criarElementoSeguro('span', { className: 'autocomplete-grupo-tag' }, String(dados.turmas.length));
+      cabTurmas.appendChild(badgeContagemT);
+      grupoTurmas.appendChild(cabTurmas);
+
+      for (var t = 0; t < dados.turmas.length; t++) {
+        (function(tm, idx) {
+          var itemEl = criarElementoSeguro('div', {
+            className: 'autocomplete-item',
+            role: 'option',
+            id: 'sugestao-item-' + idx,
+            'data-indice': String(idx)
+          });
+
+          var icoBloco = criarElementoSeguro('div', { className: 'autocomplete-icone-bloco autocomplete-icone-bloco--piso-' + tm.piso });
+          var svgIco = tm.tv ? criarSvgUse('icone-tv', '', 18, 18) : criarSvgUse('icone-turma', '', 18, 18);
+          icoBloco.appendChild(svgIco);
+          itemEl.appendChild(icoBloco);
+
+          var info = criarElementoSeguro('div', { className: 'autocomplete-info' });
+          var tit = criarElementoSeguro('div', { className: 'autocomplete-titulo' }, tm.nome);
+          info.appendChild(tit);
+          var sub = criarElementoSeguro('div', { className: 'autocomplete-subtitulo' }, (tm.tv ? 'Sala TV Interativa \u00B7 ' : 'Sala ' + tm.nome + ' \u00B7 ') + tm.rotuloPiso);
+          info.appendChild(sub);
+          itemEl.appendChild(info);
+
+          var badgePiso = criarElementoSeguro('span', { className: 'autocomplete-badge autocomplete-badge--piso-' + tm.piso }, tm.rotuloPiso);
+          itemEl.appendChild(badgePiso);
+
+          itemEl.addEventListener('click', function() {
+            selecionarSugestaoTurma(tm.codigo, tm.nome);
+          });
+
+          grupoTurmas.appendChild(itemEl);
+          itensSugestoesAtuais.push({
+            tipo: 'turma',
+            codigo: tm.codigo,
+            nome: tm.nome,
+            elemento: itemEl
+          });
+        })(dados.turmas[t], contadorItem++);
+      }
+      menu.appendChild(grupoTurmas);
+    }
+
+    // Seção Professores(as)
+    if (dados.professores.length > 0) {
+      var grupoProfs = criarElementoSeguro('div', { className: 'autocomplete-grupo' });
+      var cabProfs = criarElementoSeguro('div', { className: 'autocomplete-grupo-cabecalho' });
+      cabProfs.appendChild(document.createTextNode('Professores(as)'));
+      var badgeContagemP = criarElementoSeguro('span', { className: 'autocomplete-grupo-tag' }, String(dados.professores.length));
+      cabProfs.appendChild(badgeContagemP);
+      grupoProfs.appendChild(cabProfs);
+
+      for (var p = 0; p < dados.professores.length; p++) {
+        (function(prof, idx) {
+          var itemEl = criarElementoSeguro('div', {
+            className: 'autocomplete-item',
+            role: 'option',
+            id: 'sugestao-item-' + idx,
+            'data-indice': String(idx)
+          });
+
+          var icoBloco = criarElementoSeguro('div', { className: 'autocomplete-icone-bloco autocomplete-icone-bloco--prof' });
+          icoBloco.appendChild(criarSvgUse('icone-professor', '', 18, 18));
+          itemEl.appendChild(icoBloco);
+
+          var info = criarElementoSeguro('div', { className: 'autocomplete-info' });
+          var tit = criarElementoSeguro('div', { className: 'autocomplete-titulo' }, prof.nome);
+          info.appendChild(tit);
+          if (prof.disciplinas) {
+            var sub = criarElementoSeguro('div', { className: 'autocomplete-subtitulo' }, prof.disciplinas);
+            info.appendChild(sub);
+          }
+          itemEl.appendChild(info);
+
+          var badgeProf = criarElementoSeguro('span', { className: 'autocomplete-badge autocomplete-badge--prof' }, 'Professor(a)');
+          itemEl.appendChild(badgeProf);
+
+          itemEl.addEventListener('click', function() {
+            selecionarSugestaoProfessor(prof.chave, prof.nome);
+          });
+
+          grupoProfs.appendChild(itemEl);
+          itensSugestoesAtuais.push({
+            tipo: 'professor',
+            chave: prof.chave,
+            nome: prof.nome,
+            elemento: itemEl
+          });
+        })(dados.professores[p], contadorItem++);
+      }
+      menu.appendChild(grupoProfs);
+    }
+
+    menu.style.display = 'block';
+    campo.setAttribute('aria-expanded', 'true');
+  }
+
+  function destacarItemSugestao(novoIndice) {
+    if (itensSugestoesAtuais.length === 0) return;
+    var campo = document.getElementById('campo-de-busca-global');
+
+    for (var i = 0; i < itensSugestoesAtuais.length; i++) {
+      itensSugestoesAtuais[i].elemento.classList.remove('autocomplete-item--ativo');
+    }
+
+    if (novoIndice < 0) {
+      novoIndice = itensSugestoesAtuais.length - 1;
+    } else if (novoIndice >= itensSugestoesAtuais.length) {
+      novoIndice = 0;
+    }
+
+    indiceSugestaoAtiva = novoIndice;
+    var itemAtivo = itensSugestoesAtuais[indiceSugestaoAtiva];
+    if (itemAtivo && itemAtivo.elemento) {
+      itemAtivo.elemento.classList.add('autocomplete-item--ativo');
+      itemAtivo.elemento.scrollIntoView({ block: 'nearest' });
+      if (campo) {
+        campo.setAttribute('aria-activedescendant', 'sugestao-item-' + indiceSugestaoAtiva);
+      }
+    }
+  }
+
+  function selecionarSugestaoAtiva() {
+    if (itensSugestoesAtuais.length === 0) return false;
+    var idx = indiceSugestaoAtiva >= 0 ? indiceSugestaoAtiva : 0;
+    var item = itensSugestoesAtuais[idx];
+    if (!item) return false;
+
+    if (item.tipo === 'professor') {
+      selecionarSugestaoProfessor(item.chave, item.nome);
+    } else if (item.tipo === 'turma') {
+      selecionarSugestaoTurma(item.codigo, item.nome);
+    }
+    return true;
+  }
+
+  function selecionarSugestaoProfessor(chave, nome) {
+    var campo = document.getElementById('campo-de-busca-global');
+    if (campo) campo.value = nome;
+    var btnLimpar = document.getElementById('botao-limpar-busca');
+    if (btnLimpar) btnLimpar.style.display = 'inline-flex';
+    fecharMenuAutocomplete();
+
+    estadoDoSistema.abaAtiva = 'professor';
+    estadoDoSistema.professorSelecionado = chave;
+    estadoDoSistema.turmaSelecionada = null;
+    estadoDoSistema.termoDigitado = '';
+
+    atualizarAbas();
+    renderizarTelaAtual();
+  }
+
+  function selecionarSugestaoTurma(codigo, nome) {
+    var campo = document.getElementById('campo-de-busca-global');
+    if (campo) campo.value = nome;
+    var btnLimpar = document.getElementById('botao-limpar-busca');
+    if (btnLimpar) btnLimpar.style.display = 'inline-flex';
+    fecharMenuAutocomplete();
+
+    estadoDoSistema.abaAtiva = 'turma';
+    estadoDoSistema.turmaSelecionada = codigo;
+    estadoDoSistema.professorSelecionado = null;
+    estadoDoSistema.termoDigitado = '';
+
+    atualizarAbas();
+    renderizarTelaAtual();
+  }
+
+  function limparBuscaGlobal() {
+    var campo = document.getElementById('campo-de-busca-global');
+    if (campo) {
+      campo.value = '';
+      campo.focus();
+    }
+    var btnLimpar = document.getElementById('botao-limpar-busca');
+    if (btnLimpar) btnLimpar.style.display = 'none';
+    fecharMenuAutocomplete();
+
+    estadoDoSistema.professorSelecionado = null;
+    estadoDoSistema.turmaSelecionada = null;
+    estadoDoSistema.termoDigitado = '';
+
+    renderizarTelaAtual();
+  }
+
+  function configurarBuscaGlobalComAutocomplete() {
+    var campo = document.getElementById('campo-de-busca-global');
+    var btnLimpar = document.getElementById('botao-limpar-busca');
+    var menu = document.getElementById('menu-autocomplete');
+    var conteiner = document.getElementById('conteiner-busca-global');
+
+    if (!campo) return;
+
+    if (btnLimpar) {
+      btnLimpar.addEventListener('click', function(e) {
+        e.stopPropagation();
+        limparBuscaGlobal();
+      });
+    }
+
+    campo.addEventListener('input', function() {
+      var termo = this.value.trim();
+      if (btnLimpar) {
+        btnLimpar.style.display = this.value.length > 0 ? 'inline-flex' : 'none';
+      }
+
+      if (!termo) {
+        fecharMenuAutocomplete();
+        if (estadoDoSistema.professorSelecionado || estadoDoSistema.turmaSelecionada) {
+          estadoDoSistema.professorSelecionado = null;
+          estadoDoSistema.turmaSelecionada = null;
+          estadoDoSistema.termoDigitado = '';
+          renderizarTelaAtual();
+        }
+        return;
+      }
+
+      var dados = buscarSugestoesAutocomplete(termo);
+      renderizarMenuAutocomplete(dados, termo);
+    });
+
+    campo.addEventListener('focus', function() {
+      var termo = this.value.trim();
+      if (termo) {
+        var dados = buscarSugestoesAutocomplete(termo);
+        renderizarMenuAutocomplete(dados, termo);
+      }
+    });
+
+    campo.addEventListener('keydown', function(e) {
+      var menuVisivel = menu && menu.style.display === 'block';
+
+      if (e.key === 'ArrowDown') {
+        if (!menuVisivel) {
+          var termo = this.value.trim();
+          if (termo) {
+            var dados = buscarSugestoesAutocomplete(termo);
+            renderizarMenuAutocomplete(dados, termo);
+          }
+        } else {
+          e.preventDefault();
+          destacarItemSugestao(indiceSugestaoAtiva + 1);
+        }
+      } else if (e.key === 'ArrowUp') {
+        if (menuVisivel) {
+          e.preventDefault();
+          destacarItemSugestao(indiceSugestaoAtiva - 1);
+        }
+      } else if (e.key === 'Enter') {
+        if (menuVisivel) {
+          e.preventDefault();
+          selecionarSugestaoAtiva();
+        }
+      } else if (e.key === 'Escape') {
+        if (menuVisivel) {
+          e.preventDefault();
+          fecharMenuAutocomplete();
+        }
+      }
+    });
+
+    document.addEventListener('click', function(e) {
+      if (conteiner && !conteiner.contains(e.target)) {
+        fecharMenuAutocomplete();
+      }
+    });
+  }
+
+  function obterAulasDoProfessor(chave, dia) {
+    if (!indicePorProfessor[chave] || !indicePorProfessor[chave][dia]) return [];
+    return indicePorProfessor[chave][dia].slice();
+  }
+
+  function obterAulasDaTurma(codigo, dia) {
+    if (!indicePorTurma[codigo] || !indicePorTurma[codigo][dia]) return [];
+    return indicePorTurma[codigo][dia].slice();
+  }
+
+  function obterSalaDaTurma(codigo) {
+    return SALAS_DAS_TURMAS[codigo] || { piso: 0, rotulo: 'Desconhecida', tvInterativa: false };
+  }
+
+  function obterDiaDaSemanaLetivo(data) {
+    var diaSemana = data.getDay(); // 0=dom 1=seg ... 6=sab
+    if (diaSemana === 0 || diaSemana === 6) return null;
+
+    var dataStr = data.getFullYear() + '-' +
+      ((data.getMonth() + 1) < 10 ? '0' : '') + (data.getMonth() + 1) + '-' +
+      (data.getDate() < 10 ? '0' : '') + data.getDate();
+
+    for (var i = 0; i < CONFIGURACAO.diasSemAula.length; i++) {
+      if (CONFIGURACAO.diasSemAula[i] === dataStr) return null;
+    }
+
+    return diaSemana; // 1=seg ... 5=sex
+  }
+
+  function obterMomentoAtual() {
+    if (estadoDoSistema.momentoSimulado) {
+      return new Date(estadoDoSistema.momentoSimulado.getTime());
+    }
+    return new Date();
+  }
+
+  function calcularSituacaoDoMomento(momento) {
+    var diaLetivo = obterDiaDaSemanaLetivo(momento);
+    if (diaLetivo === null) {
+      return {
+        estado: 'SEM_AULA_HOJE',
+        diaLetivo: null,
+        proximoDiaLetivo: calcularProximoDiaLetivo(momento)
+      };
+    }
+
+    var minutosAgora = momento.getHours() * 60 + momento.getMinutes();
+    var segundosAgora = momento.getSeconds();
+    var primeiraAula = CONFIGURACAO.horarios[0];
+    var ultimaAula = CONFIGURACAO.horarios[CONFIGURACAO.horarios.length - 1];
+    var inicioPrimeiraEmMin = converterHoraParaMinutos(primeiraAula.inicio);
+    var fimUltimaEmMin = converterHoraParaMinutos(ultimaAula.fim);
+    var inicioIntervalo = converterHoraParaMinutos(CONFIGURACAO.intervalo.inicio);
+    var fimIntervalo = converterHoraParaMinutos(CONFIGURACAO.intervalo.fim);
+
+    if (minutosAgora < inicioPrimeiraEmMin) {
+      return {
+        estado: 'ANTES_DAS_AULAS',
+        diaLetivo: diaLetivo,
+        minutosAgora: minutosAgora,
+        segundosAgora: segundosAgora,
+        numeroProximo: 1
+      };
+    }
+
+    if (minutosAgora >= fimUltimaEmMin) {
+      return {
+        estado: 'FIM_DO_PERIODO',
+        diaLetivo: diaLetivo,
+        minutosAgora: minutosAgora,
+        segundosAgora: segundosAgora,
+        proximoDiaLetivo: calcularProximoDiaLetivo(momento)
+      };
+    }
+
+    if (minutosAgora >= inicioIntervalo && minutosAgora < fimIntervalo) {
+      return {
+        estado: 'INTERVALO',
+        diaLetivo: diaLetivo,
+        minutosAgora: minutosAgora,
+        segundosAgora: segundosAgora,
+        numeroProximo: 4
+      };
+    }
+
+    // Encontrar aula atual
+    for (var i = 0; i < CONFIGURACAO.horarios.length; i++) {
+      var h = CONFIGURACAO.horarios[i];
+      var inicioH = converterHoraParaMinutos(h.inicio);
+      var fimH = converterHoraParaMinutos(h.fim);
+      if (minutosAgora >= inicioH && minutosAgora < fimH) {
+        var proxNum = (i + 1 < CONFIGURACAO.horarios.length) ? CONFIGURACAO.horarios[i + 1].numero : null;
+        return {
+          estado: 'EM_AULA',
+          diaLetivo: diaLetivo,
+          minutosAgora: minutosAgora,
+          segundosAgora: segundosAgora,
+          numeroAtual: h.numero,
+          numeroProximo: proxNum
+        };
+      }
+    }
+
+    // Fallback (entre fim de aula e início do intervalo ou algo inesperado)
+    return {
+      estado: 'EM_AULA',
+      diaLetivo: diaLetivo,
+      minutosAgora: minutosAgora,
+      segundosAgora: segundosAgora,
+      numeroAtual: null,
+      numeroProximo: null
+    };
+  }
+
+  function calcularProximoDiaLetivo(data) {
+    var tentativa = new Date(data.getTime());
+    for (var i = 0; i < 10; i++) {
+      tentativa.setDate(tentativa.getDate() + 1);
+      if (obterDiaDaSemanaLetivo(tentativa) !== null) {
+        return tentativa;
+      }
+    }
+    return null;
+  }
+
+  function classificarAulaNoMomento(aula, minutosAgora) {
+    if (minutosAgora >= aula.fimEmMinutos) return 'PASSADA';
+    if (aula.inicioEmMinutos <= minutosAgora) return 'EM_ANDAMENTO';
+    return 'FUTURA';
+  }
+
+  function ordenarAulasParaExibicao(lista, situacao, ehConsultaOutroDia) {
+    if (ehConsultaOutroDia) {
+      lista.sort(function(a, b) { return a.inicioEmMinutos - b.inicioEmMinutos; });
+      for (var k = 0; k < lista.length; k++) {
+        lista[k].classe = 'CONSULTA';
+      }
+      return lista;
+    }
+
+    var minutosAgora = situacao.minutosAgora;
+
+    // Classificar cada aula
+    for (var i = 0; i < lista.length; i++) {
+      lista[i].classe = classificarAulaNoMomento(lista[i], minutosAgora);
+    }
+
+    // Determinar a PROXIMA
+    var temEmAndamento = false;
+    for (var j = 0; j < lista.length; j++) {
+      if (lista[j].classe === 'EM_ANDAMENTO') { temEmAndamento = true; break; }
+    }
+
+    // Ordenar cronologicamente para encontrar a primeira futura
+    var futuras = [];
+    for (var m = 0; m < lista.length; m++) {
+      if (lista[m].classe === 'FUTURA') futuras.push(lista[m]);
+    }
+    futuras.sort(function(a, b) { return a.inicioEmMinutos - b.inicioEmMinutos; });
+
+    if (futuras.length > 0) {
+      if (temEmAndamento) {
+        futuras[0].classe = 'A_SEGUIR';
+      } else {
+        futuras[0].classe = 'PROXIMA';
+      }
+    }
+
+    // Separar categorias
+    var emAndamento = [];
+    var proxima = [];
+    var aSeguir = [];
+    var demaisFuturas = [];
+    var passadas = [];
+
+    for (var n = 0; n < lista.length; n++) {
+      switch (lista[n].classe) {
+        case 'EM_ANDAMENTO': emAndamento.push(lista[n]); break;
+        case 'PROXIMA': proxima.push(lista[n]); break;
+        case 'A_SEGUIR': aSeguir.push(lista[n]); break;
+        case 'FUTURA': demaisFuturas.push(lista[n]); break;
+        case 'PASSADA': passadas.push(lista[n]); break;
+      }
+    }
+
+    demaisFuturas.sort(function(a, b) { return a.inicioEmMinutos - b.inicioEmMinutos; });
+
+    if (CONFIGURACAO.ordemPassadas === 'recentePrimeiro') {
+      passadas.sort(function(a, b) { return b.inicioEmMinutos - a.inicioEmMinutos; });
+    } else {
+      passadas.sort(function(a, b) { return a.inicioEmMinutos - b.inicioEmMinutos; });
+    }
+
+    return emAndamento.concat(proxima).concat(aSeguir).concat(demaisFuturas).concat(passadas);
+  }
+
+  function obterPanoramaAgoraNaEscola(momento) {
+    var situacao = calcularSituacaoDoMomento(momento);
+    var diaLetivo = situacao.diaLetivo;
+    var resultado = { situacao: situacao, pisos: {} };
+
+    if (!diaLetivo) return resultado;
+
+    for (var i = 0; i < ORDEM_DAS_TURMAS.length; i++) {
+      var codigoTurma = ORDEM_DAS_TURMAS[i];
+      var sala = obterSalaDaTurma(codigoTurma);
+      var aulas = obterAulasDaTurma(codigoTurma, diaLetivo);
+      var aulaAtual = null;
+      var aulaProxima = null;
+
+      for (var j = 0; j < aulas.length; j++) {
+        var classe = classificarAulaNoMomento(aulas[j], situacao.minutosAgora);
+        if (classe === 'EM_ANDAMENTO') { aulaAtual = aulas[j]; break; }
+        if (classe === 'FUTURA' && !aulaProxima) { aulaProxima = aulas[j]; }
+      }
+
+      var piso = sala.piso;
+      if (!resultado.pisos[piso]) resultado.pisos[piso] = [];
+      resultado.pisos[piso].push({
+        turma: codigoTurma,
+        sala: sala,
+        aulaAtual: aulaAtual,
+        aulaProxima: aulaProxima
+      });
+    }
+
+    return resultado;
+  }
+
+  function calcularTempoRestanteParaAula(aula, momento) {
+    var minutosAgora = momento.getHours() * 60 + momento.getMinutes();
+    var segundosAgora = momento.getSeconds();
+    var totalSegundosAgora = minutosAgora * 60 + segundosAgora;
+
+    var classe = classificarAulaNoMomento(aula, minutosAgora);
+
+    if (classe === 'EM_ANDAMENTO') {
+      var fimEmSegundos = aula.fimEmMinutos * 60;
+      var restante = fimEmSegundos - totalSegundosAgora;
+      if (restante < 0) restante = 0;
+      return { tipo: 'termina', minutos: Math.floor(restante / 60), segundos: restante % 60 };
+    }
+
+    if (classe === 'FUTURA') {
+      var inicioEmSegundos = aula.inicioEmMinutos * 60;
+      var falta = inicioEmSegundos - totalSegundosAgora;
+      if (falta < 0) falta = 0;
+      return { tipo: 'comeca', minutos: Math.floor(falta / 60), segundos: falta % 60 };
+    }
+
+    return null;
+  }
+
+  function validarIntegridadeDosDados() {
+    var problemas = [];
+
+    // Verificar 5 horários por dia por turma
+    for (var dia = 1; dia <= 5; dia++) {
+      var linhas = DADOS_DA_GRADE[dia];
+      if (!linhas || linhas.length !== 5) {
+        problemas.push('Dia ' + dia + ': esperados 5 hor\u00E1rios, encontrados ' + (linhas ? linhas.length : 0));
+      }
+    }
+
+    // Verificar conflitos de professor
+    for (var d = 1; d <= 5; d++) {
+      var linhasD = DADOS_DA_GRADE[d];
+      if (!linhasD) continue;
+      for (var h = 0; h < linhasD.length; h++) {
+        var profsNoHorario = {};
+        for (var t = 0; t < ORDEM_DAS_TURMAS.length; t++) {
+          var cel = linhasD[h][t];
+          if (!cel || cel.trim() === '') continue;
+          var p = cel.split('|');
+          if (p.length < 2) continue;
+          var prof = p[1].trim().toUpperCase();
+          if (profsNoHorario[prof]) {
+            problemas.push('Conflito: ' + prof + ' em ' + profsNoHorario[prof] + ' e ' + ORDEM_DAS_TURMAS[t] + ' (dia ' + d + ', ' + CONFIGURACAO.horarios[h].inicio + ')');
+          }
+          profsNoHorario[prof] = ORDEM_DAS_TURMAS[t];
+        }
+      }
+    }
+
+    // Verificar turmas no mapa de salas
+    for (var ti = 0; ti < ORDEM_DAS_TURMAS.length; ti++) {
+      var turma = ORDEM_DAS_TURMAS[ti];
+      if (!SALAS_DAS_TURMAS[turma] && turma !== 'ROBOTICA') {
+        problemas.push('Turma ' + turma + ' n\u00E3o encontrada no mapa de salas');
+      }
+    }
+
+    // Verificar disciplinas com nome
+    for (var di = 1; di <= 5; di++) {
+      var linhasDi = DADOS_DA_GRADE[di];
+      if (!linhasDi) continue;
+      for (var hi = 0; hi < linhasDi.length; hi++) {
+        for (var ti2 = 0; ti2 < ORDEM_DAS_TURMAS.length; ti2++) {
+          var celula = linhasDi[hi][ti2];
+          if (!celula || celula.trim() === '') continue;
+          var partesD = celula.split('|');
+          var siglaD = partesD[0].trim();
+          if (!DISCIPLINAS[siglaD]) {
+            problemas.push('Disciplina desconhecida: ' + siglaD + ' (dia ' + di + ', ' + CONFIGURACAO.horarios[hi].inicio + ', ' + ORDEM_DAS_TURMAS[ti2] + ')');
+          }
+        }
+      }
+    }
+
+    return problemas;
+  }
+
+  function obterDiasComAulaDoProfessor(chave) {
+    var dias = [];
+    if (!indicePorProfessor[chave]) return dias;
+    for (var d = 1; d <= 5; d++) {
+      if (indicePorProfessor[chave][d] && indicePorProfessor[chave][d].length > 0) {
+        dias.push(d);
+      }
+    }
+    return dias;
+  }
+
+  function formatarNomeTurma(codigo) {
+    if (codigo === 'ROBOTICA' || codigo === 'TV_INTERATIVA') return 'TV Interativa';
+    return codigo.charAt(0) + '\u00BA ' + codigo.charAt(1);
+  }
+
+  /* ================================================================
+     BLOCO 5: RENDERIZAÇÃO
+     ================================================================ */
+
+  /* ================================================================
+     MINI MAPA SVG DO PISO
+     Reproduz visualmente o corredor do piso com todas as salas,
+     destacando a sala da aula atual e esmaecendo as demais.
+     ================================================================ */
+
+  var LAYOUT_PISOS = {
+    1: { turmas: ['8A', '7C', '7A'] },
+    2: { turmas: ['7D', '6A', '6B', '7B'] },
+    3: { turmas: ['ROBOTICA', '9C', '8B', '8C'] }
+  };
+
+  var COR_PISO = {
+    1: { fundo: '#1E6FD9', texto: '#FFFFFF' },
+    2: { fundo: '#2E9D42', texto: '#FFFFFF' },
+    3: { fundo: '#7B3FB5', texto: '#FFFFFF' }
+  };
+
+  function gerarRotuloTurma(codigo) {
+    if (codigo === 'ROBOTICA' || codigo === 'TV_INTERATIVA') return 'TV';
+    return codigo.charAt(0) + '\u00BA' + codigo.charAt(1);
+  }
+
+  function gerarMiniMapaPiso(piso, turmaDestaque) {
+    var layout = LAYOUT_PISOS[piso];
+    if (!layout) return null;
+
+    var turmas = layout.turmas;
+    var cores = COR_PISO[piso] || { fundo: '#1F3A8A', texto: '#FFFFFF' };
+
+    // Dimensões do SVG
+    var alturaTotal = 50;
+    var badgeLargura = 66;
+    var espacamento = 6;
+    var salasLargura = 46;
+    var altSala = 36;
+    var yOffset = (alturaTotal - altSala) / 2;
+    var larguraTotal = badgeLargura + espacamento + turmas.length * (salasLargura + espacamento);
+
+    var ns = 'http://www.w3.org/2000/svg';
+    var svg = document.createElementNS(ns, 'svg');
+    svg.setAttribute('xmlns', ns);
+    svg.setAttribute('viewBox', '0 0 ' + larguraTotal + ' ' + alturaTotal);
+    svg.setAttribute('width', '100%');
+    svg.setAttribute('height', 'auto');
+    svg.setAttribute('preserveAspectRatio', 'xMinYMid meet');
+    svg.setAttribute('role', 'img');
+    svg.setAttribute('aria-label', 'Mapa do Piso ' + piso + ' — sala: ' + turmaDestaque);
+
+    // ── Badge do Piso ──────────────────────────────
+    var rectBadge = document.createElementNS(ns, 'rect');
+    rectBadge.setAttribute('x', '0');
+    rectBadge.setAttribute('y', String(yOffset));
+    rectBadge.setAttribute('width', String(badgeLargura));
+    rectBadge.setAttribute('height', String(altSala));
+    rectBadge.setAttribute('rx', '7');
+    rectBadge.setAttribute('fill', cores.fundo);
+    svg.appendChild(rectBadge);
+
+    // Ícone de degraus (3 retângulos em escada)
+    var degrausDados = [
+      { x: 7,  yy: yOffset + altSala - 10, w: 16, h: 3 },
+      { x: 11, yy: yOffset + altSala - 17, w: 12, h: 3 },
+      { x: 15, yy: yOffset + altSala - 24, w: 8,  h: 3 }
+    ];
+    for (var d = 0; d < degrausDados.length; d++) {
+      var dr = document.createElementNS(ns, 'rect');
+      dr.setAttribute('x', String(degrausDados[d].x));
+      dr.setAttribute('y', String(degrausDados[d].yy));
+      dr.setAttribute('width', String(degrausDados[d].w));
+      dr.setAttribute('height', String(degrausDados[d].h));
+      dr.setAttribute('rx', '1');
+      dr.setAttribute('fill', 'rgba(255,255,255,0.45)');
+      svg.appendChild(dr);
+    }
+
+    // Texto PISO / número
+    var cx = badgeLargura / 2 + 8;
+    var txtP = document.createElementNS(ns, 'text');
+    txtP.setAttribute('x', String(cx));
+    txtP.setAttribute('y', String(yOffset + altSala / 2 - 6));
+    txtP.setAttribute('text-anchor', 'middle');
+    txtP.setAttribute('dominant-baseline', 'middle');
+    txtP.setAttribute('font-family', '"Trebuchet MS","Segoe UI",Arial,sans-serif');
+    txtP.setAttribute('font-size', '9');
+    txtP.setAttribute('font-weight', '800');
+    txtP.setAttribute('letter-spacing', '1');
+    txtP.setAttribute('fill', cores.texto);
+    txtP.textContent = 'PISO';
+    svg.appendChild(txtP);
+
+    var txtN = document.createElementNS(ns, 'text');
+    txtN.setAttribute('x', String(cx));
+    txtN.setAttribute('y', String(yOffset + altSala / 2 + 11));
+    txtN.setAttribute('text-anchor', 'middle');
+    txtN.setAttribute('dominant-baseline', 'middle');
+    txtN.setAttribute('font-family', '"Trebuchet MS","Segoe UI",Arial,sans-serif');
+    txtN.setAttribute('font-size', '17');
+    txtN.setAttribute('font-weight', '900');
+    txtN.setAttribute('fill', cores.texto);
+    txtN.textContent = String(piso);
+    svg.appendChild(txtN);
+
+    // ── Salas do piso ──────────────────────────────
+    for (var i = 0; i < turmas.length; i++) {
+      var codigo = turmas[i];
+      var xSala = badgeLargura + espacamento + i * (salasLargura + espacamento);
+      var estaDestacada = (codigo === turmaDestaque);
+      var ehTv = (codigo === 'ROBOTICA' || codigo === 'TV_INTERATIVA');
+
+      var g = document.createElementNS(ns, 'g');
+      if (!estaDestacada) g.setAttribute('opacity', '0.38');
+
+      var caixaSala = document.createElementNS(ns, 'rect');
+      caixaSala.setAttribute('x', String(xSala));
+      caixaSala.setAttribute('y', String(yOffset));
+      caixaSala.setAttribute('width', String(salasLargura));
+      caixaSala.setAttribute('height', String(altSala));
+      caixaSala.setAttribute('rx', '7');
+      if (estaDestacada) {
+        caixaSala.setAttribute('fill', '#FFFFFF');
+        caixaSala.setAttribute('stroke', cores.fundo);
+        caixaSala.setAttribute('stroke-width', '3');
+      } else {
+        caixaSala.setAttribute('fill', '#E8EFF8');
+        caixaSala.setAttribute('stroke', '#BCC8D8');
+        caixaSala.setAttribute('stroke-width', '1.5');
+      }
+      g.appendChild(caixaSala);
+
+      var textoSala = document.createElementNS(ns, 'text');
+      textoSala.setAttribute('x', String(xSala + salasLargura / 2));
+      textoSala.setAttribute('y', String(yOffset + altSala / 2 + 1));
+      textoSala.setAttribute('text-anchor', 'middle');
+      textoSala.setAttribute('dominant-baseline', 'middle');
+      textoSala.setAttribute('font-family', '"Trebuchet MS","Segoe UI",Arial,sans-serif');
+      textoSala.setAttribute('font-size', ehTv ? '8' : '13');
+      textoSala.setAttribute('font-weight', '900');
+      textoSala.setAttribute('fill', estaDestacada ? cores.fundo : '#4A5568');
+      textoSala.textContent = gerarRotuloTurma(codigo);
+      g.appendChild(textoSala);
+
+      svg.appendChild(g);
+
+      if (estaDestacada) {
+        var dot = document.createElementNS(ns, 'circle');
+        dot.setAttribute('cx', String(xSala + salasLargura / 2));
+        dot.setAttribute('cy', String(yOffset + altSala + 6));
+        dot.setAttribute('r', '2.5');
+        dot.setAttribute('fill', cores.fundo);
+        svg.appendChild(dot);
+      }
+    }
+
+    return svg;
+  }
+
+  function renderizarCartaoDeAula(aula, modo) {
+    // modo: 'professor' (mostra turma) ou 'turma' (mostra professor)
+    var classeCSS = 'cartao-aula';
+    if (aula.sala && aula.sala.piso) {
+      classeCSS += ' cartao-aula--piso-' + aula.sala.piso;
+    }
+    var selo = null;
+
+    switch (aula.classe) {
+      case 'EM_ANDAMENTO':
+        classeCSS += ' cartao-aula--agora';
+        selo = { texto: 'AGORA', classe: 'selo--agora' };
+        break;
+      case 'PROXIMA':
+        classeCSS += ' cartao-aula--proxima';
+        selo = { texto: 'PR\u00D3XIMA', classe: 'selo--proxima' };
+        break;
+      case 'A_SEGUIR':
+        classeCSS += ' cartao-aula--proxima';
+        selo = { texto: 'A SEGUIR', classe: 'selo--a-seguir' };
+        break;
+      case 'PASSADA':
+        classeCSS += ' cartao-aula--passada';
+        selo = { texto: 'ENCERRADA', classe: 'selo--encerrada' };
+        break;
+      case 'FUTURA':
+        classeCSS += ' cartao-aula--futura';
+        break;
+      case 'CONSULTA':
+        break;
+    }
+
+    var cartao = criarElementoSeguro('div', { className: classeCSS, role: 'article' });
+
+    // Cabeçalho: horário e selo
+    var cabecalho = criarElementoSeguro('div', { className: 'cartao-cabecalho' });
+
+    var horarioTexto = aula.inicio + '\u2013' + aula.fim + '  \u00B7  ' + aula.numeroDaAula + '\u00AA aula';
+    var horarioEl = criarElementoSeguro('span', { className: 'cartao-horario' }, horarioTexto);
+    cabecalho.appendChild(horarioEl);
+
+    var seloContainer = criarElementoSeguro('span');
+    if (selo) {
+      var seloEl = criarElementoSeguro('span', { className: 'selo ' + selo.classe }, selo.texto);
+      seloContainer.appendChild(seloEl);
+    }
+    if (aula.aulaDupla) {
+      var seloDupla = criarElementoSeguro('span', { className: 'selo selo--aula-dupla' }, 'Aula dupla (' + aula.aulaDupla.parte + '/' + aula.aulaDupla.total + ')');
+      seloContainer.appendChild(document.createTextNode(' '));
+      seloContainer.appendChild(seloDupla);
+    }
+    cabecalho.appendChild(seloContainer);
+    cartao.appendChild(cabecalho);
+
+    // Corpo: disciplina (sem linha da turma e sem piso)
+    var corpo = criarElementoSeguro('div', { className: 'cartao-corpo' });
+
+    var disciplina = criarElementoSeguro('div', { className: 'cartao-disciplina', title: aula.disciplinaSigla }, aula.disciplinaNome);
+    corpo.appendChild(disciplina);
+
+    // Quando visualizado na aba Turma, informa quem é o(a) professor(a)
+    if (modo !== 'professor') {
+      var profInfo = criarElementoSeguro('div', { className: 'cartao-professor' }, 'Prof.: ' + aula.professorNome);
+      corpo.appendChild(profInfo);
+    }
+
+    cartao.appendChild(corpo);
+
+    // Contagem regressiva (alinhada à direita quando em andamento ou próxima)
+    if (aula.classe === 'EM_ANDAMENTO' || aula.classe === 'PROXIMA' || aula.classe === 'A_SEGUIR') {
+      var momento = obterMomentoAtual();
+      var tempo = calcularTempoRestanteParaAula(aula, momento);
+      if (tempo) {
+        var textoTempo = '';
+        if (tempo.tipo === 'termina') {
+          textoTempo = 'Termina em ' + tempo.minutos + ' min';
+        } else {
+          textoTempo = 'Come\u00E7a em ' + tempo.minutos + ' min';
+        }
+        var rodape = criarElementoSeguro('div', { className: 'cartao-rodape' });
+        var contagemEl = criarElementoSeguro('span', { className: 'contagem-regressiva' }, textoTempo);
+        rodape.appendChild(contagemEl);
+        cartao.appendChild(rodape);
+      }
+    }
+
+    // Mini mapa SVG do piso (exibe todas as salas do andar, destacando a sala/turma da aula)
+    if (aula.sala && aula.sala.piso && aula.turma) {
+      var svgMapa = gerarMiniMapaPiso(aula.sala.piso, aula.turma);
+      if (svgMapa) {
+        var divMapa = criarElementoSeguro('div', { className: 'mini-mapa-piso' });
+        divMapa.appendChild(svgMapa);
+        cartao.appendChild(divMapa);
+      }
+    }
+
+    return cartao;
+  }
+
+  function renderizarSeletorDeDia(diaAtual, ehHoje) {
+    var container = criarElementoSeguro('div', { className: 'seletor-de-dia' });
+
+    for (var d = 1; d <= 5; d++) {
+      var classeBtn = 'dia-botao';
+      if (d === diaAtual) classeBtn += ' dia-botao--ativo';
+      if (ehHoje && d === obterDiaDaSemanaHoje()) classeBtn += ' dia-botao--hoje';
+      var btn = criarElementoSeguro('button', {
+        className: classeBtn,
+        'data-dia': String(d),
+        'aria-label': NOMES_DOS_DIAS[d],
+        type: 'button'
+      }, NOMES_CURTOS_DOS_DIAS[d]);
+      btn.addEventListener('click', function() {
+        alternarDiaConsultado(parseInt(this.getAttribute('data-dia'), 10));
+      });
+      container.appendChild(btn);
+    }
+
+    var botaoHoje = criarElementoSeguro('button', {
+      className: 'botao-hoje',
+      type: 'button',
+      'aria-label': 'Voltar para hoje'
+    }, 'Hoje');
+    botaoHoje.addEventListener('click', function() {
+      alternarDiaConsultado(null);
+    });
+    container.appendChild(botaoHoje);
+
+    return container;
+  }
+
+  function obterDiaDaSemanaHoje() {
+    var agora = new Date();
+    var dia = agora.getDay();
+    if (dia >= 1 && dia <= 5) return dia;
+    return null;
+  }
+
+  function renderizarAbaDeProfessor() {
+    var areaPrincipal = document.getElementById('area-principal');
+    limparElemento(areaPrincipal);
+
+    // Seletor de dia
+    var diaConsultado = obterDiaDeConsulta();
+    var ehHoje = (estadoDoSistema.diaConsultado === null);
+    areaPrincipal.appendChild(renderizarSeletorDeDia(diaConsultado, ehHoje));
+
+    // Checkbox janelas
+    var labelJanelas = criarElementoSeguro('label', { className: 'checkbox-janelas' });
+    var checkJanelas = criarElementoSeguro('input', { type: 'checkbox', id: 'check-janelas' });
+    if (estadoDoSistema.mostrarJanelas) checkJanelas.checked = true;
+    checkJanelas.addEventListener('change', function() {
+      alternarMostrarJanelas();
+    });
+    labelJanelas.appendChild(checkJanelas);
+    labelJanelas.appendChild(document.createTextNode('Mostrar hor\u00E1rios sem aula (janelas)'));
+    areaPrincipal.appendChild(labelJanelas);
+
+    // Área de resultados
+    var areaResultados = criarElementoSeguro('div', { id: 'lista-de-resultados' });
+    areaPrincipal.appendChild(areaResultados);
+
+    // Se há professor selecionado, mostrar resultado
+    if (estadoDoSistema.professorSelecionado) {
+      var campoG = document.getElementById('campo-de-busca-global');
+      if (campoG) campoG.value = PROFESSORES[estadoDoSistema.professorSelecionado] || estadoDoSistema.professorSelecionado;
+      var btnLimpar = document.getElementById('botao-limpar-busca');
+      if (btnLimpar) btnLimpar.style.display = 'inline-flex';
+      renderizarResultadoProfessor(estadoDoSistema.professorSelecionado, diaConsultado);
+    } else {
+      // Lista A-Z
+      renderizarListaDeProfessores();
+    }
+  }
+
+  function processarBuscaProfessor(texto) {
+    var areaResultados = document.getElementById('lista-de-resultados');
+    if (!areaResultados) return;
+    limparElemento(areaResultados);
+
+    if (!texto || texto.trim() === '') {
+      renderizarListaDeProfessores();
+      return;
+    }
+
+    var resultados = buscarProfessoresPorTexto(texto);
+
+    if (resultados.length === 0) {
+      renderizarMensagemDeEstadoVazio('nenhum-resultado', areaResultados);
+      return;
+    }
+
+    if (resultados.length === 1) {
+      estadoDoSistema.professorSelecionado = resultados[0].chave;
+      renderizarResultadoProfessor(resultados[0].chave, obterDiaDeConsulta());
+      return;
+    }
+
+    // Múltiplos resultados
+    var rotulo = criarElementoSeguro('div', { className: 'secao-rotulo' }, 'Encontramos mais de um. Toque no correto:');
+    areaResultados.appendChild(rotulo);
+
+    var listaSugestoes = criarElementoSeguro('div', { className: 'lista-de-sugestoes' });
+    for (var i = 0; i < resultados.length; i++) {
+      var chip = criarElementoSeguro('button', {
+        className: 'sugestao-chip',
+        'data-chave': resultados[i].chave,
+        type: 'button'
+      }, resultados[i].nome);
+      chip.addEventListener('click', function() {
+        var chave = this.getAttribute('data-chave');
+        selecionarSugestaoProfessor(chave, PROFESSORES[chave] || chave);
+      });
+      listaSugestoes.appendChild(chip);
+    }
+    areaResultados.appendChild(listaSugestoes);
+  }
+
+  function renderizarResultadoProfessor(chave, dia) {
+    var areaResultados = document.getElementById('lista-de-resultados');
+    if (!areaResultados) return;
+    limparElemento(areaResultados);
+
+    var nome = PROFESSORES[chave] || chave;
+    var aulas = obterAulasDoProfessor(chave, dia);
+
+    // Cabeçalho
+    var cabecalhoResultado = criarElementoSeguro('div', { className: 'cabecalho-turma-resultado' });
+    var nomeEl = criarElementoSeguro('span', { className: 'cabecalho-turma-nome' }, 'Prof. ' + nome);
+    cabecalhoResultado.appendChild(nomeEl);
+    var diaInfo = criarElementoSeguro('span', {}, NOMES_DOS_DIAS[dia] || '');
+    cabecalhoResultado.appendChild(diaInfo);
+    areaResultados.appendChild(cabecalhoResultado);
+
+    if (aulas.length === 0) {
+      var msg = criarElementoSeguro('div', { className: 'mensagem-estado' });
+      var textoMsg = criarElementoSeguro('p', { className: 'mensagem-estado-texto' }, 'Este professor n\u00E3o tem aulas \u00E0 tarde neste dia.');
+      msg.appendChild(textoMsg);
+
+      // Dias com aula
+      var diasComAula = obterDiasComAulaDoProfessor(chave);
+      if (diasComAula.length > 0) {
+        var diasTexto = 'Dias com aula: ' + diasComAula.map(function(d) { return NOMES_CURTOS_DOS_DIAS[d]; }).join(', ');
+        var diasEl = criarElementoSeguro('p', { className: 'mensagem-estado-texto' }, diasTexto);
+        msg.appendChild(diasEl);
+      }
+      areaResultados.appendChild(msg);
+      return;
+    }
+
+    // Ordenar e renderizar
+    var momento = obterMomentoAtual();
+    var situacao = calcularSituacaoDoMomento(momento);
+    var ehConsultaOutroDia = (estadoDoSistema.diaConsultado !== null && estadoDoSistema.diaConsultado !== obterDiaDaSemanaHoje());
+    var aulasOrdenadas = ordenarAulasParaExibicao(aulas, situacao, ehConsultaOutroDia);
+
+    // Inserir janelas se ativado
+    if (estadoDoSistema.mostrarJanelas) {
+      var aulasComJanelas = inserirJanelasNaLista(aulasOrdenadas, dia, ehConsultaOutroDia, situacao);
+      aulasOrdenadas = aulasComJanelas;
+    }
+
+    var categoriaAtual = '';
+    for (var i = 0; i < aulasOrdenadas.length; i++) {
+      var aula = aulasOrdenadas[i];
+
+      if (aula.ehJanela) {
+        var cartaoJanela = criarElementoSeguro('div', {
+          className: 'cartao-aula cartao-aula--passada',
+          role: 'article'
+        });
+        var cab = criarElementoSeguro('div', { className: 'cartao-cabecalho' });
+        cab.appendChild(criarElementoSeguro('span', { className: 'cartao-horario' }, aula.inicio + '\u2013' + aula.fim + '  \u00B7  ' + aula.numeroDaAula + '\u00AA aula'));
+        cartaoJanela.appendChild(cab);
+        cartaoJanela.appendChild(criarElementoSeguro('div', { className: 'cartao-corpo' }, 'Sem aula neste hor\u00E1rio'));
+        areaResultados.appendChild(cartaoJanela);
+        continue;
+      }
+
+      // Rótulo de seção
+      var novaCategoria = obterCategoriaDeRotulo(aula.classe);
+      if (novaCategoria !== categoriaAtual) {
+        categoriaAtual = novaCategoria;
+        if (novaCategoria) {
+          var rotulo = criarElementoSeguro('div', { className: 'secao-rotulo' }, novaCategoria);
+          areaResultados.appendChild(rotulo);
+        }
+      }
+
+      areaResultados.appendChild(renderizarCartaoDeAula(aula, 'professor'));
+    }
+  }
+
+  function renderizarAbaDeTurma() {
+    var areaPrincipal = document.getElementById('area-principal');
+    limparElemento(areaPrincipal);
+
+    // Seletor de dia
+    var diaConsultado = obterDiaDeConsulta();
+    var ehHoje = (estadoDoSistema.diaConsultado === null);
+    areaPrincipal.appendChild(renderizarSeletorDeDia(diaConsultado, ehHoje));
+
+    // Grade de turmas por piso
+    var gradeTurmas = criarElementoSeguro('div', { className: 'grade-de-turmas' });
+
+    var pisos = [
+      { piso: 1, rotulo: 'Piso 1', turmas: ['8A','7C','7A'] },
+      { piso: 2, rotulo: 'Piso 2', turmas: ['7D','6A','6B','7B'] },
+      { piso: 3, rotulo: 'Piso 3', turmas: ['ROBOTICA','9C','8B','8C'] }
+    ];
+
+    for (var p = 0; p < pisos.length; p++) {
+      var grupo = criarElementoSeguro('div', { className: 'grupo-piso' });
+      var titulo = criarElementoSeguro('div', { className: 'grupo-piso-titulo grupo-piso-titulo--' + pisos[p].piso });
+      var degrausIcon = criarSvgUse('icone-degraus', 'icone-degraus');
+      titulo.appendChild(degrausIcon);
+      titulo.appendChild(document.createTextNode(' ' + pisos[p].rotulo));
+      grupo.appendChild(titulo);
+
+      var turmasContainer = criarElementoSeguro('div', { className: 'grupo-piso-turmas' });
+      for (var t = 0; t < pisos[p].turmas.length; t++) {
+        var cod = pisos[p].turmas[t];
+        var chip = criarElementoSeguro('button', {
+          className: 'sugestao-chip sugestao-chip--turma sugestao-chip--piso-' + pisos[p].piso,
+          'data-turma': cod,
+          type: 'button',
+          title: cod === 'ROBOTICA' ? 'Sala TV Interativa (Piso 3)' : 'Turma ' + formatarNomeTurma(cod)
+        });
+        if (cod === 'ROBOTICA') {
+          var tvIco = criarSvgUse('icone-tv', 'icone-piso-pequeno', 18, 18);
+          chip.appendChild(tvIco);
+          chip.appendChild(document.createTextNode(' TV Interativa'));
+        } else {
+          chip.appendChild(document.createTextNode(formatarNomeTurma(cod)));
+        }
+        chip.addEventListener('click', function() {
+          var codigo = this.getAttribute('data-turma');
+          selecionarSugestaoTurma(codigo, formatarNomeTurma(codigo));
+        });
+        turmasContainer.appendChild(chip);
+      }
+      grupo.appendChild(turmasContainer);
+      gradeTurmas.appendChild(grupo);
+    }
+    areaPrincipal.appendChild(gradeTurmas);
+
+    // Área de resultados
+    var areaResultados = criarElementoSeguro('div', { id: 'lista-de-resultados' });
+    areaPrincipal.appendChild(areaResultados);
+
+    // Se há turma selecionada
+    if (estadoDoSistema.turmaSelecionada) {
+      var campoG = document.getElementById('campo-de-busca-global');
+      if (campoG) campoG.value = formatarNomeTurma(estadoDoSistema.turmaSelecionada);
+      var btnLimpar = document.getElementById('botao-limpar-busca');
+      if (btnLimpar) btnLimpar.style.display = 'inline-flex';
+      renderizarResultadoTurma(estadoDoSistema.turmaSelecionada, diaConsultado);
+    }
+  }
+
+  function renderizarResultadoTurma(codigo, dia) {
+    var areaResultados = document.getElementById('lista-de-resultados');
+    if (!areaResultados) return;
+    limparElemento(areaResultados);
+
+    var sala = obterSalaDaTurma(codigo);
+    var aulas = obterAulasDaTurma(codigo, dia);
+
+    // Cabeçalho
+    var cabecalhoResultado = criarElementoSeguro('div', { className: 'cabecalho-turma-resultado' });
+    var nomeEl = criarElementoSeguro('span', { className: 'cabecalho-turma-nome' }, formatarNomeTurma(codigo));
+    cabecalhoResultado.appendChild(nomeEl);
+
+    var pisoClasse = 'selo-piso selo-piso--' + sala.piso;
+    var pisoEl = criarElementoSeguro('span', { className: pisoClasse });
+    if (sala.tvInterativa) {
+      var tvIcon = criarSvgUse('icone-tv', 'icone-piso-pequeno');
+      pisoEl.appendChild(tvIcon);
+      pisoEl.appendChild(document.createTextNode(' ' + sala.rotulo));
+    } else {
+      var degrausIcon = criarSvgUse('icone-degraus', 'icone-piso-pequeno');
+      pisoEl.appendChild(degrausIcon);
+      pisoEl.appendChild(document.createTextNode(' ' + sala.rotulo));
+    }
+    cabecalhoResultado.appendChild(pisoEl);
+
+    var diaInfo = criarElementoSeguro('div', { style: 'width:100%; font-size:0.82rem; color:#5A6A80; margin-top:4px;' }, NOMES_DOS_DIAS[dia] || '');
+    cabecalhoResultado.appendChild(diaInfo);
+    areaResultados.appendChild(cabecalhoResultado);
+
+    if (aulas.length === 0) {
+      renderizarMensagemDeEstadoVazio('turma-sem-aula', areaResultados);
+      return;
+    }
+
+    var momento = obterMomentoAtual();
+    var situacao = calcularSituacaoDoMomento(momento);
+    var ehConsultaOutroDia = (estadoDoSistema.diaConsultado !== null && estadoDoSistema.diaConsultado !== obterDiaDaSemanaHoje());
+    var aulasOrdenadas = ordenarAulasParaExibicao(aulas, situacao, ehConsultaOutroDia);
+
+    var categoriaAtual = '';
+    for (var i = 0; i < aulasOrdenadas.length; i++) {
+      var aula = aulasOrdenadas[i];
+      var novaCategoria = obterCategoriaDeRotulo(aula.classe);
+      if (novaCategoria !== categoriaAtual) {
+        categoriaAtual = novaCategoria;
+        if (novaCategoria) {
+          var rotulo = criarElementoSeguro('div', { className: 'secao-rotulo' }, novaCategoria);
+          areaResultados.appendChild(rotulo);
+        }
+      }
+      areaResultados.appendChild(renderizarCartaoDeAula(aula, 'turma'));
+    }
+  }
+
+  function renderizarAbaAgoraNaEscola() {
+    var areaPrincipal = document.getElementById('area-principal');
+    limparElemento(areaPrincipal);
+
+    var momento = obterMomentoAtual();
+    var panorama = obterPanoramaAgoraNaEscola(momento);
+    var situacao = panorama.situacao;
+
+    if (situacao.estado === 'SEM_AULA_HOJE' || situacao.estado === 'FIM_DO_PERIODO') {
+      renderizarMensagemDeEstadoVazio(situacao.estado === 'SEM_AULA_HOJE' ? 'sem-aula' : 'fim', areaPrincipal);
+      return;
+    }
+
+    var painel = criarElementoSeguro('div', { className: 'painel-agora' });
+
+    var pisosOrdem = [1, 2, 3];
+    var pisosNomes = { 1: 'Piso 1', 2: 'Piso 2', 3: 'Piso 3' };
+
+    for (var p = 0; p < pisosOrdem.length; p++) {
+      var piso = pisosOrdem[p];
+      var turmasDoPiso = panorama.pisos[piso];
+      if (!turmasDoPiso || turmasDoPiso.length === 0) continue;
+
+      var secaoPiso = criarElementoSeguro('div', { className: 'painel-agora-piso' });
+
+      var tituloPiso = criarElementoSeguro('div', { className: 'grupo-piso-titulo grupo-piso-titulo--' + piso });
+      var icone = criarSvgUse('icone-degraus', 'icone-degraus');
+      tituloPiso.appendChild(icone);
+      tituloPiso.appendChild(document.createTextNode(' ' + pisosNomes[piso]));
+      secaoPiso.appendChild(tituloPiso);
+
+      var turmasContainer = criarElementoSeguro('div', { className: 'grupo-piso-turmas-agora' });
+
+      for (var t = 0; t < turmasDoPiso.length; t++) {
+        var info = turmasDoPiso[t];
+        var cartaoTurma = criarElementoSeguro('div', { className: 'painel-agora-turma painel-agora-turma--piso-' + piso });
+
+        var nomeT = criarElementoSeguro('div', { className: 'painel-agora-turma-nome' }, formatarNomeTurma(info.turma));
+        cartaoTurma.appendChild(nomeT);
+
+        if (info.aulaAtual) {
+          var profT = criarElementoSeguro('div', { className: 'painel-agora-professor' }, info.aulaAtual.professorNome);
+          var discT = criarElementoSeguro('div', { className: 'painel-agora-disciplina' }, info.aulaAtual.disciplinaNome);
+          cartaoTurma.appendChild(profT);
+          cartaoTurma.appendChild(discT);
+        } else if (situacao.estado === 'INTERVALO') {
+          cartaoTurma.appendChild(criarElementoSeguro('div', { className: 'painel-agora-professor' }, 'Intervalo'));
+        } else if (situacao.estado === 'ANTES_DAS_AULAS') {
+          cartaoTurma.appendChild(criarElementoSeguro('div', { className: 'painel-agora-professor' }, 'Aguardando in\u00EDcio'));
+        } else if (info.aulaProxima) {
+          cartaoTurma.appendChild(criarElementoSeguro('div', { className: 'painel-agora-professor' }, 'Pr\u00F3xima: ' + info.aulaProxima.professorNome));
+          cartaoTurma.appendChild(criarElementoSeguro('div', { className: 'painel-agora-disciplina' }, info.aulaProxima.disciplinaNome));
+        } else {
+          cartaoTurma.appendChild(criarElementoSeguro('div', { className: 'painel-agora-professor' }, 'Sem mais aulas'));
+        }
+
+        turmasContainer.appendChild(cartaoTurma);
+      }
+
+      secaoPiso.appendChild(turmasContainer);
+      painel.appendChild(secaoPiso);
+    }
+
+    areaPrincipal.appendChild(painel);
+  }
+
+  function renderizarListaDeProfessores() {
+    var areaResultados = document.getElementById('lista-de-resultados');
+    if (!areaResultados) return;
+    limparElemento(areaResultados);
+
+    var rotulo = criarElementoSeguro('div', { className: 'secao-rotulo' }, 'Todos os professores(as)');
+    areaResultados.appendChild(rotulo);
+
+    var lista = criarElementoSeguro('div', { className: 'lista-professores-az lista-de-sugestoes' });
+    var professores = listarProfessoresOrdenados();
+
+    for (var i = 0; i < professores.length; i++) {
+      (function(prof) {
+        var chip = criarElementoSeguro('button', {
+          className: 'sugestao-chip',
+          'data-chave': prof.chave,
+          type: 'button'
+        }, prof.nome);
+        chip.addEventListener('click', function() {
+          selecionarSugestaoProfessor(prof.chave, prof.nome);
+        });
+        lista.appendChild(chip);
+      })(professores[i]);
+    }
+    areaResultados.appendChild(lista);
+  }
+
+  function renderizarMensagemDeEstadoVazio(tipo, container) {
+    var msg = criarElementoSeguro('div', { className: 'mensagem-estado' });
+    var icone = criarSvgUse('icone-caderno', 'icone-estado');
+    msg.appendChild(icone);
+
+    var texto = '';
+    switch (tipo) {
+      case 'nenhum-resultado':
+        texto = 'N\u00E3o encontramos esse nome. Confira a escrita ou escolha da lista.';
+        break;
+      case 'sem-aula':
+        var proxDia = calcularProximoDiaLetivo(obterMomentoAtual());
+        texto = 'Hoje n\u00E3o h\u00E1 aulas.';
+        if (proxDia) {
+          var diaSem = proxDia.getDay();
+          var nomes = ['Domingo','Segunda-feira','Ter\u00E7a-feira','Quarta-feira','Quinta-feira','Sexta-feira','S\u00E1bado'];
+          texto += ' Pr\u00F3ximo dia letivo: ' + nomes[diaSem] + '.';
+        }
+        break;
+      case 'antes':
+        texto = 'As aulas da tarde come\u00E7am \u00E0s 13:00.';
+        break;
+      case 'fim':
+        texto = 'As aulas da tarde terminaram.';
+        break;
+      case 'turma-sem-aula':
+        texto = 'Esta turma n\u00E3o tem aulas neste dia.';
+        break;
+      case 'vazio':
+        texto = 'Escolha um professor ou uma turma para come\u00E7ar.';
+        break;
+      default:
+        texto = tipo;
+    }
+
+    var textoEl = criarElementoSeguro('p', { className: 'mensagem-estado-texto' }, texto);
+    msg.appendChild(textoEl);
+    container.appendChild(msg);
+  }
+
+  function obterCategoriaDeRotulo(classe) {
+    switch (classe) {
+      case 'EM_ANDAMENTO': return '\u25C9 Agora';
+      case 'PROXIMA': return '\u25B6 Pr\u00F3xima';
+      case 'A_SEGUIR': return '\u25B6 A seguir';
+      case 'FUTURA': return '\u25CB Pr\u00F3ximas aulas';
+      case 'PASSADA': return '\u25CB Encerradas';
+      case 'CONSULTA': return '';
+      default: return '';
+    }
+  }
+
+  function inserirJanelasNaLista(aulasOrdenadas, dia, ehConsultaOutroDia, situacao) {
+    var numerosComAula = {};
+    for (var i = 0; i < aulasOrdenadas.length; i++) {
+      numerosComAula[aulasOrdenadas[i].numeroDaAula] = true;
+    }
+
+    var resultado = [];
+    for (var h = 0; h < CONFIGURACAO.horarios.length; h++) {
+      var horario = CONFIGURACAO.horarios[h];
+      if (!numerosComAula[horario.numero]) {
+        var janela = {
+          ehJanela: true,
+          dia: dia,
+          numeroDaAula: horario.numero,
+          inicio: horario.inicio,
+          fim: horario.fim,
+          inicioEmMinutos: converterHoraParaMinutos(horario.inicio),
+          fimEmMinutos: converterHoraParaMinutos(horario.fim)
+        };
+        resultado.push(janela);
+      }
+    }
+
+    // Juntar e ordenar tudo cronologicamente
+    var tudo = aulasOrdenadas.concat(resultado);
+    if (ehConsultaOutroDia) {
+      tudo.sort(function(a, b) { return a.inicioEmMinutos - b.inicioEmMinutos; });
+    } else {
+      // Manter a ordem original mas inserir janelas na posição certa
+      tudo.sort(function(a, b) {
+        if (a.ehJanela && !b.ehJanela) {
+          if (a.classe === undefined) return 1; // janelas ao final
+        }
+        return 0;
+      });
+      // Melhor abordagem: intercalar pelo número da aula
+      tudo = aulasOrdenadas.slice();
+      for (var j = 0; j < resultado.length; j++) {
+        tudo.push(resultado[j]);
+      }
+    }
+
+    return tudo;
+  }
+
+  /* ================================================================
+     BLOCO 6: EVENTOS E CONTROLE
+     ================================================================ */
+
+  var estadoDoSistema = {
+    abaAtiva: 'professor',
+    diaConsultado: null,
+    termoDigitado: '',
+    professorSelecionado: null,
+    turmaSelecionada: null,
+    mostrarJanelas: false,
+    escalaDaFonte: 1,
+    momentoSimulado: null
+  };
+
+  var ultimoEstadoSituacao = '';
+  var ultimoDiaDetectado = '';
+  var relogioIntervalId = null;
+  var reavaliacaoIntervalId = null;
+
+  function obterDiaDeConsulta() {
+    if (estadoDoSistema.diaConsultado !== null) return estadoDoSistema.diaConsultado;
+    var momento = obterMomentoAtual();
+    var dia = obterDiaDaSemanaLetivo(momento);
+    if (dia !== null) return dia;
+    // Se fim de semana, mostrar segunda
+    return 1;
+  }
+
+  function alternarDiaConsultado(dia) {
+    estadoDoSistema.diaConsultado = dia;
+    renderizarTelaAtual();
+  }
+
+  function alternarMostrarJanelas() {
+    estadoDoSistema.mostrarJanelas = !estadoDoSistema.mostrarJanelas;
+    renderizarTelaAtual();
+  }
+
+  function alternarTelaCheia() {
+    try {
+      if (document.fullscreenElement || document.webkitFullscreenElement) {
+        if (document.exitFullscreen) {
+          document.exitFullscreen();
+        } else if (document.webkitExitFullscreen) {
+          document.webkitExitFullscreen();
+        }
+      } else {
+        var el = document.documentElement;
+        if (el.requestFullscreen) {
+          el.requestFullscreen();
+        } else if (el.webkitRequestFullscreen) {
+          el.webkitRequestFullscreen();
+        }
+      }
+    } catch (e) {
+      // iPhone não suporta tela cheia
+    }
+  }
+
+  var ESCALAS_FONTE = [0.85, 0.92, 1.0, 1.15, 1.30];
+  var INDICE_ESCALA_PADRAO = 2; // 1.0 (100%)
+  var indiceEscalaAtual = INDICE_ESCALA_PADRAO;
+
+  function aplicarEscalaDaFonte(indice) {
+    if (typeof indice !== 'number' || isNaN(indice)) indice = INDICE_ESCALA_PADRAO;
+    if (indice < 0) indice = 0;
+    if (indice >= ESCALAS_FONTE.length) indice = ESCALAS_FONTE.length - 1;
+
+    indiceEscalaAtual = indice;
+    var fator = ESCALAS_FONTE[indice];
+    estadoDoSistema.escalaDaFonte = fator;
+
+    // Atualiza a variável CSS no root
+    document.documentElement.style.setProperty('--escala-fonte', String(fator));
+    // Atualiza o font-size do elemento raiz html para recalcular todos os rem imediatamente
+    document.documentElement.style.fontSize = Math.round(fator * 100) + '%';
+
+    // Atualiza o indicador textual
+    var indicador = document.getElementById('indicador-escala');
+    if (indicador) {
+      indicador.textContent = Math.round(fator * 100) + '%';
+    }
+
+    // Atualiza estado e feedback dos botões
+    var btnMenor = document.getElementById('botao-fonte-menor');
+    var btnMaior = document.getElementById('botao-fonte-maior');
+    if (btnMenor) {
+      var minAtingido = (indice === 0);
+      btnMenor.disabled = minAtingido;
+      btnMenor.setAttribute('aria-disabled', minAtingido ? 'true' : 'false');
+      btnMenor.style.opacity = minAtingido ? '0.35' : '1';
+    }
+    if (btnMaior) {
+      var maxAtingido = (indice === ESCALAS_FONTE.length - 1);
+      btnMaior.disabled = maxAtingido;
+      btnMaior.setAttribute('aria-disabled', maxAtingido ? 'true' : 'false');
+      btnMaior.style.opacity = maxAtingido ? '0.35' : '1';
+    }
+
+    salvarPreferencias();
+  }
+
+  function lerPreferenciasSalvas() {
+    try {
+      var dados = localStorage.getItem('ensalamento-preferencias');
+      if (dados) {
+        var obj = JSON.parse(dados);
+        if (obj.escalaDaFonte) {
+          var val = parseFloat(obj.escalaDaFonte);
+          var maisProximo = INDICE_ESCALA_PADRAO;
+          var menorDif = Infinity;
+          for (var s = 0; s < ESCALAS_FONTE.length; s++) {
+            var dif = Math.abs(ESCALAS_FONTE[s] - val);
+            if (dif < menorDif) {
+              menorDif = dif;
+              maisProximo = s;
+            }
+          }
+          aplicarEscalaDaFonte(maisProximo);
+        } else {
+          aplicarEscalaDaFonte(INDICE_ESCALA_PADRAO);
+        }
+        if (obj.abaAtiva) {
+          estadoDoSistema.abaAtiva = obj.abaAtiva;
+        }
+        if (obj.ultimaBusca) {
+          estadoDoSistema.termoDigitado = obj.ultimaBusca;
+        }
+      } else {
+        aplicarEscalaDaFonte(INDICE_ESCALA_PADRAO);
+      }
+    } catch (e) {
+      aplicarEscalaDaFonte(INDICE_ESCALA_PADRAO);
+    }
+  }
+
+  function salvarPreferencias() {
+    try {
+      var dados = {
+        escalaDaFonte: estadoDoSistema.escalaDaFonte,
+        abaAtiva: estadoDoSistema.abaAtiva,
+        ultimaBusca: estadoDoSistema.termoDigitado
+      };
+      localStorage.setItem('ensalamento-preferencias', JSON.stringify(dados));
+    } catch (e) {
+      // Silencioso
+    }
+  }
+
+  function lerParametrosDaUrl() {
+    var hash = window.location.hash;
+    if (!hash) return {};
+
+    var resultado = {};
+
+    // #simular=AAAA-MM-DDTHH:MM
+    var matchSimular = hash.match(/#simular=(\d{4}-\d{2}-\d{2}T\d{2}:\d{2})/);
+    if (matchSimular) {
+      var data = new Date(matchSimular[1]);
+      if (!isNaN(data.getTime())) {
+        resultado.simular = data;
+      }
+    }
+
+    if (hash.indexOf('diagnostico') !== -1) {
+      resultado.diagnostico = true;
+    }
+
+    if (hash.indexOf('simulador') !== -1) {
+      resultado.simulador = true;
+    }
+
+    return resultado;
+  }
+
+  function atualizarRelogioNaTela() {
+    var momento = obterMomentoAtual();
+    var relogio = document.getElementById('relogio-do-sistema');
+    var data = document.getElementById('relogio-data');
+
+    if (relogio) relogio.textContent = formatarHoraComSegundos(momento);
+    if (data) data.textContent = formatarDataPorExtenso(momento);
+  }
+
+  function atualizarSituacaoNaTela() {
+    var momento = obterMomentoAtual();
+    var situacao = calcularSituacaoDoMomento(momento);
+    var elSituacao = document.getElementById('situacao-do-momento');
+    if (!elSituacao) return;
+
+    var texto = '';
+    var classeCSS = 'situacao-do-momento ';
+
+    switch (situacao.estado) {
+      case 'SEM_AULA_HOJE':
+        texto = 'Sem aula hoje';
+        classeCSS += 'situacao--sem-aula';
+        break;
+      case 'ANTES_DAS_AULAS':
+        texto = 'As aulas come\u00E7am \u00E0s 13:00';
+        classeCSS += 'situacao--antes';
+        break;
+      case 'EM_AULA':
+        texto = situacao.numeroAtual + '\u00AA aula em andamento (at\u00E9 ' + CONFIGURACAO.horarios[situacao.numeroAtual - 1].fim + ')';
+        classeCSS += 'situacao--em-aula';
+        break;
+      case 'INTERVALO':
+        texto = 'Intervalo (15:30\u201315:40)';
+        classeCSS += 'situacao--intervalo';
+        break;
+      case 'FIM_DO_PERIODO':
+        texto = 'Aulas encerradas';
+        classeCSS += 'situacao--fim';
+        break;
+      default:
+        texto = 'Carregando...';
+    }
+
+    if (estadoDoSistema.diaConsultado !== null && estadoDoSistema.diaConsultado !== obterDiaDaSemanaHoje()) {
+      texto = 'Consulta: ' + NOMES_DOS_DIAS[estadoDoSistema.diaConsultado];
+      classeCSS = 'situacao-do-momento situacao--consulta';
+    }
+
+    elSituacao.textContent = texto;
+    elSituacao.className = classeCSS;
+  }
+
+  function reavaliarSituacaoEAtualizarTela() {
+    var momento = obterMomentoAtual();
+    var situacao = calcularSituacaoDoMomento(momento);
+    var novoEstado = situacao.estado + '-' + (situacao.numeroAtual || '') + '-' + (situacao.diaLetivo || '');
+
+    // Detectar virada de dia
+    var diaAtual = momento.getDate() + '-' + momento.getMonth();
+    if (ultimoDiaDetectado && ultimoDiaDetectado !== diaAtual) {
+      estadoDoSistema.diaConsultado = null;
+    }
+    ultimoDiaDetectado = diaAtual;
+
+    atualizarSituacaoNaTela();
+
+    if (novoEstado !== ultimoEstadoSituacao) {
+      ultimoEstadoSituacao = novoEstado;
+      renderizarTelaAtual();
+    }
+  }
+
+  function renderizarTelaAtual() {
+    atualizarSituacaoNaTela();
+    atualizarAbas();
+
+    switch (estadoDoSistema.abaAtiva) {
+      case 'professor':
+        renderizarAbaDeProfessor();
+        break;
+      case 'turma':
+        renderizarAbaDeTurma();
+        break;
+      case 'agora':
+        renderizarAbaAgoraNaEscola();
+        break;
+    }
+
+    salvarPreferencias();
+  }
+
+  function atualizarAbas() {
+    var abas = ['professor', 'turma', 'agora'];
+    for (var i = 0; i < abas.length; i++) {
+      var botao = document.getElementById('aba-' + abas[i]);
+      if (botao) {
+        if (abas[i] === estadoDoSistema.abaAtiva) {
+          botao.classList.add('aba-botao--ativa');
+          botao.setAttribute('aria-selected', 'true');
+        } else {
+          botao.classList.remove('aba-botao--ativa');
+          botao.setAttribute('aria-selected', 'false');
+        }
+      }
+    }
+  }
+
+  function ligarEventosDaInterface() {
+    // Configurar busca global com autocomplete
+    configurarBuscaGlobalComAutocomplete();
+
+    // Abas
+    var abas = ['professor', 'turma', 'agora'];
+    for (var i = 0; i < abas.length; i++) {
+      (function(aba) {
+        var botao = document.getElementById('aba-' + aba);
+        if (botao) {
+          botao.addEventListener('click', function() {
+            fecharMenuAutocomplete();
+            estadoDoSistema.abaAtiva = aba;
+            estadoDoSistema.termoDigitado = '';
+            estadoDoSistema.professorSelecionado = null;
+            estadoDoSistema.turmaSelecionada = null;
+
+            var campoG = document.getElementById('campo-de-busca-global');
+            if (campoG) campoG.value = '';
+            var btnLimpar = document.getElementById('botao-limpar-busca');
+            if (btnLimpar) btnLimpar.style.display = 'none';
+
+            renderizarTelaAtual();
+          });
+        }
+      })(abas[i]);
+    }
+
+    // Tela cheia
+    var botaoTelaCheia = document.getElementById('botao-tela-cheia');
+    if (botaoTelaCheia) {
+      botaoTelaCheia.addEventListener('click', alternarTelaCheia);
+    }
+
+    // Escala da fonte
+    var botaoFonteMaior = document.getElementById('botao-fonte-maior');
+    var botaoFonteMenor = document.getElementById('botao-fonte-menor');
+
+    if (botaoFonteMaior) {
+      botaoFonteMaior.addEventListener('click', function(e) {
+        e.preventDefault();
+        aplicarEscalaDaFonte(indiceEscalaAtual + 1);
+      });
+    }
+    if (botaoFonteMenor) {
+      botaoFonteMenor.addEventListener('click', function(e) {
+        e.preventDefault();
+        aplicarEscalaDaFonte(indiceEscalaAtual - 1);
+      });
+    }
+
+    // Teclado global
+    document.addEventListener('keydown', function(e) {
+      if (e.key === '/' && document.activeElement.tagName !== 'INPUT') {
+        e.preventDefault();
+        var campo = document.getElementById('campo-de-busca-global');
+        if (campo) {
+          campo.focus();
+          campo.select();
+        }
+      }
+    });
+
+    // Visibility change
+    document.addEventListener('visibilitychange', function() {
+      if (!document.hidden) {
+        reavaliarSituacaoEAtualizarTela();
+      }
+    });
+
+    // Simulador
+    var btnAplicar = document.getElementById('botao-aplicar-simulacao');
+    var btnLimpar = document.getElementById('botao-limpar-simulacao');
+    var campoSimulacao = document.getElementById('campo-simulacao');
+    var indicador = document.getElementById('indicador-simulacao');
+
+    if (btnAplicar) {
+      btnAplicar.addEventListener('click', function() {
+        if (campoSimulacao && campoSimulacao.value) {
+          var data = new Date(campoSimulacao.value);
+          if (!isNaN(data.getTime())) {
+            estadoDoSistema.momentoSimulado = data;
+            if (indicador) indicador.classList.add('ativo');
+            ultimoEstadoSituacao = '';
+            reavaliarSituacaoEAtualizarTela();
+          }
+        }
+      });
+    }
+
+    if (btnLimpar) {
+      btnLimpar.addEventListener('click', function() {
+        estadoDoSistema.momentoSimulado = null;
+        if (indicador) indicador.classList.remove('ativo');
+        if (campoSimulacao) campoSimulacao.value = '';
+        ultimoEstadoSituacao = '';
+        reavaliarSituacaoEAtualizarTela();
+      });
+    }
+  }
+
+  function iniciarRelogioDoSistema() {
+    atualizarRelogioNaTela();
+    relogioIntervalId = setInterval(function() {
+      try {
+        atualizarRelogioNaTela();
+      } catch (e) {
+        // Silencioso
+      }
+    }, 1000);
+
+    reavaliacaoIntervalId = setInterval(function() {
+      try {
+        reavaliarSituacaoEAtualizarTela();
+      } catch (e) {
+        // Silencioso
+      }
+    }, 15000);
+  }
+
+  function tratarErroInesperado(erro) {
+    var areaPrincipal = document.getElementById('area-principal');
+    if (areaPrincipal) {
+      var erroDiv = criarElementoSeguro('div', { className: 'erro-global' });
+      erroDiv.appendChild(criarElementoSeguro('p', {}, 'Ops! Algo deu errado. Recarregue a p\u00E1gina.'));
+      areaPrincipal.appendChild(erroDiv);
+    }
+    if (typeof console !== 'undefined' && console.error) {
+      console.error('Erro no sistema de ensalamento:', erro);
+    }
+  }
+
+  function iniciarSistema() {
+    // Ler preferências salvas
+    lerPreferenciasSalvas();
+
+    // Ler parâmetros da URL
+    var params = lerParametrosDaUrl();
+    if (params.simular) {
+      estadoDoSistema.momentoSimulado = params.simular;
+      var indicador = document.getElementById('indicador-simulacao');
+      if (indicador) indicador.classList.add('ativo');
+      var campo = document.getElementById('campo-simulacao');
+      if (campo) {
+        var d = params.simular;
+        var valor = d.getFullYear() + '-' +
+          ((d.getMonth() + 1) < 10 ? '0' : '') + (d.getMonth() + 1) + '-' +
+          (d.getDate() < 10 ? '0' : '') + d.getDate() + 'T' +
+          (d.getHours() < 10 ? '0' : '') + d.getHours() + ':' +
+          (d.getMinutes() < 10 ? '0' : '') + d.getMinutes();
+        campo.value = valor;
+      }
+    }
+
+    if (params.diagnostico) {
+      var painelDiag = document.getElementById('painel-diagnostico');
+      if (painelDiag) painelDiag.classList.add('aberto');
+    }
+
+    if (params.simulador) {
+      var painelSim = document.getElementById('painel-simulacao');
+      if (painelSim) painelSim.classList.add('aberto');
+    }
+
+    // Construir índices
+    construirIndicesDeBusca();
+
+    // Validar integridade
+    var problemas = validarIntegridadeDosDados();
+    if (problemas.length > 0) {
+      var listaDiag = document.getElementById('lista-diagnostico');
+      if (listaDiag) {
+        for (var i = 0; i < problemas.length; i++) {
+          var li = criarElementoSeguro('li', {}, problemas[i]);
+          listaDiag.appendChild(li);
+        }
+      }
+      if (typeof console !== 'undefined' && console.warn) {
+        console.warn('Diagn\u00F3stico de integridade:', problemas);
+      }
+    }
+
+    // Versão no rodapé
+    var rodapeVersao = document.getElementById('rodape-versao');
+    if (rodapeVersao) {
+      rodapeVersao.textContent = 'v' + CONFIGURACAO.versao + ' \u00B7 Grade de ' + CONFIGURACAO.dataDaGrade + ' \u00B7 ' + CONFIGURACAO.escola;
+    }
+
+    // Ligar eventos
+    ligarEventosDaInterface();
+
+    // Iniciar relógio
+    iniciarRelogioDoSistema();
+
+    // Renderizar tela
+    renderizarTelaAtual();
+  }
+
+  // ===== INICIALIZAÇÃO =====
+  try {
+    iniciarSistema();
+  } catch (erro) {
+    tratarErroInesperado(erro);
+  }
+
+})();
+</script>
+</body>
+</html>

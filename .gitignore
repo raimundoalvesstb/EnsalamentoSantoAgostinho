@@ -1,0 +1,24 @@
+# Backups e cópias temporárias
+*backup*
+*Copia*
+*.bak
+*.tmp
+*.log
+
+# Pasta de rascunhos e backups locais
+arqvs/
+
+# Arquivos do sistema operacional
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# Editores e IDEs
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Node e temporários
+node_modules/
+package-lock.json
