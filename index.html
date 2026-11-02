@@ -1479,10 +1479,36 @@ body {
     periodo: 'TARDE',
     frase: 'Cada sala, uma nova oportunidade de aprender e crescer!',
     rodape: 'ORGANIZAÇÃO HOJE, SUCESSO SEMPRE!',
-    versao: '1.2.0',
-    dataDaGrade: '2026-11-01',
+    versao: '1.2.1',
+    dataDaGrade: '2026-11-02',
     ordemPassadas: 'recentePrimeiro',
     diasSemAula: [],
+    // Definição dos turnos escolares (conforme Gestão Escolar - Ensalamento e Cronograma)
+    turnos: {
+      MANHA: {
+        nome: 'Manhã',
+        horarios: [
+          { numero: 1, inicio: '07:30', fim: '08:20' },
+          { numero: 2, inicio: '08:20', fim: '09:10' },
+          { numero: 3, inicio: '09:10', fim: '10:00' },
+          { numero: 4, inicio: '10:15', fim: '11:05' },
+          { numero: 5, inicio: '11:05', fim: '11:55' }
+        ],
+        intervalo: { inicio: '10:00', fim: '10:15' }
+      },
+      TARDE: {
+        nome: 'Tarde',
+        horarios: [
+          { numero: 1, inicio: '13:00', fim: '13:50' },
+          { numero: 2, inicio: '13:50', fim: '14:40' },
+          { numero: 3, inicio: '14:40', fim: '15:30' },
+          { numero: 4, inicio: '15:40', fim: '16:30' },
+          { numero: 5, inicio: '16:30', fim: '17:20' }
+        ],
+        intervalo: { inicio: '15:30', fim: '15:40' }
+      }
+    },
+    // Horários ativos consumidos pelo sistema (Turno da Tarde oficial)
     horarios: [
       { numero: 1, inicio: '13:00', fim: '13:50' },
       { numero: 2, inicio: '13:50', fim: '14:40' },
@@ -1574,7 +1600,7 @@ body {
       ['MAT|UBIRAJARA','LPORT|ELIANA','RECMT|VOLNEI','CIEN|KARINE','GEO|ELIANE','704|SIMONE','EREL|ELIANE PEREIRA','704|MELISSA','HIST|PAULO','MAT|PEDRO',''],
       ['704|MELISSA','EREL|LEONEL','RECMT|VOLNEI','MAT|LILIAN','LPORT|AUREA','EREL|ELIANE PEREIRA','MAT|UBIRAJARA','EDFI|DAVI','MAT|PEDRO','CIEN|KARINE',''],
       ['RECMT|VOLNEI','RECMT|LILIAN','HIST|LEONEL','704|SIMONE','EDFI|DAVI','LPORT|AUREA','LPORT|ELIANA','MAT|UBIRAJARA','704|MELISSA','CIEN|KARINE',''],
-      ['RECMT|VOLNEI','RECMT|LILIAN','EDFI|DAVI','EREL|ELIANE PEREIRA','704|SIMONE','GEO|ELIANE','LPORT|ELIANA','MAT|UBIRAJARA','LPORT|AUREA','704|MELISSA','']
+      ['RECMT|VOLNEI','RECMT|LILIAN','EDFI|LEONEL','EREL|ELIANE PEREIRA','704|SIMONE','GEO|ELIANE','LPORT|ELIANA','MAT|UBIRAJARA','LPORT|AUREA','704|MELISSA','']
     ],
     3: [
       ['LPORT|DANIELE','LING|NOEMI','LPORT|ELIANA','HIST|ELIANE PEREIRA','CIEN|KARINE','EDFI|DAVI','MAT|UBIRAJARA','GEO|ELIANE','MAT|PEDRO','LPORT|AUREA',''],
@@ -1599,6 +1625,16 @@ body {
     ]
   };
   /* ===== FIM DE DADOS_DA_GRADE ===== */
+
+  /* ===== DADOS_DA_GRADE_MANHA (Estrutura preparada para inserção futura do Turno da Manhã) ===== */
+  /* Horários matutinos conforme cronograma oficial: 07:30, 08:20, 09:10, 10:15, 11:05 */
+  var DADOS_DA_GRADE_MANHA = {
+    1: [[], [], [], [], []],
+    2: [[], [], [], [], []],
+    3: [[], [], [], [], []],
+    4: [[], [], [], [], []],
+    5: [[], [], [], [], []]
+  };
 
   var NOMES_DOS_DIAS = ['', 'Segunda-feira', 'Ter\u00E7a-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira'];
   var NOMES_CURTOS_DOS_DIAS = ['', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex'];
