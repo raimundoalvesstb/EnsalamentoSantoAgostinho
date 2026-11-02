@@ -19,10 +19,10 @@ Você pode usar o sistema agora mesmo pelo link público oficial:
 
 ---
 
-## 🎥 Demonstração Rápida em Vídeo
+## 🎥 Tutorial Passo a Passo em Vídeo
 
-Assista a uma apresentação didática em vídeo (36 segundos) mostrando na prática o uso do sistema:  
-▶️ **[Baixar / Assistir Vídeo Demonstrativo (`demonstracao.mp4`)](./demonstracao.mp4)**
+Assista ao tutorial completo e detalhado em vídeo (1m45s) mostrando com calma cada recurso e função do sistema:  
+▶️ **[Baixar / Assistir Vídeo Tutorial (`demonstracao.mp4`)](./demonstracao.mp4)**
 
 ---
 
@@ -161,7 +161,7 @@ O projeto é estruturado em **arquivo único (*single-file architecture*)**, eli
 ```
 EnsalamentoSantoAgostinho/
 ├── index.html          # Sistema completo (HTML5 estruturado, CSS3 responsivo e JS nativo)
-├── demonstracao.mp4    # Vídeo demonstrativo rápido (MP4 720p didático)
+├── demonstracao.mp4    # Vídeo tutorial passo a passo (MP4 720p HD didático)
 ├── README.md           # Documentação detalhada e manual de instruções
 ├── LICENSE             # Licença de código aberto MIT
 └── .gitignore          # Arquivos excluídos do controle de versão
