@@ -8,6 +8,10 @@
 # Pasta de rascunhos e backups locais
 arqvs/
 
+# Documentos de apoio e referências internas
+docs/
+planejamento*
+
 # Arquivos do sistema operacional
 Thumbs.db
 Desktop.ini

@@ -1,61 +1,51 @@
 # 🏫 Ensalamento · Escola Santo Agostinho
 
-[![GitHub Pages](https://img.shields.io/badge/Deploy-GitHub%20Pages-blue?logo=github&logoColor=white)](https://pages.github.com/)
+[![GitHub Pages](https://img.shields.io/badge/Deploy-GitHub%20Pages-blue?logo=github&logoColor=white)](https://raimundoalvesstb.github.io/EnsalamentoSantoAgostinho/)
 [![Versão](https://img.shields.io/badge/Vers%C3%A3o-1.2.0-brightgreen.svg)]()
 [![Tecnologias](https://img.shields.io/badge/Stack-HTML5%20%7C%20CSS3%20%7C%20JS%20Vanilla-orange.svg)]()
 [![Segurança CSP](https://img.shields.io/badge/Seguran%C3%A7a-CSP%20Strict-blueviolet.svg)]()
 [![Licença](https://img.shields.io/badge/Licen%C3%A7a-MIT-yellow.svg)](./LICENSE)
 [![Offline-First](https://img.shields.io/badge/Modo-100%25%20Offline--First-success.svg)]()
 
-> Sistema web leve, intuitivo e responsivo para consulta ágil de salas, turmas e horários de aulas dos professores e alunos da **Escola Santo Agostinho**. Desenvolvido em arquivo único (*single-file*), sem dependências externas e pronto para hospedar no **GitHub Pages** ou executar diretamente no navegador.
-
----
-
-## 📸 Visão Geral e Referência Visual
-
-O sistema foi concebido para digitalizar e aprimorar a experiência dos murais físicos e cronogramas em papel da escola, permitindo que professores, coordenadores, alunos e pais encontrem qualquer aula em segundos pelo celular, tablet ou computador.
-
-| Mural Físico Original (`Ensalamento.jpeg`) | Cronograma em Papel (`Cronograma_de_Aulas_Tarde.jpeg`) |
-| :---: | :---: |
-| ![Mural de Ensalamento](./docs/img/Ensalamento.jpeg) | ![Cronograma de Aulas](./docs/img/Cronograma_de_Aulas_Tarde.jpeg) |
+> Sistema web leve, intuitivo e responsivo para consulta ágil de salas, turmas e horários de aulas dos professores e alunos da **Escola Santo Agostinho**. Desenvolvido em arquivo único (*single-file*), sem dependências externas e pronto para hospedar no **GitHub Pages** ou executar diretamente em qualquer navegador.
 
 ---
 
 ## ✨ Principais Funcionalidades
 
 ### 1. 🔍 Consulta por Professor(a)
-* **Lista Completa A-Z:** Chips clicáveis de todos os professores da escola.
-* **Busca Global Inteligente:** Campo de pesquisa unificado com *autocomplete*, tolerante a acentos e maiúsculas/minúsculas. Pressione `/` no teclado para focar na busca imediatamente.
+* **Lista Completa A-Z:** Chips clicáveis para seleção direta de qualquer professor(a).
+* **Busca Global Inteligente:** Campo de pesquisa unificado com *autocomplete*, tolerante a acentos e maiúsculas/minúsculas. Pressione `/` no teclado para focar no campo de busca imediatamente.
 * **Linha do Tempo da Aula:** Identificação visual automática da aula que está ocorrendo **AGORA**, da **PRÓXIMA** aula a seguir e das aulas já **ENCERRADAS**.
-* **Contagem Regressiva:** Exibe minutos restantes para o início ou encerramento de cada aula em tempo real.
-* **Opção de Exibição de Janelas:** Checkbox para visualizar horários livres (janelas de aula).
+* **Contagem Regressiva em Tempo Real:** Exibe os minutos restantes para o início ou término de cada aula.
+* **Visualização de Janelas:** Opção para exibir horários livres e intervalos entre aulas.
 
 ### 2. 👥 Consulta por Turma e Piso
-* Navegação categorizada por andares do colégio:
+* **Navegação Categorizada por Andares:**
   * **Piso 1:** Turmas 8º A, 7º C e 7º A.
   * **Piso 2:** Turmas 7º D, 6º A, 6º B e 7º B.
   * **Piso 3:** TV Interativa / Robótica, 9º C, 8º B e 8º C.
-* Na consulta por turma, o cartão identifica automaticamente o professor responsável por ministrar a aula no horário.
+* Na consulta por turma, cada cartão identifica automaticamente o professor responsável por ministrar a aula no horário.
 
 ### 3. 🕒 Visão Panorâmica "Agora na Escola"
-* Apresenta um painel em tempo real da ocupação simultânea de todas as salas de aula divididas por piso.
-* Mostra se as turmas estão em aula, no intervalo ou com aulas encerradas naquele instante.
+* Painel em tempo real da ocupação simultânea de todas as salas de aula divididas por andar.
+* Indica com clareza se as turmas estão em aula, no intervalo ou com o expediente encerrado naquele momento.
 
 ### 4. 🗺️ Mini-Mapa SVG Dinâmico do Andar
 * Cada box de aula inclui uma reprodução visual estilizada em **SVG puro** representando o corredor do piso:
-  * **Badge do Andar:** Selo colorido à esquerda (`PISO 1`, `PISO 2` ou `PISO 3`) com ícone de escada/degraus.
-  * **Salas do Corredor:** Enfileiramento de todas as salas daquele andar.
-  * **Destaque Visual:** A sala/turma onde a aula acontece ganha destaque com fundo branco, contorno nítido e indicador inferior, enquanto as demais salas vizinhas ficam esmaecidas com opacidade suave.
-  * **Responsividade Refinada:** Em telas de smartphones ocupa 100% da largura útil do box; em desktops e telas maiores mantém uma largura contida e amigável (sem esticamento desproporcional).
+  * **Badge do Andar:** Selo colorido com identificação do piso (`PISO 1`, `PISO 2` ou `PISO 3`) e ícone de escada/degraus.
+  * **Salas do Corredor:** Disposição em sequência de todas as salas daquele piso.
+  * **Destaque Visual da Sala:** A sala onde a aula ocorre recebe destaque nítido com fundo contrastante, borda ressaltada e marcador de localização, enquanto as salas vizinhas mantêm opacidade atenuada.
+  * **Design Responsivo Adaptativo:** Largura total (100%) em smartphones e largura contida e harmoniosa em tablets, desktops e smart TVs.
 
 ### 5. ♿ Acessibilidade e Modos de Exibição
-* **Controle de Escala de Fonte (A- / A+):** Ajuste fino do tamanho do texto (de 85% a 130%), com persistência automática da preferência no `localStorage`.
-* **Modo Tela Cheia (Fullscreen):** Botão dedicado na barra superior, ideal para totens de autoatendimento, smart TVs e quiosques nos corredores da escola.
-* **Suporte a Redução de Movimento:** Respeita a diretiva `prefers-reduced-motion` para usuários sensíveis a animações.
-* **Modo de Impressão Limpo:** Folha de estilos `@media print` otimizada que oculta menus interativos e imprime a grade de forma limpa.
+* **Controle de Escala de Fonte (A- / A+):** Ajuste fino do tamanho do texto (de 85% a 130%), persistido automaticamente no navegador via `localStorage`.
+* **Modo Tela Cheia (Fullscreen):** Botão dedicado na barra superior, ideal para totens de autoatendimento, smart TVs e quiosques nos corredores.
+* **Suporte a Redução de Movimento:** Respeita a preferência de acessibilidade do sistema (`prefers-reduced-motion`).
+* **Modo de Impressão Limpo:** Folha de estilos `@media print` otimizada para impressão física da grade sem elementos de navegação ou botões.
 
 ### 6. 🧪 Simulador de Data e Hora Integrado
-* Permite testar o comportamento do ensalamento em qualquer dia e horário do ano.
+* Permite simular e testar o comportamento do ensalamento em qualquer dia da semana e horário.
 * Acessível diretamente pelo parâmetro de URL `#simulador` ou `#diagnostico`.
 
 ---
@@ -64,23 +54,21 @@ O sistema foi concebido para digitalizar e aprimorar a experiência dos murais f
 
 ```
 EnsalamentoSantoAgostinho/
-├── index.html       # Aplicação completa (HTML5 + CSS3 + JS Vanilla)
-├── README.md        # Documentação completa do projeto
-├── LICENSE          # Licença livre MIT
-├── .gitignore       # Arquivos e pastas excluídos do versionamento
-└── docs/
-    └── img/         # Imagens de referência dos murais físicos
+├── index.html       # Aplicação completa (HTML5 + CSS3 + JavaScript Vanilla)
+├── README.md        # Documentação do projeto
+├── LICENSE          # Licença de código aberto MIT
+└── .gitignore       # Arquivos e pastas excluídos do versionamento
 ```
 
-* **Single-File Architecture:** Todo o sistema reside no [`index.html`](./index.html). Não há dependência de servidores Node.js, compilação Webpack, bundlers ou frameworks externos (React, Vue, Angular).
-* **Zero Dependências:** Funciona 100% offline nativamente. Basta baixar e clicar duas vezes para abrir em qualquer navegador moderno (Chrome, Edge, Firefox, Safari).
-* **Desempenho Extremo:** Carregamento inicial em menos de 50ms, renderização DOM instantânea via JS puro e zero requisições bloqueantes.
+* **Single-File Architecture:** Todo o sistema reside no arquivo [`index.html`](./index.html). Não há necessidade de Node.js, Webpack, Vite ou bibliotecas de terceiros.
+* **Zero Dependências:** Funciona 100% offline nativamente. Basta abrir o arquivo em qualquer navegador moderno (Chrome, Edge, Firefox, Safari).
+* **Desempenho Extremo:** Carregamento instantâneo, renderização nativa de elementos DOM e zero requisições externas bloqueantes.
 
 ---
 
 ## 🔒 Segurança e Privacidade
 
-Este projeto foi construído seguindo diretrizes rigorosas de segurança na web:
+O projeto foi construído seguindo diretrizes rigorosas de segurança na web:
 
 1. **Content Security Policy (CSP) Estrita:**
    O cabeçalho meta CSP está configurado com a política de menor privilégio:
@@ -88,64 +76,65 @@ Este projeto foi construído seguindo diretrizes rigorosas de segurança na web:
    <meta http-equiv="Content-Security-Policy"
          content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src data:; connect-src 'none'; base-uri 'none'; form-action 'none'">
    ```
-   * Impede carregamento de scripts externos, injeções maliciosas e conexões de rede não autorizadas.
+   * Bloqueia injeções de scripts externos maliciosos e impede conexões de rede não autorizadas.
 2. **Zero Telemetria e Coleta de Dados:**
-   * O sistema não possui rastreadores, analytics, cookies de terceiros ou formulários com envio externo.
-   * As preferências de fonte e aba são salvas exclusivamente no navegador do próprio usuário via `localStorage`.
+   * O sistema não possui rastreadores, analytics ou cookies.
+   * As preferências de acessibilidade e aba ativa são mantidas exclusivamente no armazenamento local do usuário (`localStorage`).
 3. **Prevenção contra XSS:**
-   * Toda manipulação de interface utiliza métodos seguros do DOM (`textContent`, `createElementNS`, `setAttribute`), evitando o uso perigoso de `innerHTML`.
+   * Toda manipulação de interface utiliza métodos seguros do DOM (`textContent`, `createElementNS`, `setAttribute`), eliminando vulnerabilidades de injeção HTML.
 4. **Política de Referrer Estrita:**
-   * Definido como `no-referrer` para não vazar URLs em navegações internas.
+   * Definido como `no-referrer` para preservar a privacidade do usuário durante a navegação.
 
 ---
 
 ## 🚀 Como Executar e Hospedar
 
 ### Execução Local (Sem Servidor)
-1. Clone ou baixe este repositório:
+1. Clone este repositório:
    ```bash
-   git clone https://github.com/SEU-USUARIO/EnsalamentoSantoAgostinho.git
+   git clone https://github.com/raimundoalvesstb/EnsalamentoSantoAgostinho.git
    ```
-2. Abra a pasta e dê um duplo clique no arquivo [`index.html`](./index.html).
+2. Abra a pasta do projeto e dê um duplo clique no arquivo [`index.html`](./index.html).
 3. O sistema funcionará imediatamente em seu navegador padrão.
 
 ### Hospedagem Gratuita no GitHub Pages
-1. Crie um repositório no seu GitHub e faça o push dos arquivos deste projeto.
-2. Acesse seu repositório no GitHub e clique em **Settings** (Configurações).
+1. Acesse o repositório no GitHub: [raimundoalvesstb/EnsalamentoSantoAgostinho](https://github.com/raimundoalvesstb/EnsalamentoSantoAgostinho).
+2. Clique na aba **Settings** (Configurações).
 3. No menu lateral esquerdo, clique em **Pages**.
-4. Em **Build and deployment** > **Branch**:
-   * Selecione a branch `main` (ou `master`).
+4. Na seção **Build and deployment** > **Branch**:
+   * Selecione a branch `main`.
    * Selecione a pasta `/ (root)`.
    * Clique em **Save**.
-5. Em poucos instantes, o GitHub Pages fornecerá o link público seguro (`https://seu-usuario.github.io/EnsalamentoSantoAgostinho/`).
+5. O sistema estará disponível publicamente em:
+   **[https://raimundoalvesstb.github.io/EnsalamentoSantoAgostinho/](https://raimundoalvesstb.github.io/EnsalamentoSantoAgostinho/)**
 
 ---
 
 ## 🤝 Como Contribuir
 
-Contribuições da comunidade escolar, professores e desenvolvedores são muito bem-vindas!
+Contribuições da comunidade escolar e de desenvolvedores são bem-vindas:
 
-1. Faça um **Fork** do projeto.
-2. Crie uma branch para sua funcionalidade ou correção:
+1. Faça um **Fork** do repositório.
+2. Crie uma branch para sua modificação:
    ```bash
-   git checkout -b feature/nova-funcionalidade
+   git checkout -b feature/minha-melhoria
    ```
-3. Faça suas alterações com código limpo e documentado.
-4. Confirme suas alterações (*commit*):
+3. Realize suas alterações mantendo o código limpo e dentro do arquivo único.
+4. Salve suas alterações (*commit*):
    ```bash
-   git commit -m "feat: Adiciona suporte a novo turno matutino"
+   git commit -m "feat: Adiciona melhoria no sistema de busca"
    ```
-5. Envie para o seu repositório remoto (*push*):
+5. Envie para o seu repositório (*push*):
    ```bash
-   git push origin feature/nova-funcionalidade
+   git push origin feature/minha-melhoria
    ```
-6. Abra um **Pull Request** detalhando as melhorias realizadas.
+6. Abra um **Pull Request** explicando as alterações realizadas.
 
 ---
 
 ## 📄 Licença Livre (Open Source)
 
-Este projeto está licenciado sob a **Licença MIT** — você é livre para usar, estudar, modificar, distribuir e adaptar este software para qualquer instituição educacional ou privada.
+Este projeto está licenciado sob a **Licença MIT** — você tem liberdade total para usar, estudar, modificar, distribuir e adaptar este software para qualquer instituição educacional ou privada.
 
 Consulte o arquivo [`LICENSE`](./LICENSE) para o texto completo da licença.
 
