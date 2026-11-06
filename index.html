@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta http-equiv="Content-Security-Policy"
-      content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src data:; connect-src 'none'; base-uri 'none'; form-action 'none'">
+      content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src data:; connect-src 'self' https://docs.google.com https://*.googleusercontent.com; base-uri 'none'; form-action 'none'">
 <meta name="referrer" content="no-referrer">
 <meta name="theme-color" content="#1F3A8A">
 <title>Ensalamento · Escola Santo Agostinho</title>
@@ -2093,11 +2093,6 @@ body {
      BLOCO 4: REGRAS DE NEGÓCIO
      ================================================================ */
 
-  var indicePorProfessor = {};
-  var indicePorTurma = {};
-  var listaDeProfessoresOrdenada = [];
-  var disciplinasPorProfessor = {};
-
   function construirIndicesDeBusca() {
     indicePorProfessor = {};
     indicePorTurma = {};
@@ -2982,12 +2977,6 @@ body {
      destacando a sala da aula atual e esmaecendo as demais.
      ================================================================ */
 
-  var LAYOUT_PISOS = {
-    1: { turmas: ['8A', '7C', '7A'] },
-    2: { turmas: ['7D', '6A', '6B', '7B'] },
-    3: { turmas: ['ROBOTICA', '9C', '8B', '8C'] }
-  };
-
   var COR_PISO = {
     1: { fundo: '#1E6FD9', texto: '#FFFFFF' },
     2: { fundo: '#2E9D42', texto: '#FFFFFF' },
@@ -2995,6 +2984,7 @@ body {
   };
 
   function gerarRotuloTurma(codigo) {
+    if (!codigo) return '';
     if (codigo.indexOf('ROBOTICA') !== -1 || codigo.indexOf('TV') !== -1) return 'TV';
     if (codigo.length >= 2 && !isNaN(parseInt(codigo.charAt(0), 10))) {
       return codigo.charAt(0) + '\u00BA' + codigo.substring(1);
@@ -3003,10 +2993,12 @@ body {
   }
 
   function gerarMiniMapaPiso(piso, turmaDestaque) {
-    var layout = LAYOUT_PISOS[piso];
+    var layout = LAYOUT_PISOS ? LAYOUT_PISOS[piso] : null;
     if (!layout) return null;
 
-    var turmas = layout.turmas;
+    var turmas = Array.isArray(layout) ? layout : (layout.turmas || []);
+    if (!turmas || turmas.length === 0) return null;
+
     var cores = COR_PISO[piso] || { fundo: '#1F3A8A', texto: '#FFFFFF' };
 
     // Dimensões do SVG
@@ -3086,8 +3078,9 @@ body {
     for (var i = 0; i < turmas.length; i++) {
       var codigo = turmas[i];
       var xSala = badgeLargura + espacamento + i * (salasLargura + espacamento);
-      var estaDestacada = (codigo === turmaDestaque);
-      var ehTv = (codigo === 'ROBOTICA' || codigo === 'TV_INTERATIVA');
+      var ehTv = (codigo === 'ROBOTICA' || codigo === 'TV_INTERATIVA' || codigo.indexOf('ROBOTICA') !== -1 || codigo.indexOf('TV') !== -1);
+      var ehTvDestaque = (turmaDestaque && (turmaDestaque === 'ROBOTICA' || turmaDestaque === 'TV_INTERATIVA' || turmaDestaque.indexOf('ROBOTICA') !== -1 || turmaDestaque.indexOf('TV') !== -1));
+      var estaDestacada = (codigo === turmaDestaque || (ehTv && ehTvDestaque));
 
       var g = document.createElementNS(ns, 'g');
       if (!estaDestacada) g.setAttribute('opacity', '0.38');
@@ -3372,7 +3365,8 @@ body {
 
     if (aulas.length === 0) {
       var msg = criarElementoSeguro('div', { className: 'mensagem-estado' });
-      var textoMsg = criarElementoSeguro('p', { className: 'mensagem-estado-texto' }, 'Este professor n\u00E3o tem aulas \u00E0 tarde neste dia.');
+      var turnoTexto = (estadoDoSistema.turnoAtivo === 'MANHA' ? 'de manh\u00E3' : '\u00E0 tarde');
+      var textoMsg = criarElementoSeguro('p', { className: 'mensagem-estado-texto' }, 'Este(a) professor(a) n\u00E3o tem aulas ' + turnoTexto + ' neste dia.');
       msg.appendChild(textoMsg);
 
       // Dias com aula
@@ -3442,9 +3436,9 @@ body {
     var gradeTurmas = criarElementoSeguro('div', { className: 'grade-de-turmas' });
 
     var pisos = [
-      { piso: 1, rotulo: 'Piso 1', turmas: (LAYOUT_PISOS && LAYOUT_PISOS[1]) ? LAYOUT_PISOS[1] : [] },
-      { piso: 2, rotulo: 'Piso 2', turmas: (LAYOUT_PISOS && LAYOUT_PISOS[2]) ? LAYOUT_PISOS[2] : [] },
-      { piso: 3, rotulo: 'Piso 3', turmas: (LAYOUT_PISOS && LAYOUT_PISOS[3]) ? LAYOUT_PISOS[3] : [] }
+      { piso: 1, rotulo: 'Piso 1', turmas: (LAYOUT_PISOS && LAYOUT_PISOS[1]) ? (Array.isArray(LAYOUT_PISOS[1]) ? LAYOUT_PISOS[1] : (LAYOUT_PISOS[1].turmas || [])) : [] },
+      { piso: 2, rotulo: 'Piso 2', turmas: (LAYOUT_PISOS && LAYOUT_PISOS[2]) ? (Array.isArray(LAYOUT_PISOS[2]) ? LAYOUT_PISOS[2] : (LAYOUT_PISOS[2].turmas || [])) : [] },
+      { piso: 3, rotulo: 'Piso 3', turmas: (LAYOUT_PISOS && LAYOUT_PISOS[3]) ? (Array.isArray(LAYOUT_PISOS[3]) ? LAYOUT_PISOS[3] : (LAYOUT_PISOS[3].turmas || [])) : [] }
     ];
 
     for (var p = 0; p < pisos.length; p++) {
