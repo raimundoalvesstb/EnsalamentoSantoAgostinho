@@ -186,91 +186,116 @@ body {
   text-shadow: 1px 1px 2px rgba(0,0,0,.2);
 }
 
-/* --- Faixa Tarde --- */
+/* --- Faixa de Turno (Mobile-First) --- */
 .faixa-turno {
-  background: linear-gradient(135deg, var(--cor-laranja-tarde) 0%, #E87A10 100%);
+  box-sizing: border-box;
+  width: calc(100% - 24px);
+  max-width: 440px;
+  margin: -14px auto 0;
+  padding: 6px 12px 6px 14px;
   color: #fff;
-  text-align: center;
-  padding: 6px 16px;
-  font-weight: 800;
-  font-size: clamp(0.88rem, 2.4vw, 1.12rem);
-  letter-spacing: 1.5px;
-  display: inline-flex;
+  display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 12px;
+  justify-content: space-between;
+  gap: 8px;
   position: relative;
-  z-index: 3;
-  border-radius: 16px;
-  box-shadow: 0 4px 14px rgba(245,138,31,.35);
-  margin: -10px auto 0;
-  left: 50%;
-  transform: translateX(-50%);
-  max-width: 92%;
-  transition: background 0.3s ease, box-shadow 0.3s ease;
+  z-index: 4;
+  border-radius: 20px;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.16);
+  transition: background 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
 }
 
 .faixa-turno--manha {
   background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
-  box-shadow: 0 4px 14px rgba(2,132,199,.35);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  box-shadow: 0 3px 10px rgba(2, 132, 199, 0.28);
 }
 
 .faixa-turno--tarde {
-  background: linear-gradient(135deg, var(--cor-laranja-tarde) 0%, #E87A10 100%);
-  box-shadow: 0 4px 14px rgba(245,138,31,.35);
+  background: linear-gradient(135deg, #f58a1f 0%, #e87a10 100%);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  box-shadow: 0 3px 10px rgba(245, 138, 31, 0.28);
 }
 
 .faixa-turno-conteudo {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: 7px;
+  min-width: 0;
+  flex-shrink: 0;
+}
+
+.icone-faixa,
+.faixa-turno .icone-faixa {
+  width: 18px !important;
+  height: 18px !important;
+  min-width: 18px !important;
+  min-height: 18px !important;
+  max-width: 18px !important;
+  max-height: 18px !important;
+  flex-shrink: 0;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.faixa-turno-texto {
+  font-size: clamp(0.78rem, 2.2vw, 0.88rem);
+  font-weight: 900;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  white-space: nowrap;
 }
 
 .faixa-turno-seletor {
   display: inline-flex;
   align-items: center;
-  background: rgba(0, 0, 0, 0.22);
-  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.32);
+  border-radius: 16px;
   padding: 2px;
-  margin-left: 4px;
+  gap: 2px;
+  flex-shrink: 0;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.22);
 }
 
 .btn-turno-opcao {
   background: transparent;
   border: none;
-  color: rgba(255, 255, 255, 0.78);
-  font-size: 0.72rem;
+  color: rgba(255, 255, 255, 0.88);
+  font-size: 0.74rem;
   font-weight: 700;
-  padding: 3px 9px;
-  border-radius: 9px;
+  padding: 4px 11px;
+  min-height: 28px;
+  border-radius: 12px;
   cursor: pointer;
-  letter-spacing: 0.5px;
-  transition: all 0.2s ease;
+  letter-spacing: 0.3px;
+  transition: all 0.15s ease;
   font-family: inherit;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
 }
 
 .btn-turno-opcao:hover {
   color: #fff;
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.18);
 }
 
 .btn-turno-opcao--ativo {
-  background: #fff;
-  color: #1E293B;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+  background: #ffffff !important;
+  color: #0f172a !important;
+  font-weight: 900 !important;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
 }
 
 .faixa-turno--manha .btn-turno-opcao--ativo {
-  color: #0369a1;
+  color: #0369a1 !important;
 }
 
 .faixa-turno--tarde .btn-turno-opcao--ativo {
-  color: #C05600;
-}
-.faixa-tarde .icone-faixa {
-  width: 24px; height: 24px;
-  margin: 0 10px;
-  flex-shrink: 0;
+  color: #c05600 !important;
 }
 
 /* --- Relógio e Situação --- */
@@ -1267,6 +1292,37 @@ body {
   body { font-size: calc(1.1rem * var(--escala-fonte)); }
 }
 
+@media (max-width: 480px) {
+  .cabecalho-do-sistema {
+    padding: 6px 10px 22px;
+  }
+  .cabecalho-frase {
+    display: none;
+  }
+  .painel-relogio {
+    padding: 12px 6px 6px;
+  }
+  .relogio-hora {
+    font-size: 1.65rem;
+  }
+  .conteiner-busca-global {
+    margin: 8px 0 8px;
+  }
+  .faixa-turno {
+    margin-top: -12px;
+    padding: 5px 8px 5px 10px;
+    max-width: 380px;
+  }
+  .faixa-turno-texto {
+    font-size: 0.78rem;
+  }
+  .btn-turno-opcao {
+    padding: 3px 9px;
+    font-size: 0.7rem;
+    min-height: 26px;
+  }
+}
+
 @media (orientation: landscape) and (max-height: 480px) {
   .cabecalho-do-sistema { padding: 8px 12px 6px; }
   .cabecalho-titulo { font-size: 1.2rem; }
@@ -1428,16 +1484,15 @@ body {
     </div>
   </header>
 
-  <!-- ===== Faixa de Turno Interativa e Autônoma ===== -->
-  <div class="faixa-turno faixa-turno--tarde" id="faixa-turno" role="region" aria-label="Turno escolar">
+  <!-- ===== Faixa de Turno Interativa e Autônoma (Mobile-First) ===== -->
+  <div class="faixa-turno faixa-turno--manha" id="faixa-turno" role="region" aria-label="Turno escolar">
     <div class="faixa-turno-conteudo" id="faixa-turno-conteudo">
-      <svg class="icone-faixa" id="icone-faixa-esquerda" aria-hidden="true"><use href="#icone-sol" xlink:href="#icone-sol"/></svg>
-      <span class="faixa-turno-texto" id="faixa-turno-texto">TARDE</span>
-      <svg class="icone-faixa" id="icone-faixa-direita" aria-hidden="true"><use href="#icone-mochila" xlink:href="#icone-mochila"/></svg>
+      <svg class="icone-faixa" id="icone-faixa-esquerda" aria-hidden="true" width="18" height="18"><use href="#icone-sol" xlink:href="#icone-sol"/></svg>
+      <span class="faixa-turno-texto" id="faixa-turno-texto">MANHÃ</span>
     </div>
-    <div class="faixa-turno-seletor" id="faixa-turno-seletor" title="Alternar visualização entre Manhã e Tarde">
-      <button type="button" class="btn-turno-opcao" id="btn-turno-manha" aria-label="Ver turno da Manhã">Manhã</button>
-      <button type="button" class="btn-turno-opcao btn-turno-opcao--ativo" id="btn-turno-tarde" aria-label="Ver turno da Tarde">Tarde</button>
+    <div class="faixa-turno-seletor" id="faixa-turno-seletor" role="group" aria-label="Alternar entre turnos">
+      <button type="button" class="btn-turno-opcao btn-turno-opcao--ativo" id="btn-turno-manha" aria-label="Ver turno da Manhã" aria-pressed="true">Manhã</button>
+      <button type="button" class="btn-turno-opcao" id="btn-turno-tarde" aria-label="Ver turno da Tarde" aria-pressed="false">Tarde</button>
     </div>
   </div>
 
@@ -1993,24 +2048,33 @@ body {
     var btnM = document.getElementById('btn-turno-manha');
     var btnT = document.getElementById('btn-turno-tarde');
     var icoEsq = document.getElementById('icone-faixa-esquerda');
-    var icoDir = document.getElementById('icone-faixa-direita');
 
     if (!faixa) return;
 
     if (estadoDoSistema.turnoAtivo === 'MANHA') {
       faixa.className = 'faixa-turno faixa-turno--manha';
       if (texto) texto.textContent = 'MANHÃ';
-      if (btnM) btnM.classList.add('btn-turno-opcao--ativo');
-      if (btnT) btnT.classList.remove('btn-turno-opcao--ativo');
+      if (btnM) {
+        btnM.classList.add('btn-turno-opcao--ativo');
+        btnM.setAttribute('aria-pressed', 'true');
+      }
+      if (btnT) {
+        btnT.classList.remove('btn-turno-opcao--ativo');
+        btnT.setAttribute('aria-pressed', 'false');
+      }
       if (icoEsq) icoEsq.innerHTML = '<use href="#icone-sol" xlink:href="#icone-sol"/>';
-      if (icoDir) icoDir.innerHTML = '<use href="#icone-livros" xlink:href="#icone-livros"/>';
     } else {
       faixa.className = 'faixa-turno faixa-turno--tarde';
       if (texto) texto.textContent = 'TARDE';
-      if (btnT) btnT.classList.add('btn-turno-opcao--ativo');
-      if (btnM) btnM.classList.remove('btn-turno-opcao--ativo');
+      if (btnT) {
+        btnT.classList.add('btn-turno-opcao--ativo');
+        btnT.setAttribute('aria-pressed', 'true');
+      }
+      if (btnM) {
+        btnM.classList.remove('btn-turno-opcao--ativo');
+        btnM.setAttribute('aria-pressed', 'false');
+      }
       if (icoEsq) icoEsq.innerHTML = '<use href="#icone-sol" xlink:href="#icone-sol"/>';
-      if (icoDir) icoDir.innerHTML = '<use href="#icone-mochila" xlink:href="#icone-mochila"/>';
     }
   }
 
