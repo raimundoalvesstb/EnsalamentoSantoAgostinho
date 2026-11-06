@@ -187,25 +187,85 @@ body {
 }
 
 /* --- Faixa Tarde --- */
-.faixa-tarde {
+.faixa-turno {
   background: linear-gradient(135deg, var(--cor-laranja-tarde) 0%, #E87A10 100%);
   color: #fff;
   text-align: center;
-  padding: 8px 18px;
+  padding: 6px 16px;
   font-weight: 800;
-  font-size: clamp(0.88rem, 2.4vw, 1.15rem);
-  letter-spacing: 2px;
+  font-size: clamp(0.88rem, 2.4vw, 1.12rem);
+  letter-spacing: 1.5px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  gap: 12px;
   position: relative;
   z-index: 3;
-  border-radius: 14px;
+  border-radius: 16px;
   box-shadow: 0 4px 14px rgba(245,138,31,.35);
   margin: -10px auto 0;
   left: 50%;
   transform: translateX(-50%);
-  max-width: 90%;
+  max-width: 92%;
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+
+.faixa-turno--manha {
+  background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+  box-shadow: 0 4px 14px rgba(2,132,199,.35);
+}
+
+.faixa-turno--tarde {
+  background: linear-gradient(135deg, var(--cor-laranja-tarde) 0%, #E87A10 100%);
+  box-shadow: 0 4px 14px rgba(245,138,31,.35);
+}
+
+.faixa-turno-conteudo {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.faixa-turno-seletor {
+  display: inline-flex;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.22);
+  border-radius: 12px;
+  padding: 2px;
+  margin-left: 4px;
+}
+
+.btn-turno-opcao {
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 3px 9px;
+  border-radius: 9px;
+  cursor: pointer;
+  letter-spacing: 0.5px;
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+
+.btn-turno-opcao:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.btn-turno-opcao--ativo {
+  background: #fff;
+  color: #1E293B;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+}
+
+.faixa-turno--manha .btn-turno-opcao--ativo {
+  color: #0369a1;
+}
+
+.faixa-turno--tarde .btn-turno-opcao--ativo {
+  color: #C05600;
 }
 .faixa-tarde .icone-faixa {
   width: 24px; height: 24px;
@@ -1212,7 +1272,8 @@ body {
   .cabecalho-titulo { font-size: 1.2rem; }
   .cabecalho-subtitulo { margin: 4px 0 2px; font-size: 0.7rem; }
   .cabecalho-frase { display: none; }
-  .faixa-tarde { margin-top: -4px; padding: 4px 12px; }
+  .faixa-turno { margin-top: -4px; padding: 4px 10px; }
+  .btn-turno-opcao { font-size: 0.65rem; padding: 2px 6px; }
 }
 
 /* ===== 7. IMPRESSÃO ===== */
@@ -1367,11 +1428,17 @@ body {
     </div>
   </header>
 
-  <!-- ===== Faixa Tarde ===== -->
-  <div class="faixa-tarde" role="banner">
-    <svg class="icone-faixa"><use href="#icone-sol" xlink:href="#icone-sol"/></svg>
-    TARDE
-    <svg class="icone-faixa"><use href="#icone-mochila" xlink:href="#icone-mochila"/></svg>
+  <!-- ===== Faixa de Turno Interativa e Autônoma ===== -->
+  <div class="faixa-turno faixa-turno--tarde" id="faixa-turno" role="region" aria-label="Turno escolar">
+    <div class="faixa-turno-conteudo" id="faixa-turno-conteudo">
+      <svg class="icone-faixa" id="icone-faixa-esquerda" aria-hidden="true"><use href="#icone-sol" xlink:href="#icone-sol"/></svg>
+      <span class="faixa-turno-texto" id="faixa-turno-texto">TARDE</span>
+      <svg class="icone-faixa" id="icone-faixa-direita" aria-hidden="true"><use href="#icone-mochila" xlink:href="#icone-mochila"/></svg>
+    </div>
+    <div class="faixa-turno-seletor" id="faixa-turno-seletor" title="Alternar visualização entre Manhã e Tarde">
+      <button type="button" class="btn-turno-opcao" id="btn-turno-manha" aria-label="Ver turno da Manhã">Manhã</button>
+      <button type="button" class="btn-turno-opcao btn-turno-opcao--ativo" id="btn-turno-tarde" aria-label="Ver turno da Tarde">Tarde</button>
+    </div>
   </div>
 
   <!-- ===== Conteúdo principal ===== -->
@@ -1476,224 +1543,436 @@ body {
     escola: 'Escola Santo Agostinho',
     cidade: 'Curitiba-PR',
     trimestre: '3º TRIMESTRE',
-    periodo: 'TARDE',
     frase: 'Cada sala, uma nova oportunidade de aprender e crescer!',
     rodape: 'ORGANIZAÇÃO HOJE, SUCESSO SEMPRE!',
-    versao: '1.2.2',
-    dataDaGrade: '2026-11-02',
+    versao: '2.0.0',
+    dataDaGrade: '2026-11-06',
     ordemPassadas: 'recentePrimeiro',
     diasSemAula: [],
-    planilhaReferencia: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTDShNqmzRfT55s0qN3leOuT2PGT9kEhto3tL8PThs2mgLgQYc7lNrdX-3xE33MB58PJM5QqpNCxwro/pubhtml',
-    // Definição dos turnos escolares conforme planilha oficial de Gestão Escolar
-    turnos: {
-      MANHA: {
-        nome: 'Manhã',
-        horarios: [
-          { numero: 1, inicio: '07:30', fim: '08:20' },
-          { numero: 2, inicio: '08:20', fim: '09:10' },
-          { numero: 3, inicio: '09:10', fim: '10:00' },
-          { numero: 4, inicio: '10:15', fim: '11:05' },
-          { numero: 5, inicio: '11:05', fim: '11:55' }
-        ],
-        intervalo: { inicio: '10:00', fim: '10:15' },
-        ordemCronograma: ['2B', '3A', '9B', '2A', '3B', '3C', '9A', '1A', '1B', '1C_2C', 'TV_INTERATIVA_M']
-      },
-      TARDE: {
-        nome: 'Tarde',
-        horarios: [
-          { numero: 1, inicio: '13:00', fim: '13:50' },
-          { numero: 2, inicio: '13:50', fim: '14:40' },
-          { numero: 3, inicio: '14:40', fim: '15:30' },
-          { numero: 4, inicio: '15:40', fim: '16:30' },
-          { numero: 5, inicio: '16:30', fim: '17:20' }
-        ],
-        intervalo: { inicio: '15:30', fim: '15:40' },
-        ordemCronograma: ['7A', '7C', '8A', '6A', '6B', '7B', '7D', '8B', '8C', '9C', 'ROBOTICA']
-      }
-    },
-    // Horários ativos consumidos pelo sistema (Turno da Tarde oficial)
-    horarios: [
-      { numero: 1, inicio: '13:00', fim: '13:50' },
-      { numero: 2, inicio: '13:50', fim: '14:40' },
-      { numero: 3, inicio: '14:40', fim: '15:30' },
-      { numero: 4, inicio: '15:40', fim: '16:30' },
-      { numero: 5, inicio: '16:30', fim: '17:20' }
-    ],
+    // Endpoints oficiais da planilha Google Docs (com CORS público nativo)
+    planilhaCsvUrl: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQVa_dfbd5NF4lSBPogSGeUqcpW82Vimu_yWCLcx3AtbRALa-mM7nEUtoNa2YiZ8gBfKW2jjkTNfbY-/pub?output=csv&gid=35603240',
+    planilhaPubhtmlUrl: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQVa_dfbd5NF4lSBPogSGeUqcpW82Vimu_yWCLcx3AtbRALa-mM7nEUtoNa2YiZ8gBfKW2jjkTNfbY-/pubhtml?gid=35603240&single=true',
+    // Horário de corte autônomo entre turnos: 12:45 (fim da 6ª aula da manhã)
+    corteTurnoMinutos: 12 * 60 + 45,
+    // Horários e intervalo ativos alimentados dinamicamente pelo turno ativo
+    horarios: [],
     intervalo: { inicio: '15:30', fim: '15:40' }
   };
 
-  var ORDEM_DAS_TURMAS = ['9C','6A','6B','7A','7B','7C','7D','8A','8B','8C','ROBOTICA'];
-
-  var SALAS_DAS_TURMAS = {
-    // --- TURNO DA TARDE (Oficial em Uso) ---
-    // Piso 1: 3 salas (8A, 7C, 7A)
-    '8A': { piso: 1, rotulo: 'Piso 1', salaNome: 'Sala 8º A', tvInterativa: false, turno: 'TARDE' },
-    '7C': { piso: 1, rotulo: 'Piso 1', salaNome: 'Sala 7º C', tvInterativa: false, turno: 'TARDE' },
-    '7A': { piso: 1, rotulo: 'Piso 1', salaNome: 'Sala 7º A', tvInterativa: false, turno: 'TARDE' },
-
-    // Piso 2: 4 salas (7D, 6A, 6B, 7B)
-    '7D': { piso: 2, rotulo: 'Piso 2', salaNome: 'Sala 7º D', tvInterativa: false, turno: 'TARDE' },
-    '6A': { piso: 2, rotulo: 'Piso 2', salaNome: 'Sala 6º A', tvInterativa: false, turno: 'TARDE' },
-    '6B': { piso: 2, rotulo: 'Piso 2', salaNome: 'Sala 6º B', tvInterativa: false, turno: 'TARDE' },
-    '7B': { piso: 2, rotulo: 'Piso 2', salaNome: 'Sala 7º B', tvInterativa: false, turno: 'TARDE' },
-
-    // Piso 3 e Oficinas: 4 salas (TV Interativa, 9C, 8B, 8C, Robótica)
-    'ROBOTICA':        { piso: 3, rotulo: 'Piso 3 · TV Interativa', salaNome: 'TV Interativa', tvInterativa: true, turno: 'TARDE' },
-    'ROBOTICA_T':      { piso: 3, rotulo: 'Piso 3 · TV Interativa', salaNome: 'TV Interativa', tvInterativa: true, turno: 'TARDE' },
-    'TV_INTERATIVA':   { piso: 3, rotulo: 'Piso 3 · TV Interativa', salaNome: 'TV Interativa', tvInterativa: true, turno: 'TARDE' },
-    '9C':              { piso: 3, rotulo: 'Piso 3', salaNome: 'Sala 9º C', tvInterativa: false, turno: 'TARDE' },
-    '8B':              { piso: 3, rotulo: 'Piso 3', salaNome: 'Sala 8º B', tvInterativa: false, turno: 'TARDE' },
-    '8C':              { piso: 3, rotulo: 'Piso 3', salaNome: 'Sala 8º C', tvInterativa: false, turno: 'TARDE' },
-
-    // --- TURNO DA MANHÃ (Ensalamento Oficial da Planilha) ---
-    // Piso 1: 3 salas (3A, 2B, 9B)
-    '3A': { piso: 1, rotulo: 'Piso 1', salaNome: 'Sala 3º A', tvInterativa: false, turno: 'MANHA' },
-    '2B': { piso: 1, rotulo: 'Piso 1', salaNome: 'Sala 2º B', tvInterativa: false, turno: 'MANHA' },
-    '9B': { piso: 1, rotulo: 'Piso 1', salaNome: 'Sala 9º B', tvInterativa: false, turno: 'MANHA' },
-
-    // Piso 2: 4 salas (2A, 9A, 3C, 3B)
-    '2A': { piso: 2, rotulo: 'Piso 2', salaNome: 'Sala 2º A', tvInterativa: false, turno: 'MANHA' },
-    '9A': { piso: 2, rotulo: 'Piso 2', salaNome: 'Sala 9º A', tvInterativa: false, turno: 'MANHA' },
-    '3C': { piso: 2, rotulo: 'Piso 2', salaNome: 'Sala 3º C', tvInterativa: false, turno: 'MANHA' },
-    '3B': { piso: 2, rotulo: 'Piso 2', salaNome: 'Sala 3º B', tvInterativa: false, turno: 'MANHA' },
-
-    // Piso 3: 4 salas (TV Interativa, 1A, 1B, 1C/2C)
-    'TV_INTERATIVA_M': { piso: 3, rotulo: 'Piso 3 · TV Interativa', salaNome: 'TV Interativa', tvInterativa: true, turno: 'MANHA' },
-    '1A':              { piso: 3, rotulo: 'Piso 3', salaNome: 'Sala 1º A', tvInterativa: false, turno: 'MANHA' },
-    '1B':              { piso: 3, rotulo: 'Piso 3', salaNome: 'Sala 1º B', tvInterativa: false, turno: 'MANHA' },
-    '1C_2C':           { piso: 3, rotulo: 'Piso 3', salaNome: 'Sala 1º C / 2º C', tvInterativa: false, turno: 'MANHA' }
-  };
-
-  var DISCIPLINAS = {
-    'HIST':  'Hist\u00F3ria',
-    'GEO':   'Geografia',
-    'MAT':   'Matem\u00E1tica',
-    'CIEN':  'Ci\u00EAncias',
-    'LPORT': 'L\u00EDngua Portuguesa',
-    'LING':  'L\u00EDngua Inglesa',
-    'EDFI':  'Educa\u00E7\u00E3o F\u00EDsica',
-    'EREL':  'Ensino Religioso',
-    'REDA':  'Reda\u00E7\u00E3o',
-    'RECMT': 'Recomposi\u00E7\u00E3o de Matem\u00E1tica',
-    'RECLP': 'Recomposi\u00E7\u00E3o de L\u00EDngua Portuguesa',
-    'EDDIG': 'Educa\u00E7\u00E3o Digital',
-    '704':   '704',
-    'RPP':   'RPP',
-    'TUT':   'Tutoria'
-  };
-
-  var PROFESSORES = {
-    'AUREA':           '\u00C1urea',
-    'DANIELE':         'Daniele',
-    'DAVI':            'Davi',
-    'ELIANA':          'Eliana',
-    'ELIANE':          'Eliane',
-    'ELIANE PEREIRA':  'Eliane Pereira',
-    'EMANOEL':         'Emanoel',
-    'KARINE':          'Karine',
-    'LEONEL':          'Leonel',
-    'LILIAN':          'Lilian',
-    'MARCIA':          'M\u00E1rcia',
-    'MELISSA':         'Melissa',
-    'NOEMI':           'Noemi',
-    'PAULO':           'Paulo',
-    'PEDRO':           'Pedro',
-    'RAIMUNDO':        'Raimundo',
-    'RAPHAEL':         'Raphael',
-    'SIMONE':          'Simone',
-    'UBIRAJARA':       'Ubirajara',
-    'VOLNEI':          'Volnei'
+  /* Catálogo descritivo inteligente de disciplinas */
+  var NOMES_DISCIPLINAS_CONHECIDAS = {
+    'HIST': 'História', 'HISTPR': 'História (Prática)', 'HISI': 'História',
+    'GEO': 'Geografia', 'GEOI': 'Geografia', 'GEOPR': 'Geografia (Prática)',
+    'MAT': 'Matemática', 'MATII': 'Matemática', 'CIEN': 'Ciências',
+    'BIOL': 'Biologia', 'BIOII': 'Biologia',
+    'FISI': 'Física', 'FISII': 'Física', 'FISIII': 'Física',
+    'FISROB': 'Física / Robótica', 'FISTECN': 'Física Tecnológica',
+    'QUIM': 'Química', 'QUIMI': 'Química',
+    'LPORT': 'Língua Portuguesa', 'LITER': 'Literatura',
+    'LING': 'Língua Inglesa', 'LINGI': 'Língua Inglesa',
+    'EDFI': 'Educação Física', 'EREL': 'Ensino Religioso',
+    'REDA': 'Redação',
+    'RECMT': 'Recomposição de Matemática', 'RECLP': 'Recomposição de Língua Portuguesa',
+    'EDDIG': 'Educação Digital', 'EDFINAN': 'Educação Financeira',
+    'FILI': 'Filosofia', 'FILOS': 'Filosofia', 'SOCI': 'Sociologia',
+    'ARTPR': 'Arte (Prática)', 'ARTII': 'Arte', 'ROBE': 'Robótica',
+    '704': '704', 'RPP': 'RPP', 'TUT': 'Tutoria', 'PROJV': 'Projeto de Vida',
+    'ITPMEA': 'SENAI (ITPMEA)', 'IQPSI': 'SENAI (IQPSI)', 'ITIC': 'SENAI (ITIC)',
+    'IDPSST': 'SENAI (IDPSST)', 'SEA': 'SENAI (SEA)', 'SFSD': 'SENAI (SFSD)',
+    'FM': 'SENAI (FM)', 'FTA': 'SENAI (FTA)', 'DTDM': 'SENAI (DTDM)',
+    'TVA': 'SENAI (TVA)', 'SGCS': 'SENAI (SGCS)', '2301': 'SENAI (2301)',
+    'FE': 'SENAI (FE)', 'PB': 'SENAI (PB)'
   };
 
   /* ================================================================
-     BLOCO 2: DADOS_DA_GRADE
+     PARSER DINÂMICO DE CSV DA PLANILHA GOOGLE DOCS
+     Varre as seções 'TURNO DA MANHÃ' e 'TURNO DA TARDE', extraindo
+     turmas, pisos, horários, professores e montando os índices.
      ================================================================ */
 
-  /* ===== DADOS_DA_GRADE ===== */
-  /* Ordem das colunas: 9C, 6A, 6B, 7A, 7B, 7C, 7D, 8A, 8B, 8C, ROBOTICA
-     Cada dia tem 5 linhas (13:00, 13:50, 14:40, 15:40, 16:30). Célula vazia = sem aula. */
-  var DADOS_DA_GRADE = {
-    1: [
-      ['HIST|LEONEL','EDFI|DAVI','GEO|ELIANE','LPORT|ELIANA','CIEN|KARINE','MAT|UBIRAJARA','HIST|ELIANE PEREIRA','LPORT|AUREA','704|MELISSA','LING|NOEMI','RPP|RAPHAEL'],
-      ['HIST|LEONEL','704|SIMONE','LING|NOEMI','LPORT|ELIANA','EREL|ELIANE PEREIRA','MAT|UBIRAJARA','EDFI|DAVI','LPORT|AUREA','CIEN|KARINE','704|MELISSA','RPP|RAPHAEL'],
-      ['MAT|UBIRAJARA','MAT|LILIAN','LPORT|ELIANA','GEO|ELIANE','CIEN|KARINE','HIST|ELIANE PEREIRA','704|MELISSA','LING|NOEMI','REDA|AUREA','EDFI|DAVI',''],
-      ['704|MELISSA','CIEN|EMANOEL','HIST|LEONEL','HIST|ELIANE PEREIRA','LING|NOEMI','REDA|ELIANA','MAT|UBIRAJARA','GEO|ELIANE','CIEN|KARINE','REDA|AUREA',''],
-      ['CIEN|EMANOEL','HIST|LEONEL','704|SIMONE','MAT|LILIAN','MAT|UBIRAJARA','REDA|ELIANA','LING|NOEMI','704|MELISSA','EDFI|DAVI','REDA|AUREA','']
-    ],
-    2: [
-      ['EDFI|DAVI','HIST|LEONEL','EREL|ELIANE PEREIRA','REDA|ELIANA','GEO|ELIANE','CIEN|KARINE','704|MELISSA','REDA|AUREA','HIST|PAULO','MAT|PEDRO',''],
-      ['MAT|UBIRAJARA','LPORT|ELIANA','RECMT|VOLNEI','CIEN|KARINE','GEO|ELIANE','704|SIMONE','EREL|ELIANE PEREIRA','704|MELISSA','HIST|PAULO','MAT|PEDRO',''],
-      ['704|MELISSA','EREL|LEONEL','RECMT|VOLNEI','MAT|LILIAN','LPORT|AUREA','EREL|ELIANE PEREIRA','MAT|UBIRAJARA','EDFI|DAVI','MAT|PEDRO','CIEN|KARINE',''],
-      ['RECMT|VOLNEI','RECMT|LILIAN','HIST|LEONEL','704|SIMONE','EDFI|DAVI','LPORT|AUREA','LPORT|ELIANA','MAT|UBIRAJARA','704|MELISSA','CIEN|KARINE',''],
-      ['RECMT|VOLNEI','RECMT|LILIAN','EDFI|DAVI','EREL|ELIANE PEREIRA','704|SIMONE','GEO|ELIANE','LPORT|ELIANA','MAT|UBIRAJARA','LPORT|AUREA','704|MELISSA','']
-    ],
-    3: [
-      ['LPORT|DANIELE','LING|NOEMI','LPORT|ELIANA','HIST|ELIANE PEREIRA','CIEN|KARINE','EDFI|DAVI','MAT|UBIRAJARA','GEO|ELIANE','MAT|PEDRO','LPORT|AUREA',''],
-      ['LING|NOEMI','RECLP|ELIANA','CIEN|EMANOEL','EDFI|DAVI','HIST|ELIANE PEREIRA','GEO|ELIANE','MAT|UBIRAJARA','EDDIG|VOLNEI','CIEN|KARINE','LPORT|AUREA',''],
-      ['CIEN|EMANOEL','RECLP|ELIANA','GEO|ELIANE','MAT|LILIAN','HIST|ELIANE PEREIRA','MAT|UBIRAJARA','CIEN|KARINE','EDDIG|VOLNEI','LING|NOEMI','EDFI|DAVI',''],
-      ['MAT|UBIRAJARA','MAT|LILIAN','CIEN|EMANOEL','GEO|ELIANE','REDA|ELIANA','LING|NOEMI','CIEN|KARINE','LPORT|AUREA','EDFI|DAVI','EDDIG|VOLNEI',''],
-      ['MAT|UBIRAJARA','CIEN|EMANOEL','MAT|LILIAN','GEO|ELIANE','REDA|ELIANA','LPORT|AUREA','EDFI|DAVI','CIEN|KARINE','EDDIG|VOLNEI','LING|NOEMI','']
-    ],
-    4: [
-      ['GEO|MARCIA','GEO|ELIANE','LPORT|ELIANA','LING|NOEMI','MAT|UBIRAJARA','LPORT|AUREA','REDA|DANIELE','CIEN|KARINE','MAT|PEDRO','HIST|PAULO',''],
-      ['GEO|MARCIA','LING|NOEMI','LPORT|ELIANA','MAT|LILIAN','MAT|UBIRAJARA','CIEN|KARINE','REDA|DANIELE','HIST|PAULO','MAT|PEDRO','EDDIG|VOLNEI',''],
-      ['MAT|UBIRAJARA','LPORT|ELIANA','MAT|LILIAN','CIEN|KARINE','LPORT|AUREA','GEO|ELIANE','GEO|MARCIA','LING|NOEMI','EDDIG|VOLNEI','MAT|PEDRO',''],
-      ['RECLP|DANIELE','GEO|ELIANE','MAT|LILIAN','LPORT|ELIANA','EDFI|DAVI','HIST|ELIANE PEREIRA','LING|NOEMI','MAT|UBIRAJARA','GEO|MARCIA','MAT|PEDRO',''],
-      ['RECLP|DANIELE','MAT|LILIAN','LING|NOEMI','REDA|ELIANA','GEO|ELIANE','MAT|UBIRAJARA','HIST|ELIANE PEREIRA','EDFI|DAVI','REDA|AUREA','GEO|MARCIA','']
-    ],
-    5: [
-      ['LPORT|DANIELE','LPORT|ELIANA','EDFI|DAVI','CIEN|KARINE','LING|NOEMI','704|SIMONE','GEO|MARCIA','MAT|UBIRAJARA','LPORT|AUREA','HIST|PAULO',''],
-      ['LPORT|DANIELE','LPORT|ELIANA','704|SIMONE','EDFI|DAVI','MAT|UBIRAJARA','LING|NOEMI','GEO|MARCIA','CIEN|KARINE','LPORT|AUREA','HIST|PAULO',''],
-      ['EDFI|DAVI','704|SIMONE','MAT|LILIAN','LING|NOEMI','MAT|UBIRAJARA','CIEN|KARINE','LPORT|ELIANA','REDA|AUREA','HIST|PAULO','GEO|MARCIA',''],
-      ['GEO|MARCIA','EDFI|DAVI','RECLP|ELIANA','MAT|LILIAN','704|SIMONE','MAT|UBIRAJARA','CIEN|KARINE','HIST|PAULO','LING|NOEMI','LPORT|AUREA',''],
-      ['LING|NOEMI','MAT|LILIAN','RECLP|ELIANA','704|SIMONE','LPORT|AUREA','EDFI|DAVI','MAT|UBIRAJARA','HIST|PAULO','GEO|MARCIA','CIEN|KARINE','']
-    ]
-  };
-  /* ===== FIM DE DADOS_DA_GRADE ===== */
+  function parseCSV(text) {
+    var rows = [];
+    var currentRow = [];
+    var currentField = '';
+    var insideQuotes = false;
 
-  /* ===== DADOS_DA_GRADE_MANHA (Estrutura conforme Cronograma Geral e Ensalamento da Planilha) ===== */
-  /* Ordem das colunas da Manhã: 2B, 3A, 9B, 2A, 3B, 3C, 9A, 1A, 1B, 1C_2C, TV_INTERATIVA_M
-     Horários matutinos: 07:30, 08:20, 09:10, 10:15, 11:05 (Intervalo 10:00 - 10:15).
-     As células estão vazias aguardando a definição futura dos cronogramas. */
-  var ORDEM_DAS_TURMAS_MANHA = ['2B', '3A', '9B', '2A', '3B', '3C', '9A', '1A', '1B', '1C_2C', 'TV_INTERATIVA_M'];
-  var DADOS_DA_GRADE_MANHA = {
-    1: [
-      ['','','','','','','','','','',''],
-      ['','','','','','','','','','',''],
-      ['','','','','','','','','','',''],
-      ['','','','','','','','','','',''],
-      ['','','','','','','','','','','']
-    ],
-    2: [
-      ['','','','','','','','','','',''],
-      ['','','','','','','','','','',''],
-      ['','','','','','','','','','',''],
-      ['','','','','','','','','','',''],
-      ['','','','','','','','','','','']
-    ],
-    3: [
-      ['','','','','','','','','','',''],
-      ['','','','','','','','','','',''],
-      ['','','','','','','','','','',''],
-      ['','','','','','','','','','',''],
-      ['','','','','','','','','','','']
-    ],
-    4: [
-      ['','','','','','','','','','',''],
-      ['','','','','','','','','','',''],
-      ['','','','','','','','','','',''],
-      ['','','','','','','','','','',''],
-      ['','','','','','','','','','','']
-    ],
-    5: [
-      ['','','','','','','','','','',''],
-      ['','','','','','','','','','',''],
-      ['','','','','','','','','','',''],
-      ['','','','','','','','','','',''],
-      ['','','','','','','','','','','']
-    ]
-  };
+    for (var i = 0; i < text.length; i++) {
+      var char = text[i];
+      var nextChar = text[i + 1];
 
+      if (char === '"') {
+        if (insideQuotes && nextChar === '"') {
+          currentField += '"';
+          i++;
+        } else {
+          insideQuotes = !insideQuotes;
+        }
+      } else if (char === ',' && !insideQuotes) {
+        currentRow.push(currentField);
+        currentField = '';
+      } else if ((char === '\r' || char === '\n') && !insideQuotes) {
+        if (char === '\r' && nextChar === '\n') {
+          i++;
+        }
+        currentRow.push(currentField);
+        rows.push(currentRow);
+        currentRow = [];
+        currentField = '';
+      } else {
+        currentField += char;
+      }
+    }
+    if (currentField || currentRow.length > 0) {
+      currentRow.push(currentField);
+      rows.push(currentRow);
+    }
+    return rows;
+  }
+
+  function normalizarNome(nome) {
+    if (!nome) return '';
+    nome = nome.trim().replace(/\s+/g, ' ');
+    if (nome.toUpperCase().indexOf('SENAI') === 0) return nome;
+    return nome.split(' ').map(function(p) {
+      var u = p.toUpperCase();
+      if (['DA', 'DE', 'DO', 'DOS', 'DAS', 'E'].indexOf(u) !== -1) return p.toLowerCase();
+      if (p.length <= 2) return p.charAt(0).toUpperCase() + p.slice(1).toLowerCase();
+      return p.charAt(0).toUpperCase() + p.slice(1).toLowerCase();
+    }).join(' ');
+  }
+
+  function processarPlanilhaCompleta(csvText) {
+    var rows = parseCSV(csvText);
+
+    var idxManha = -1;
+    var idxTarde = -1;
+
+    for (var i = 0; i < rows.length; i++) {
+      var line = rows[i].join(' ').toUpperCase();
+      if (line.indexOf('TURNO DA MANHÃ') !== -1) idxManha = i;
+      if (line.indexOf('TURNO DA TARDE') !== -1) idxTarde = i;
+    }
+
+    if (idxManha === -1 && idxTarde === -1) {
+      throw new Error('Seções dos turnos não localizadas no CSV');
+    }
+
+    function extrairTurno(startIdx, endIdx, nomeTurno, intervaloConfig) {
+      var rowPisos = rows[startIdx + 1];
+      var rowTurmas = rows[startIdx + 2];
+
+      var turmas = [];
+      var salas = {};
+      var pisosLayout = { 1: [], 2: [], 3: [] };
+
+      for (var c = 2; c < rowTurmas.length; c++) {
+        var turmaCod = (rowTurmas[c] || '').trim();
+        if (!turmaCod) continue;
+
+        var pisoStr = (rowPisos[c] || '').trim();
+        var pisoNum = 3;
+        if (pisoStr.indexOf('1') !== -1) pisoNum = 1;
+        else if (pisoStr.indexOf('2') !== -1) pisoNum = 2;
+        else if (pisoStr.indexOf('3') !== -1) pisoNum = 3;
+
+        var isTv = turmaCod.indexOf('ROBOTICA') !== -1 || turmaCod.indexOf('TV') !== -1;
+        var rotulo = 'Piso ' + pisoNum + (isTv ? ' · TV Interativa' : '');
+        var salaNome = isTv ? 'TV Interativa' : (
+          turmaCod.length >= 2 && !isNaN(parseInt(turmaCod.charAt(0), 10)) ? 'Sala ' + turmaCod.charAt(0) + 'º ' + turmaCod.substring(1) : 'Sala ' + turmaCod
+        );
+
+        salas[turmaCod] = {
+          codigo: turmaCod,
+          piso: pisoNum,
+          rotulo: rotulo,
+          salaNome: salaNome,
+          tvInterativa: isTv,
+          turno: nomeTurno
+        };
+
+        turmas.push(turmaCod);
+        if (pisosLayout[pisoNum].indexOf(turmaCod) === -1) {
+          pisosLayout[pisoNum].push(turmaCod);
+        }
+      }
+
+      var diasMapa = {
+        'SEGUNDA': 1, 'TERÇA': 2, 'TERCA': 2, 'QUARTA': 3, 'QUINTA': 4, 'SEXTA': 5
+      };
+
+      var diaAtual = 1;
+      var grade = { 1: [], 2: [], 3: [], 4: [], 5: [] };
+      var horarios = [];
+      var horariosVistos = {};
+      var professores = {};
+      var disciplinas = {};
+      var indicePorProf = {};
+      var indicePorTurma = {};
+      var disciplinasPorProf = {};
+
+      for (var r = startIdx + 3; r < endIdx; r++) {
+        var row = rows[r];
+        if (!row || row.length < 3) continue;
+
+        var diaStr = (row[0] || '').trim().toUpperCase();
+        for (var k in diasMapa) {
+          if (diaStr.indexOf(k) === 0) {
+            diaAtual = diasMapa[k];
+            break;
+          }
+        }
+
+        var inicio = (row[1] || '').trim();
+        if (!inicio || inicio.indexOf(':') === -1) continue;
+
+        if (!horariosVistos[inicio]) {
+          horariosVistos[inicio] = true;
+          var partesH = inicio.split(':');
+          var totalMin = parseInt(partesH[0], 10) * 60 + parseInt(partesH[1], 10) + 50;
+          var fimH = String(Math.floor(totalMin / 60));
+          if (fimH.length < 2) fimH = '0' + fimH;
+          var fimM = String(totalMin % 60);
+          if (fimM.length < 2) fimM = '0' + fimM;
+
+          horarios.push({
+            numero: horarios.length + 1,
+            inicio: inicio,
+            fim: fimH + ':' + fimM
+          });
+        }
+
+        var numAula = 1;
+        var horarioObj = horarios[0];
+        for (var hi = 0; hi < horarios.length; hi++) {
+          if (horarios[hi].inicio === inicio) {
+            numAula = hi + 1;
+            horarioObj = horarios[hi];
+            break;
+          }
+        }
+
+        var linhaAulas = [];
+        for (var c2 = 2; c2 < rowTurmas.length; c2++) {
+          var codTurma = (rowTurmas[c2] || '').trim();
+          if (!codTurma) continue;
+
+          var val = (row[c2] || '').trim();
+          if (!val) {
+            linhaAulas.push('');
+            continue;
+          }
+
+          var match = val.match(/\(([^)]+)\)\s*([\s\S]+)/);
+          if (match) {
+            var sigla = match[1].trim().toUpperCase().replace(/\s+/g, '');
+            var profBruto = match[2].trim().toUpperCase().replace(/\s+/g, ' ');
+            var profNome = normalizarNome(profBruto);
+            var nomeDisc = NOMES_DISCIPLINAS_CONHECIDAS[sigla] || sigla;
+
+            professores[profBruto] = profNome;
+            disciplinas[sigla] = nomeDisc;
+
+            linhaAulas.push(sigla + '|' + profBruto);
+
+            var aulaObj = {
+              dia: diaAtual,
+              numeroDaAula: numAula,
+              inicio: horarioObj.inicio,
+              fim: horarioObj.fim,
+              inicioEmMinutos: converterHoraParaMinutos(horarioObj.inicio),
+              fimEmMinutos: converterHoraParaMinutos(horarioObj.fim),
+              turma: codTurma,
+              disciplinaSigla: sigla,
+              disciplinaNome: nomeDisc,
+              professorChave: profBruto,
+              professorNome: profNome,
+              sala: salas[codTurma],
+              aulaDupla: null
+            };
+
+            if (!indicePorProf[profBruto]) indicePorProf[profBruto] = {};
+            if (!indicePorProf[profBruto][diaAtual]) indicePorProf[profBruto][diaAtual] = [];
+            indicePorProf[profBruto][diaAtual].push(aulaObj);
+
+            if (!indicePorTurma[codTurma]) indicePorTurma[codTurma] = {};
+            if (!indicePorTurma[codTurma][diaAtual]) indicePorTurma[codTurma][diaAtual] = [];
+            indicePorTurma[codTurma][diaAtual].push(aulaObj);
+
+            if (!disciplinasPorProf[profBruto]) disciplinasPorProf[profBruto] = [];
+            if (disciplinasPorProf[profBruto].indexOf(nomeDisc) === -1) {
+              disciplinasPorProf[profBruto].push(nomeDisc);
+            }
+          } else {
+            linhaAulas.push('');
+          }
+        }
+
+        grade[diaAtual].push(linhaAulas);
+      }
+
+      // Professores ordenados
+      var chavesProfs = [];
+      for (var cp in professores) {
+        if (professores.hasOwnProperty(cp)) {
+          chavesProfs.push({ chave: cp, nome: professores[cp] });
+        }
+      }
+      chavesProfs.sort(function(a, b) {
+        return normalizarTextoParaBusca(a.nome).localeCompare(normalizarTextoParaBusca(b.nome));
+      });
+
+      // Aulas duplas
+      for (var cprof in indicePorProf) {
+        if (indicePorProf.hasOwnProperty(cprof)) {
+          for (var d = 1; d <= 5; d++) {
+            if (indicePorProf[cprof][d]) {
+              marcarAulasDuplas(indicePorProf[cprof][d]);
+            }
+          }
+        }
+      }
+
+      return {
+        nome: nomeTurno,
+        turmas: turmas,
+        salas: salas,
+        pisosLayout: pisosLayout,
+        horarios: horarios,
+        intervalo: intervaloConfig,
+        grade: grade,
+        professores: professores,
+        disciplinas: disciplinas,
+        indicePorProfessor: indicePorProf,
+        indicePorTurma: indicePorTurma,
+        disciplinasPorProfessor: disciplinasPorProf,
+        listaDeProfessoresOrdenada: chavesProfs
+      };
+    }
+
+    var manha = extrairTurno(idxManha, idxTarde !== -1 ? idxTarde : rows.length, 'Manhã', { inicio: '10:00', fim: '10:15' });
+    var tarde = idxTarde !== -1 ? extrairTurno(idxTarde, rows.length, 'Tarde', { inicio: '15:30', fim: '15:40' }) : null;
+
+    return { MANHA: manha, TARDE: tarde };
+  }
+
+  // Ponteiros dinâmicos do sistema ativo
+  var DADOS_TURNOS = { MANHA: null, TARDE: null };
+  var DADOS_TURNO_ATIVO = null;
+  var ORDEM_DAS_TURMAS = [];
+  var SALAS_DAS_TURMAS = {};
+  var LAYOUT_PISOS = { 1: [], 2: [], 3: [] };
+  var PROFESSORES = {};
+  var DISCIPLINAS = {};
+  var DADOS_DA_GRADE = {};
+  var indicePorProfessor = {};
+  var indicePorTurma = {};
+  var disciplinasPorProfessor = {};
+  var listaDeProfessoresOrdenada = [];
+
+  function calcularTurnoDoMomento(momento) {
+    var min = momento.getHours() * 60 + momento.getMinutes();
+    return (min < CONFIGURACAO.corteTurnoMinutos) ? 'MANHA' : 'TARDE';
+  }
+
+  function definirTurnoAtivo(nomeTurno) {
+    if (!DADOS_TURNOS || !DADOS_TURNOS[nomeTurno]) return;
+    estadoDoSistema.turnoAtivo = nomeTurno;
+    var t = DADOS_TURNOS[nomeTurno];
+    DADOS_TURNO_ATIVO = t;
+
+    CONFIGURACAO.horarios = t.horarios;
+    CONFIGURACAO.intervalo = t.intervalo;
+    ORDEM_DAS_TURMAS = t.turmas;
+    SALAS_DAS_TURMAS = t.salas;
+    LAYOUT_PISOS = t.pisosLayout;
+    PROFESSORES = t.professores;
+    DISCIPLINAS = t.disciplinas;
+    DADOS_DA_GRADE = t.grade;
+    indicePorProfessor = t.indicePorProfessor;
+    indicePorTurma = t.indicePorTurma;
+    disciplinasPorProfessor = t.disciplinasPorProfessor;
+    listaDeProfessoresOrdenada = t.listaDeProfessoresOrdenada;
+
+    atualizarFaixaTurnoNaTela();
+  }
+
+  function atualizarFaixaTurnoNaTela() {
+    var faixa = document.getElementById('faixa-turno');
+    var texto = document.getElementById('faixa-turno-texto');
+    var btnM = document.getElementById('btn-turno-manha');
+    var btnT = document.getElementById('btn-turno-tarde');
+    var icoEsq = document.getElementById('icone-faixa-esquerda');
+    var icoDir = document.getElementById('icone-faixa-direita');
+
+    if (!faixa) return;
+
+    if (estadoDoSistema.turnoAtivo === 'MANHA') {
+      faixa.className = 'faixa-turno faixa-turno--manha';
+      if (texto) texto.textContent = 'MANHÃ';
+      if (btnM) btnM.classList.add('btn-turno-opcao--ativo');
+      if (btnT) btnT.classList.remove('btn-turno-opcao--ativo');
+      if (icoEsq) icoEsq.innerHTML = '<use href="#icone-sol" xlink:href="#icone-sol"/>';
+      if (icoDir) icoDir.innerHTML = '<use href="#icone-livros" xlink:href="#icone-livros"/>';
+    } else {
+      faixa.className = 'faixa-turno faixa-turno--tarde';
+      if (texto) texto.textContent = 'TARDE';
+      if (btnT) btnT.classList.add('btn-turno-opcao--ativo');
+      if (btnM) btnM.classList.remove('btn-turno-opcao--ativo');
+      if (icoEsq) icoEsq.innerHTML = '<use href="#icone-sol" xlink:href="#icone-sol"/>';
+      if (icoDir) icoDir.innerHTML = '<use href="#icone-mochila" xlink:href="#icone-mochila"/>';
+    }
+  }
+
+  var CHAVE_STORAGE_PLANILHA = 'ensalamento_santo_agostinho_planilha_csv_v2';
+  // Fallback compacto padrão caso 100% sem rede no primeiríssimo acesso
+  var CSV_FALLBACK_PADRAO = "COLÉGIO SANTO AGOSTINHO - CRONOGRAMA,,,,,,,,,,,,,\r\n,,,,,,,,,,,,,\r\nQUADRO DE AULAS — TURNO DA MANHÃ,,,,,,,,,,,,,\r\n,Localização:,Piso 3,Piso 3,Piso 3,Piso 2,Piso 1,Piso 3,Piso 1,Piso 2,Piso 2,Piso 2,Piso 1,Piso 3\r\nDIA,HORÁRIO,1A,1B,1C,2A,2B,2C,3A,3B,3C,9A,9B,ROBOTICA_M\r\nSEGUNDA,07:30,\"(EDFI)\nCARLOS\",\"(HISTPR)\nLEONEL\",\"(MAT)\nJOSIANE\",\"(704)\nSIMONE\",\"(2301)\nEDILSON\",\"(FM)\nSENAI 2A\",\"(RECLP)\nCAROLINE\",\"(GEOI)\nMÁRCIA\",\"(BIOII)\nJUSCELESON\",\"(MAT)\nVOLNEI\",\"(HIST)\nELIANE PEREIRA\",\"(ROBE)\nRAPHAEL\"\r\n,08:20,\"(HISTPR)\nLEONEL\",\"(BIOL)\nJUSCELESON\",\"(MAT)\nJOSIANE\",\"(SGCS)\nEDILSON\",\"(EDFI)\nCARLOS\",\"(FM)\nSENAI 2A\",\"(GEOI)\nMÁRCIA\",\"(HIST)\nELIANE PEREIRA\",\"(LPORT)\nCAROLINE\",\"(MAT)\nVOLNEI\",\"(704)\nSIMONE\",\"(ROBE)\nRAPHAEL\"\r\n,09:10,\"(GEO)\nMÁRCIA\",\"(EDFINAN)\nJOSIANE\",\"(BIOL)\nJUSCELESON\",\"(FISI)\nRAPHAEL\",\"(HIST)\nLEONEL\",\"(FTA)\nSENAI 2A\",\"(SOCI)\nEDILSON\",\"(EDFI)\nCARLOS\",\"(LPORT)\nCAROLINE\",\"(LING)\nMAISA\",\"(MAT)\nVOLNEI\",\r\n,10:15,\"(BIOL)\nJUSCELESON\",\"(EDFI)\nCARLOS\",\"(LING)\nMAISA\",\"(HIST)\nLEONEL\",\"(FISTECN)\nRAPHAEL\",\"(DTDM)\nSENAI 2A\",\"(LPORT)\nCAROLINE\",\"(SOCI)\nEDILSON\",\"(RECMT)\nJOSIANE\",\"(GEO)\nMÁRCIA\",\"(RECMT)\nVOLNEI\",\r\n,11:05,\"(ARTPR)\nSIMONE\",\"(EDDIG)\nVOLNEI\",\"(LING)\nMAISA\",\"(EDFI)\nCARLOS\",\"(2301)\nEDILSON\",\"(DTDM)\nSENAI 2A\",\"(RECLP)\nJOSIANE\",\"(RECLP)\nCAROLINE\",\"(FISIII)\nRAPHAEL\",\"(CIEN)\nJUSCELESON\",\"(GEO)\nMÁRCIA\",\r\n,11:55,\"(EDDIG)\nVOLNEI\",\"(ARTPR)\nSIMONE\",\"(GEO)\nMÁRCIA\",\"(2301)\nEDILSON\",\"(EDFINAN)\nJOSIANE\",\"(TVA)\nSENAI 2A\",\"(EDFI)\nCARLOS\",\"(RECLP)\nCAROLINE\",\"(FISIII)\nRAPHAEL\",,,\r\nTERÇA,07:30,\"(BIOL)\nJUSCELESON\",\"(GEOPR)\nELIANE\",\"(QUIM)\nCLEVERSON\",\"(LPORT)\nÁUREA\",\"(HIST)\nLEONEL\",\"(FE)\nSENAI 2A\",\"(HISI)\nELIANE PEREIRA\",\"(ARTII)\nSIMONE\",\"(MAT)\nUBIRAJARA\",\"(RECMT)\nVOLNEI\",\"(LPORT)\nMIRIAM\",\r\n,08:20,\"(LPORT)\nMIRIAM\",\"(GEO)\nELIANE\",\"(QUIM)\nCLEVERSON\",\"(LPORT)\nÁUREA\",\"(704)\nSIMONE\",\"(FE)\nSENAI 2A\",\"(PROJV)\nELIANE PEREIRA\",\"(RECMT)\nJOSIANE\",\"(MAT)\nUBIRAJARA\",\"(RECMT)\nVOLNEI\",\"(CIEN)\nJUSCELESON\",\r\n,09:10,\"(LING)\nMAISA\",\"(ARTPR)\nSIMONE\",\"(BIOL)\nJUSCELESON\",\"(HIST)\nLEONEL\",\"(LPORT)\nÁUREA\",\"(FE)\nSENAI 2A\",\"(MAT)\nUBIRAJARA\",\"(PROJV)\nELIANE PEREIRA\",\"(EDFINAN)\nJOSIANE\",\"(RECLP)\nMIRIAM\",\"(MAT)\nVOLNEI\",\r\n,10:15,\"(ARTPR)\nSIMONE\",\"(HISTPR)\nLEONEL\",\"(704)\nMELISSA\",\"(EDFINAN)\nJOSIANE\",\"(EDDIG)\nJUSCELESON\",\"(PB)\nSENAI 2A\",\"(MAT)\nUBIRAJARA\",\"(HISI)\nELIANE PEREIRA\",\"(QUIMI)\nCLEVERSON\",\"(LING)\nMAISA\",\"(MAT)\nVOLNEI\",\r\n,11:05,\"(HISTPR)\nLEONEL\",\"(QUIM)\nCLEVERSON\",\"(704)\nMELISSA\",\"(704)\nSIMONE\",\"(EDDIG)\nJUSCELESON\",\"(PB)\nSENAI 2A\",\"(EDFINAN)\nJOSIANE\",\"(MAT)\nUBIRAJARA\",\"(MATII)\nVOLNEI\",\"(RECLP)\nMIRIAM\",\"(LING)\nMAISA\",\r\n,11:55,\"(MAT)\nMOISÉS\",\"(LPORT)\nMIRIAM\",\"(EDDIG)\nVOLNEI\",\"(FILI)\nPAULO\",\"(MAT)\nUBIRAJARA\",\"(PB)\nSENAI 2A\",\"(ARTII)\nSIMONE\",\"(EDFINAN)\nJOSIANE\",\"(BIOII)\nJUSCELESON\",,,\r\nQUARTA,07:30,\"(LPORT)\nMIRIAM\",\"(GEOPR)\nELIANE\",\"(ITPMEA)\nSENAI\",\"(MAT)\nMOISÉS\",\"(MAT)\nUBIRAJARA\",\"(LING)\nCLAUDINEIA\",\"(SOCI)\nEDILSON\",\"(FISI)\nRAPHAEL\",\"(RECMT)\nJOSIANE\",\"(MAT)\nVOLNEI\",\"(RECLP)\nCAROLINE\",\r\n,08:20,\"(EDFI)\nCARLOS\",\"(GEOPR)\nELIANE\",\"(ITPMEA)\nSENAI\",\"(SGCS)\nEDILSON\",\"(MAT)\nUBIRAJARA\",\"(LPORT)\nMIRIAM\",\"(RECMT)\nJOSIANE\",\"(LINGI)\nCLAUDINEIA\",\"(FISI)\nRAPHAEL\",\"(MAT)\nVOLNEI\",\"(RECLP)\nCAROLINE\",\r\n,09:10,\"(MAT)\nMOISÉS\",\"(EDFINAN)\nJOSIANE\",\"(ITPMEA)\nSENAI\",\"(LING)\nCLAUDINEIA\",\"(FISI)\nRAPHAEL\",\"(2301)\nEDILSON\",\"(EDFI)\nCARLOS\",\"(MAT)\nUBIRAJARA\",\"(LPORT)\nCAROLINE\",\"(LPORT)\nMIRIAM\",\"(MAT)\nVOLNEI\",\r\n,10:15,\"(GEOPR)\nMÁRCIA\",\"(EDFI)\nCARLOS\",\"(IQPSI)\nSENAI\",\"(FISI)\nRAPHAEL\",\"(EDFINAN)\nJOSIANE\",\"(2301)\nEDILSON\",\"(LINGI)\nCLAUDINEIA\",\"(LPORT)\nCAROLINE\",\"(MAT)\nUBIRAJARA\",\"(LPORT)\nMIRIAM\",\"(RECMT)\nVOLNEI\",\r\n,11:05,\"(EDFINAN)\nJOSIANE\",\"(LPORT)\nMIRIAM\",\"(ITIC)\nSENAI\",\"(2301)\nEDILSON\",\"(FISROB)\nRAPHAEL\",\"(MAT)\nVOLNEI\",\"(MAT)\nUBIRAJARA\",\"(LINGI)\nCLAUDINEIA\",\"(RECLP)\nCAROLINE\",\"(GEO)\nMÁRCIA\",\"(EDFI)\nCARLOS\",\r\n,11:55,\"(EDFINAN)\nJOSIANE\",\"(MAT)\nMOISÉS\",\"(IDPSST)\nSENAI\",\"(LITER)\nCAROLINE\",\"(LING)\nCLAUDINEIA\",\"(MAT)\nVOLNEI\",\"(FISI)\nRAPHAEL\",\"(SOCI)\nEDILSON\",\"(EDFI)\nCARLOS\",,,\r\nQUINTA,07:30,\"(GEO)\nMÁRCIA\",\"(MAT)\nMOISÉS\",\"(SEA)\nSENAI\",\"(LPORT)\nÁUREA\",\"(FISTECN)\nRAPHAEL\",\"(QUIM)\nCLEVERSON\",\"(LPORT)\nCAROLINE\",\"(LINGI)\nCLAUDINEIA\",\"(EDFI)\nCARLOS\",\"(HIST)\nELIANE PEREIRA\",\"(MAT)\nVOLNEI\",\r\n,08:20,\"(704)\nSIMONE\",\"(QUIM)\nCLEVERSON\",\"(SEA)\nSENAI\",\"(LITER)\nCAROLINE\",\"(LPORT)\nÁUREA\",\"(MAT)\nVOLNEI\",\"(LINGI)\nCLAUDINEIA\",\"(EDFI)\nCARLOS\",\"(FISII)\nRAPHAEL\",\"(HIST)\nELIANE PEREIRA\",\"(GEO)\nMÁRCIA\",\r\n,09:10,\"(QUIM)\nCLEVERSON\",\"(704)\nSIMONE\",\"(SEA)\nSENAI\",\"(MAT)\nMOISÉS\",\"(LPORT)\nÁUREA\",\"(LING)\nCLAUDINEIA\",\"(HISI)\nELIANE PEREIRA\",\"(GEOI)\nMÁRCIA\",\"(LPORT)\nCAROLINE\",\"(MAT)\nVOLNEI\",\"(EDFI)\nCARLOS\",\r\n,10:15,\"(EDDIG)\nVOLNEI\",\"(MAT)\nMOISÉS\",\"(SEA)\nSENAI\",\"(FILI)\nPAULO\",\"(LING)\nCLAUDINEIA\",\"(QUIM)\nCLEVERSON\",\"(LPORT)\nCAROLINE\",\"(ARTII)\nSIMONE\",\"(PROJV)\nELIANE PEREIRA\",\"(GEO)\nMÁRCIA\",\"(LPORT)\nMIRIAM\",\r\n,11:05,\"(QUIM)\nCLEVERSON\",\"(LPORT)\nMIRIAM\",\"(SFSD)\nSENAI\",\"(LING)\nCLAUDINEIA\",\"(EDFI)\nCARLOS\",\"(HIST)\nPAULO\",\"(GEOI)\nMÁRCIA\",\"(LPORT)\nCAROLINE\",\"(MATII)\nVOLNEI\",\"(704)\nSIMONE\",\"(HIST)\nELIANE PEREIRA\",\r\n,11:55,\"(LPORT)\nMIRIAM\",\"(EDDIG)\nVOLNEI\",\"(SFSD)\nSENAI\",\"(EDFI)\nCARLOS\",\"(704)\nSIMONE\",\"(HIST)\nPAULO\",\"(LINGI)\nCLAUDINEIA\",\"(LPORT)\nCAROLINE\",\"(QUIMI)\nCLEVERSON\",,,\r\nSEXTA,07:30,\"(MAT)\nMOISÉS\",\"(704)\nSIMONE\",\"(LPORT)\nCAROLINE\",\"(FILOS)\nANA CRISTINA\",\"(LPORT)\nÁUREA\",\"(LPORT)\nMIRIAM\",\"(MAT)\nUBIRAJARA\",\"(EDFINAN)\nJOSIANE\",\"(FISI)\nRAPHAEL\",\"(CIEN)\nJUSCELESON\",\"(GEO)\nMÁRCIA\",\r\n,08:20,\"(704)\nSIMONE\",\"(MAT)\nMOISÉS\",\"(MAT)\nJOSIANE\",\"(LPORT)\nÁUREA\",\"(FILOS)\nANA CRISTINA\",\"(GEO)\nMÁRCIA\",\"(FISI)\nRAPHAEL\",\"(LPORT)\nCAROLINE\",\"(MAT)\nUBIRAJARA\",\"(LPORT)\nMIRIAM\",\"(CIEN)\nJUSCELESON\",\r\n,09:10,\"(GEOPR)\nMÁRCIA\",\"(LPORT)\nMIRIAM\",\"(EDFI)\nANDREA\",\"(FILOS)\nANA CRISTINA\",\"(MAT)\nUBIRAJARA\",\"(BIOL)\nJUSCELESON\",\"(LPORT)\nCAROLINE\",\"(RECMT)\nJOSIANE\",\"(FISII)\nRAPHAEL\",\"(704)\nSIMONE\",\"(LING)\nMAISA\",\r\n,10:15,\"(LPORT)\nMIRIAM\",\"(LING)\nMAISA\",\"(GEO)\nMÁRCIA\",\"(MAT)\nMOISÉS\",\"(FILOS)\nANA CRISTINA\",\"(BIOL)\nJUSCELESON\",\"(EDFINAN)\nJOSIANE\",\"(FISI)\nRAPHAEL\",\"(RECLP)\nCAROLINE\",\"(EDFI)\nANDREA\",\"(704)\nSIMONE\",\r\n,11:05,\"(MAT)\nMOISÉS\",\"(LING)\nMAISA\",\"(LPORT)\nCAROLINE\",\"(EDFINAN)\nJOSIANE\",\"(FISROB)\nRAPHAEL\",\"(GEO)\nMÁRCIA\",\"(ARTII)\nSIMONE\",\"(MAT)\nUBIRAJARA\",\"(BIOII)\nJUSCELESON\",\"(EDFI)\nANDREA\",\"(LPORT)\nMIRIAM\",\r\n,11:55,\"(LING)\nMAISA\",\"(BIOL)\nJUSCELESON\",\"(EDFI)\nANDREA\",\"(MAT)\nMOISÉS\",\"(FISI)\nRAPHAEL\",\"(LPORT)\nMIRIAM\",\"(RECLP)\nCAROLINE\",\"(MAT)\nUBIRAJARA\",\"(EDFINAN)\nJOSIANE\",,,\r\n,,,,,,,,,,,,,\r\nQUADRO DE AULAS — TURNO DA TARDE,,,,,,,,,,,,,\r\n,Localização:,Piso 3,Piso 2,Piso 2,Piso 1,Piso 2,Piso 1,Piso 2,Piso 1,Piso 3,Piso 3,Piso 3,\r\nDIA,HORÁRIO,9C,6A,6B,7A,7B,7C,7D,8A,8B,8C,ROBOTICA_T,\r\nSEGUNDA,13:00,\"(HIST)\nLEONEL\",\"(EDFI)\nDAVI\",\"(GEO)\nELIANE\",\"(LPORT)\nELIANA\",\"(CIEN)\nKARINE\",\"(MAT)\nUBIRAJARA\",\"(HIST)\nELIANE PEREIRA\",\"(LPORT)\nÁUREA\",\"(704)\nMELISSA\",\"(LING)\nNOEMI\",\"(RPP)\nRAPHAEL\",\r\n,13:50,\"(HIST)\nLEONEL\",\"(704)\nSIMONE\",\"(LING)\nNOEMI\",\"(LPORT)\nELIANA\",\"(EREL)\nELIANE PEREIRA\",\"(MAT)\nUBIRAJARA\",\"(EDFI)\nDAVI\",\"(LPORT)\nÁUREA\",\"(CIEN)\nKARINE\",\"(704)\nMELISSA\",\"(RPP)\nRAPHAEL\",\r\n,14:40,\"(MAT)\nUBIRAJARA\",\"(MAT)\nLILIAN\",\"(LPORT)\nELIANA\",\"(GEO)\nELIANE\",\"(CIEN)\nKARINE\",\"(HIST)\nELIANE PEREIRA\",\"(704)\nMELISSA\",\"(LING)\nNOEMI\",\"(REDA)\nÁUREA\",\"(EDFI)\nDAVI\",,\r\n,15:40,\"(704)\nMELISSA\",\"(CIEN)\nEMANOEL\",\"(HIST)\nLEONEL\",\"(HIST)\nELIANE PEREIRA\",\"(LING)\nNOEMI\",\"(REDA)\nELIANA\",\"(MAT)\nUBIRAJARA\",\"(GEO)\nELIANE\",\"(CIEN)\nKARINE\",\"(REDA)\nÁUREA\",,\r\n,16:30,\"(CIEN)\nEMANOEL\",\"(HIST)\nLEONEL\",\"(704)\nSIMONE\",\"(MAT)\nLILIAN\",\"(MAT)\nUBIRAJARA\",\"(REDA)\nELIANA\",\"(LING)\nNOEMI\",\"(704)\nMELISSA\",\"(EDFI)\nDAVI\",\"(REDA)\nÁUREA\",,\r\nTERÇA,13:00,\"(EDFI)\nDAVI\",\"(HIST)\nLEONEL\",\"(EREL)\nELIANE PEREIRA\",\"(REDA)\nELIANA\",\"(GEO)\nELIANE\",\"(CIEN)\nKARINE\",\"(704)\nMELISSA\",\"(REDA)\nÁUREA\",\"(HIST)\nPAULO\",\"(MAT)\nPEDRO\",,\r\n,13:50,\"(MAT)\nUBIRAJARA\",\"(LPORT)\nELIANA\",\"(RECMT)\nVOLNEI\",\"(CIEN)\nKARINE\",\"(GEO)\nELIANE\",\"(704)\nSIMONE\",\"(EREL)\nELIANE PEREIRA\",\"(704)\nMELISSA\",\"(HIST)\nPAULO\",\"(MAT)\nPEDRO\",,\r\n,14:40,\"(704)\nMELISSA\",\"(EREL)\nLEONEL\",\"(RECMT)\nVOLNEI\",\"(MAT)\nLILIAN\",\"(LPORT)\nÁUREA\",\"(EREL)\nELIANE PEREIRA\",\"(MAT)\nUBIRAJARA\",\"(EDFI)\nDAVI\",\"(MAT)\nPEDRO\",\"(CIEN)\nKARINE\",,\r\n,15:40,\"(RECMT)\nVOLNEI\",\"(RECMT)\nLILIAN\",\"(HIST)\nLEONEL\",\"(704)\nSIMONE\",\"(EDFI)\nDAVI\",\"(LPORT)\nÁUREA\",\"(LPORT)\nELIANA\",\"(MAT)\nUBIRAJARA\",\"(704)\nMELISSA\",\"(CIEN)\nKARINE\",,\r\n,16:30,\"(RECMT)\nVOLNEI\",\"(RECMT)\nLILIAN\",\"(EDFI)\nDAVI\",\"(EREL)\nELIANE PEREIRA\",\"(704)\nSIMONE\",\"(GEO)\nELIANE\",\"(LPORT)\nELIANA\",\"(MAT)\nUBIRAJARA\",\"(LPORT)\nÁUREA\",\"(704)\nMELISSA\",,\r\nQUARTA,13:00,\"(LPORT)\nDANIELE\",\"(LING)\nNOEMI\",\"(LPORT)\nELIANA\",\"(HIST)\nELIANE PEREIRA\",\"(CIEN)\nKARINE\",\"(EDFI)\nDAVI\",\"(MAT)\nUBIRAJARA\",\"(GEO)\nELIANE\",\"(MAT)\nPEDRO\",\"(LPORT)\nÁUREA\",,\r\n,13:50,\"(LING)\nNOEMI\",\"(RECLP)\nELIANA\",\"(CIEN)\nEMANOEL\",\"(EDFI)\nDAVI\",\"(HIST)\nELIANE PEREIRA\",\"(GEO)\nELIANE\",\"(MAT)\nUBIRAJARA\",\"(EDDIG)\nVOLNEI\",\"(CIEN)\nKARINE\",\"(LPORT)\nÁUREA\",,\r\n,14:40,\"(CIEN)\nEMANOEL\",\"(RECLP)\nELIANA\",\"(GEO)\nELIANE\",\"(MAT)\nLILIAN\",\"(HIST)\nELIANE PEREIRA\",\"(MAT)\nUBIRAJARA\",\"(CIEN)\nKARINE\",\"(EDDIG)\nVOLNEI\",\"(LING)\nNOEMI\",\"(EDFI)\nDAVI\",,\r\n,15:40,\"(MAT)\nUBIRAJARA\",\"(MAT)\nLILIAN\",\"(CIEN)\nEMANOEL\",\"(GEO)\nELIANE\",\"(REDA)\nELIANA\",\"(LING)\nNOEMI\",\"(CIEN)\nKARINE\",\"(LPORT)\nÁUREA\",\"(EDFI)\nDAVI\",\"(EDDIG)\nVOLNEI\",,\r\n,16:30,\"(MAT)\nUBIRAJARA\",\"(CIEN)\nEMANOEL\",\"(MAT)\nLILIAN\",\"(GEO)\nELIANE\",\"(REDA)\nELIANA\",\"(LPORT)\nÁUREA\",\"(EDFI)\nDAVI\",\"(CIEN)\nKARINE\",\"(EDDIG)\nVOLNEI\",\"(LING)\nNOEMI\",,\r\nQUINTA,13:00,\"(GEO)\nMÁRCIA\",\"(GEO)\nELIANE\",\"(LPORT)\nELIANA\",\"(LING)\nNOEMI\",\"(MAT)\nUBIRAJARA\",\"(LPORT)\nÁUREA\",\"(REDA)\nDANIELE\",\"(CIEN)\nKARINE\",\"(MAT)\nPEDRO\",\"(HIST)\nPAULO\",,\r\n,13:50,\"(GEO)\nMÁRCIA\",\"(LING)\nNOEMI\",\"(LPORT)\nELIANA\",\"(MAT)\nLILIAN\",\"(MAT)\nUBIRAJARA\",\"(CIEN)\nKARINE\",\"(REDA)\nDANIELE\",\"(HIST)\nPAULO\",\"(MAT)\nPEDRO\",\"(EDDIG)\nVOLNEI\",,\r\n,14:40,\"(MAT)\nUBIRAJARA\",\"(LPORT)\nELIANA\",\"(MAT)\nLILIAN\",\"(CIEN)\nKARINE\",\"(LPORT)\nÁUREA\",\"(GEO)\nELIANE\",\"(GEO)\nMÁRCIA\",\"(LING)\nNOEMI\",\"(EDDIG)\nVOLNEI\",\"(MAT)\nPEDRO\",,\r\n,15:40,\"(RECLP)\nDANIELE\",\"(GEO)\nELIANE\",\"(MAT)\nLILIAN\",\"(LPORT)\nELIANA\",\"(EDFI)\nDAVI\",\"(HIST)\nELIANE PEREIRA\",\"(LING)\nNOEMI\",\"(MAT)\nUBIRAJARA\",\"(GEO)\nMÁRCIA\",\"(MAT)\nPEDRO\",,\r\n,16:30,\"(RECLP)\nDANIELE\",\"(MAT)\nLILIAN\",\"(LING)\nNOEMI\",\"(REDA)\nELIANA\",\"(GEO)\nELIANE\",\"(MAT)\nUBIRAJARA\",\"(HIST)\nELIANE PEREIRA\",\"(EDFI)\nDAVI\",\"(REDA)\nÁUREA\",\"(GEO)\nMÁRCIA\",,\r\nSEXTA,13:00,\"(LPORT)\nDANIELE\",\"(LPORT)\nELIANA\",\"(EDFI)\nDAVI\",\"(CIEN)\nKARINE\",\"(LING)\nNOEMI\",\"(704)\nSIMONE\",\"(GEO)\nMÁRCIA\",\"(MAT)\nUBIRAJARA\",\"(LPORT)\nÁUREA\",\"(HIST)\nPAULO\",,\r\n,13:50,\"(LPORT)\nDANIELE\",\"(LPORT)\nELIANA\",\"(704)\nSIMONE\",\"(EDFI)\nDAVI\",\"(MAT)\nUBIRAJARA\",\"(LING)\nNOEMI\",\"(GEO)\nMÁRCIA\",\"(CIEN)\nKARINE\",\"(LPORT)\nÁUREA\",\"(HIST)\nPAULO\",,\r\n,14:40,\"(EDFI)\nDAVI\",\"(704)\nSIMONE\",\"(MAT)\nLILIAN\",\"(LING)\nNOEMI\",\"(MAT)\nUBIRAJARA\",\"(CIEN)\nKARINE\",\"(LPORT)\nELIANA\",\"(REDA)\nÁUREA\",\"(HIST)\nPAULO\",\"(GEO)\nMÁRCIA\",,\r\n,15:40,\"(GEO)\nMÁRCIA\",\"(EDFI)\nDAVI\",\"(RECLP)\nELIANA\",\"(MAT)\nLILIAN\",\"(704)\nSIMONE\",\"(MAT)\nUBIRAJARA\",\"(CIEN)\nKARINE\",\"(HIST)\nPAULO\",\"(LING)\nNOEMI\",\"(LPORT)\nÁUREA\",,\r\n,16:30,\"(LING)\nNOEMI\",\"(MAT)\nLILIAN\",\"(RECLP)\nELIANA\",\"(704)\nSIMONE\",\"(LPORT)\nÁUREA\",\"(EDFI)\nDAVI\",\"(MAT)\nUBIRAJARA\",\"(HIST)\nPAULO\",\"(GEO)\nMÁRCIA\",\"(CIEN)\nKARINE\",,";
+
+  function carregarDadosDaPlanilha(callback) {
+    var csvCarregado = null;
+
+    // 1. Tentar ler cache local primeiro
+    try {
+      csvCarregado = localStorage.getItem(CHAVE_STORAGE_PLANILHA);
+    } catch (e) {}
+
+    // 2. Se não houver cache, usar fallback padrão imediatamente (0ms de tela cinza)
+    if (!csvCarregado || csvCarregado.length < 500) {
+      csvCarregado = CSV_FALLBACK_PADRAO;
+    }
+
+    try {
+      DADOS_TURNOS = processarPlanilhaCompleta(csvCarregado);
+      var turnoInicial = estadoDoSistema.turnoManual || calcularTurnoDoMomento(obterMomentoAtual());
+      definirTurnoAtivo(turnoInicial);
+      if (typeof callback === 'function') callback(true);
+    } catch (errLocal) {
+      console.warn('Erro ao processar dados locais da planilha:', errLocal);
+    }
+
+    // 3. Disparar fetch assíncrono para buscar versão em tempo real da planilha Google Docs
+    if (typeof fetch === 'function' && CONFIGURACAO.planilhaCsvUrl) {
+      fetch(CONFIGURACAO.planilhaCsvUrl, { cache: 'no-cache' })
+        .then(function(res) {
+          if (!res.ok) throw new Error('Status HTTP ' + res.status);
+          return res.text();
+        })
+        .then(function(csvRemoto) {
+          if (!csvRemoto || csvRemoto.length < 500) return;
+          var turnosRemotos = processarPlanilhaCompleta(csvRemoto);
+          DADOS_TURNOS = turnosRemotos;
+          try {
+            localStorage.setItem(CHAVE_STORAGE_PLANILHA, csvRemoto);
+          } catch (e) {}
+          var turnoDesejado = estadoDoSistema.turnoManual || calcularTurnoDoMomento(obterMomentoAtual());
+          definirTurnoAtivo(turnoDesejado);
+          renderizarTelaAtual();
+        })
+        .catch(function(errFetch) {
+          console.info('Aviso: Operando com dados locais em cache (' + errFetch.message + ')');
+        });
+    }
+  }
+  
   var NOMES_DOS_DIAS = ['', 'Segunda-feira', 'Ter\u00E7a-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira'];
   var NOMES_CURTOS_DOS_DIAS = ['', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex'];
   var NOMES_DOS_MESES = ['janeiro','fevereiro','mar\u00E7o','abril','maio','junho','julho','agosto','setembro','outubro','novembro','dezembro'];
@@ -1738,8 +2017,10 @@ body {
     var t = texto.toLowerCase().trim();
     t = t.replace(/[º°ª_\-\s]/g, '');
     var normalizado = normalizarTextoParaBusca(t);
-    if (normalizado === 'robotica' || normalizado === 'tv' || normalizado === 'tvinterativa' || normalizado === 'interativa') return 'ROBOTICA';
-    var match = normalizado.match(/^([6-9])([a-d])$/);
+    if (normalizado === 'robotica' || normalizado === 'tv' || normalizado === 'tvinterativa' || normalizado === 'interativa' || normalizado === 'roboticam' || normalizado === 'roboticat') {
+      return (estadoDoSistema.turnoAtivo === 'MANHA') ? 'ROBOTICA_M' : 'ROBOTICA_T';
+    }
+    var match = normalizado.match(/^([1-9])([a-d])$/);
     if (match) return match[1] + match[2].toUpperCase();
     return null;
   }
@@ -1960,19 +2241,22 @@ body {
 
     // 1. Turmas e Salas
     var turmasResultados = [];
-    var todasTurmas = [
-      { codigo: '8A', nome: '8º A', piso: 1, rotuloPiso: 'Piso 1', salaNome: 'Sala 8º A', tv: false },
-      { codigo: '7C', nome: '7º C', piso: 1, rotuloPiso: 'Piso 1', salaNome: 'Sala 7º C', tv: false },
-      { codigo: '7A', nome: '7º A', piso: 1, rotuloPiso: 'Piso 1', salaNome: 'Sala 7º A', tv: false },
-      { codigo: '7D', nome: '7º D', piso: 2, rotuloPiso: 'Piso 2', salaNome: 'Sala 7º D', tv: false },
-      { codigo: '6A', nome: '6º A', piso: 2, rotuloPiso: 'Piso 2', salaNome: 'Sala 6º A', tv: false },
-      { codigo: '6B', nome: '6º B', piso: 2, rotuloPiso: 'Piso 2', salaNome: 'Sala 6º B', tv: false },
-      { codigo: '7B', nome: '7º B', piso: 2, rotuloPiso: 'Piso 2', salaNome: 'Sala 7º B', tv: false },
-      { codigo: 'ROBOTICA', nome: 'TV Interativa', piso: 3, rotuloPiso: 'Piso 3', salaNome: 'TV Interativa', tv: true },
-      { codigo: '9C', nome: '9º C', piso: 3, rotuloPiso: 'Piso 3', salaNome: 'Sala 9º C', tv: false },
-      { codigo: '8B', nome: '8º B', piso: 3, rotuloPiso: 'Piso 3', salaNome: 'Sala 8º B', tv: false },
-      { codigo: '8C', nome: '8º C', piso: 3, rotuloPiso: 'Piso 3', salaNome: 'Sala 8º C', tv: false }
-    ];
+    var todasTurmas = [];
+    if (SALAS_DAS_TURMAS) {
+      for (var codT in SALAS_DAS_TURMAS) {
+        if (SALAS_DAS_TURMAS.hasOwnProperty(codT)) {
+          var sInfo = SALAS_DAS_TURMAS[codT];
+          todasTurmas.push({
+            codigo: codT,
+            nome: formatarNomeTurma(codT),
+            piso: sInfo.piso,
+            rotuloPiso: sInfo.rotulo,
+            salaNome: sInfo.salaNome,
+            tv: sInfo.tvInterativa
+          });
+        }
+      }
+    }
 
     for (var t = 0; t < todasTurmas.length; t++) {
       var tm = todasTurmas[t];
@@ -2606,11 +2890,12 @@ body {
   function validarIntegridadeDosDados() {
     var problemas = [];
 
-    // Verificar 5 horários por dia por turma
+    // Verificar horários esperados por dia (6 na Manhã, 5 na Tarde)
+    var qtdEsperada = (CONFIGURACAO.horarios && CONFIGURACAO.horarios.length) ? CONFIGURACAO.horarios.length : 5;
     for (var dia = 1; dia <= 5; dia++) {
       var linhas = DADOS_DA_GRADE[dia];
-      if (!linhas || linhas.length !== 5) {
-        problemas.push('Dia ' + dia + ': esperados 5 hor\u00E1rios, encontrados ' + (linhas ? linhas.length : 0));
+      if (!linhas || linhas.length !== qtdEsperada) {
+        problemas.push('Dia ' + dia + ': esperados ' + qtdEsperada + ' hor\u00E1rios, encontrados ' + (linhas ? linhas.length : 0));
       }
     }
 
@@ -2675,7 +2960,7 @@ body {
 
   function formatarNomeTurma(codigo) {
     if (!codigo) return '';
-    if (codigo === 'ROBOTICA' || codigo === 'ROBOTICA_T' || codigo === 'TV_INTERATIVA' || codigo === 'TV_INTERATIVA_M') {
+    if (codigo === 'ROBOTICA' || codigo === 'ROBOTICA_T' || codigo === 'ROBOTICA_M' || codigo === 'TV_INTERATIVA' || codigo === 'TV_INTERATIVA_M') {
       return 'TV Interativa';
     }
     if (codigo === '1C_2C' || codigo === '1C/2C') {
@@ -2710,8 +2995,11 @@ body {
   };
 
   function gerarRotuloTurma(codigo) {
-    if (codigo === 'ROBOTICA' || codigo === 'TV_INTERATIVA') return 'TV';
-    return codigo.charAt(0) + '\u00BA' + codigo.charAt(1);
+    if (codigo.indexOf('ROBOTICA') !== -1 || codigo.indexOf('TV') !== -1) return 'TV';
+    if (codigo.length >= 2 && !isNaN(parseInt(codigo.charAt(0), 10))) {
+      return codigo.charAt(0) + '\u00BA' + codigo.substring(1);
+    }
+    return codigo;
   }
 
   function gerarMiniMapaPiso(piso, turmaDestaque) {
@@ -3154,9 +3442,9 @@ body {
     var gradeTurmas = criarElementoSeguro('div', { className: 'grade-de-turmas' });
 
     var pisos = [
-      { piso: 1, rotulo: 'Piso 1', turmas: ['8A','7C','7A'] },
-      { piso: 2, rotulo: 'Piso 2', turmas: ['7D','6A','6B','7B'] },
-      { piso: 3, rotulo: 'Piso 3', turmas: ['ROBOTICA','9C','8B','8C'] }
+      { piso: 1, rotulo: 'Piso 1', turmas: (LAYOUT_PISOS && LAYOUT_PISOS[1]) ? LAYOUT_PISOS[1] : [] },
+      { piso: 2, rotulo: 'Piso 2', turmas: (LAYOUT_PISOS && LAYOUT_PISOS[2]) ? LAYOUT_PISOS[2] : [] },
+      { piso: 3, rotulo: 'Piso 3', turmas: (LAYOUT_PISOS && LAYOUT_PISOS[3]) ? LAYOUT_PISOS[3] : [] }
     ];
 
     for (var p = 0; p < pisos.length; p++) {
@@ -3174,9 +3462,9 @@ body {
           className: 'sugestao-chip sugestao-chip--turma sugestao-chip--piso-' + pisos[p].piso,
           'data-turma': cod,
           type: 'button',
-          title: cod === 'ROBOTICA' ? 'Sala TV Interativa (Piso 3)' : 'Turma ' + formatarNomeTurma(cod)
+          title: (cod.indexOf('ROBOTICA') !== -1 || cod.indexOf('TV') !== -1) ? 'Sala TV Interativa (Piso 3)' : 'Turma ' + formatarNomeTurma(cod)
         });
-        if (cod === 'ROBOTICA') {
+        if (cod.indexOf('ROBOTICA') !== -1 || cod.indexOf('TV') !== -1) {
           var tvIco = criarSvgUse('icone-tv', 'icone-piso-pequeno', 18, 18);
           chip.appendChild(tvIco);
           chip.appendChild(document.createTextNode(' TV Interativa'));
@@ -3459,6 +3747,8 @@ body {
 
   var estadoDoSistema = {
     abaAtiva: 'professor',
+    turnoAtivo: 'TARDE',
+    turnoManual: null,
     diaConsultado: null,
     termoDigitado: '',
     professorSelecionado: null,
@@ -3683,8 +3973,17 @@ body {
 
   function reavaliarSituacaoEAtualizarTela() {
     var momento = obterMomentoAtual();
+
+    // Se o usuário não travou um turno manualmente, verifica se mudou de Manhã para Tarde
+    if (estadoDoSistema.turnoManual === null) {
+      var turnoDetectado = calcularTurnoDoMomento(momento);
+      if (turnoDetectado !== estadoDoSistema.turnoAtivo) {
+        definirTurnoAtivo(turnoDetectado);
+      }
+    }
+
     var situacao = calcularSituacaoDoMomento(momento);
-    var novoEstado = situacao.estado + '-' + (situacao.numeroAtual || '') + '-' + (situacao.diaLetivo || '');
+    var novoEstado = estadoDoSistema.turnoAtivo + '-' + situacao.estado + '-' + (situacao.numeroAtual || '') + '-' + (situacao.diaLetivo || '');
 
     // Detectar virada de dia
     var diaAtual = momento.getDate() + '-' + momento.getMonth();
@@ -3739,6 +4038,26 @@ body {
   function ligarEventosDaInterface() {
     // Configurar busca global com autocomplete
     configurarBuscaGlobalComAutocomplete();
+
+    // Eventos do seletor de turno (Manhã / Tarde)
+    var btnManha = document.getElementById('btn-turno-manha');
+    var btnTarde = document.getElementById('btn-turno-tarde');
+    if (btnManha) {
+      btnManha.addEventListener('click', function(e) {
+        e.stopPropagation();
+        estadoDoSistema.turnoManual = 'MANHA';
+        definirTurnoAtivo('MANHA');
+        renderizarTelaAtual();
+      });
+    }
+    if (btnTarde) {
+      btnTarde.addEventListener('click', function(e) {
+        e.stopPropagation();
+        estadoDoSistema.turnoManual = 'TARDE';
+        definirTurnoAtivo('TARDE');
+        renderizarTelaAtual();
+      });
+    }
 
     // Abas
     var abas = ['professor', 'turma', 'agora'];
@@ -3900,8 +4219,8 @@ body {
       if (painelSim) painelSim.classList.add('aberto');
     }
 
-    // Construir índices
-    construirIndicesDeBusca();
+    // Carregar dados da planilha (cache local 0ms + fetch assíncrono Google Docs)
+    carregarDadosDaPlanilha();
 
     // Validar integridade
     var problemas = validarIntegridadeDosDados();

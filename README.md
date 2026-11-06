@@ -1,14 +1,15 @@
 # 🏫 Ensalamento · Escola Santo Agostinho
 
 [![Acessar Sistema Online](https://img.shields.io/badge/Acessar-Sistema_Web-2ea44f?logo=github&logoColor=white)](https://raimundoalvesstb.github.io/EnsalamentoSantoAgostinho/)
-[![Versão](https://img.shields.io/badge/Vers%C3%A3o-1.2.2-blue.svg)]()
+[![Versão](https://img.shields.io/badge/Vers%C3%A3o-2.0.0-blue.svg)]()
+[![Google Sheets](https://img.shields.io/badge/Dados-Google_Sheets_Din%C3%A2mico-34A853?logo=googlesheets&logoColor=white)]()
 [![Tecnologias](https://img.shields.io/badge/Tecnologias-HTML5%20%7C%20CSS3%20%7C%20JavaScript-orange.svg)]()
 [![Segurança](https://img.shields.io/badge/Seguran%C3%A7a-CSP%20Strict-blueviolet.svg)]()
 [![Licença](https://img.shields.io/badge/Licen%C3%A7a-MIT-yellow.svg)](./LICENSE)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-Raimundo_Alves-%230077B5?logo=linkedin&logoColor=white)](https://www.linkedin.com/in/raimundoalvesstb/)
 
 > **Sistema digital simples, rápido e visual para consulta de salas, horários e professores da Escola Santo Agostinho.**  
-> Criado para facilitar o dia a dia de professores, coordenadores, funcionários, alunos e famílias. Funciona direto no navegador do celular, computador, tablet ou TV da escola, sem precisar instalar nada e sem precisar de login.
+> Criado para facilitar o dia a dia de professores, coordenadores, funcionários, alunos e famílias. Funciona direto no navegador do celular, computador, tablet ou TV da escola, sem precisar instalar nada, sem precisar de login e com sincronização automática com a planilha escolar.
 
 ---
 
@@ -53,11 +54,15 @@ Ao abrir a página, você verá de cima para baixo:
 2. **Botões de Acessibilidade (no canto superior direito):**
    * **`A-` e `A+`:** Se você achar as letras pequenas ou grandes demais, clique nestes botões para ajustar o tamanho do texto até ficar confortável para a sua visão. O sistema memoriza o tamanho escolhido no seu aparelho.
    * **Botão de Tela Cheia (⛶):** Amplia o sistema para a tela inteira, ideal para TVs ou monitores na sala dos professores ou na recepção.
-3. **As 3 Abas Principais de Navegação:**
+3. **Faixa Dinâmica de Turno (Manhã / Tarde):**
+   * **Identificação Autônoma:** O sistema reconhece automaticamente em que horário estamos. Até as 12:45 ele abre diretamente no **Turno da Manhã**; a partir das 12:45 ele comuta automaticamente para o **Turno da Tarde**.
+   * **Troca Rápida de Turno:** Quer planejar ou consultar o outro turno? Basta clicar nos botões sutis **Manhã** ou **Tarde** dentro da faixa para alternar a qualquer momento.
+   * **Sincronização em Tempo Real:** Um indicador no canto da faixa avisa quando os dados foram atualizados diretamente da planilha oficial.
+4. **As 3 Abas Principais de Navegação:**
    * **👨‍🏫 Professores:** Para consultar a rotina de um(a) professor(a).
-   * **🏫 Turmas:** Para ver as aulas de uma sala de aula específica (ex: 6º B, 7º A).
+   * **🏫 Turmas:** Para ver as aulas de uma sala de aula específica.
    * **⏱️ Agora:** Para ver um resumo de todas as salas da escola neste exato minuto.
-4. **Dias da Semana (Seg, Ter, Qua, Qui, Sex):**
+5. **Dias da Semana (Seg, Ter, Qua, Qui, Sex):**
    * O sistema seleciona **automaticamente o dia de hoje**.
    * Se quiser ver as aulas de amanhã ou de outro dia para planejar, basta dar um clique no dia desejado.
 
@@ -100,18 +105,23 @@ Cada aula traz um desenho visual que mostra o corredor da escola:
 
 ---
 
-### 4. Como Consultar as Aulas de uma Turma (Ex: 6º B ou 7º D)
+### 4. Como Consultar as Aulas de uma Turma
 
 Quer saber a programação de aulas de uma turma inteira?
 1. Clique na aba **Turmas** no topo da tela.
-2. Escolha o andar onde a turma estuda:
-   * **Piso 1:** 8º A, 7º C e 7º A.
-   * **Piso 2:** 7º D, 6º A, 6º B e 7º B.
-   * **Piso 3:** Sala Interativa/Robótica, 9º C, 8º B e 8º C.
-3. Clique sobre o botão da turma desejada (ex: **6º B**).
-4. O sistema exibirá todas as aulas da tarde daquela turma em ordem:
-   * O horário de cada aula (1ª à 5ª aula).
-   * A matéria que está sendo ensinada (ex: Matemática, Português, Educação Física).
+2. O sistema agrupa automaticamente as turmas ativas de acordo com o turno e o andar:
+   * **No Turno da Manhã (6 aulas · 07:30 às 12:45):**
+     * **Piso 1:** 9º A e 9º B.
+     * **Piso 2:** 2º A, 2º B, 2º C e 3º A.
+     * **Piso 3:** Sala Interativa/Robótica, 3º B, 3º C, 1º A, 1º B e 1º C.
+   * **No Turno da Tarde (5 aulas · 13:00 às 17:20):**
+     * **Piso 1:** 8º A, 7º C e 7º A.
+     * **Piso 2:** 7º D, 6º A, 6º B e 7º B.
+     * **Piso 3:** Sala Interativa/Robótica, 9º C, 8º B e 8º C.
+3. Clique sobre o botão da turma desejada (ex: **6º B** ou **1º A**).
+4. O sistema exibirá todas as aulas do dia daquela turma em ordem:
+   * O horário de cada aula.
+   * A matéria que está sendo ensinada (ex: Matemática, Português, Física, Robótica).
    * O nome do(a) professor(a) responsável.
    * O mapinha do andar indicando a localização exata da sala.
 
@@ -167,8 +177,13 @@ EnsalamentoSantoAgostinho/
 └── .gitignore          # Arquivos excluídos do controle de versão
 ```
 
-* **Tecnologias:** HTML5 semântico, CSS3 moderno (Variáveis CSS, CSS Grid, Flexbox, `@media print`) e JavaScript Vanilla (ES5/ES6 compatível com navegadores antigos e modernos).
-* **SVG Puro:** Todos os ícones e os mini-mapas dos corredores são desenhados diretamente em código vetorial SVG integrado, sem imagens externas pesadas.
+### Principais Características Técnicas (v2.0.0)
+
+* **Integração Dinâmica com Google Sheets:** Os dados de horários, turmas, professores e ensalamento são lidos em tempo real da planilha oficial pública do Google Docs (`gid=35603240`) via endpoint CSV nativo com CORS habilitado. Não há matrizes estáticas de dados fixas no código, garantindo manutenção com esforço zero de codificação.
+* **Detecção Autônoma de Turno:** O sistema calcula de forma autônoma o turno ativo (Manhã: 07:30 às 12:45 | Tarde: 13:00 às 17:20) com corte inteligente às 12:45, adaptando salas, pisos e horários sem necessidade de intervenção do usuário.
+* **Estratégia de Cache *Stale-While-Revalidate*:** O sistema armazena a última versão da planilha no `localStorage` do navegador para abertura instantânea (mesmo offline) e dispara uma checagem em segundo plano para aplicar qualquer alteração feita na planilha sem recarregar a página.
+* **Tecnologias Nativas:** HTML5 semântico, CSS3 moderno (Variáveis CSS, CSS Grid, Flexbox, `@media print`) e JavaScript Vanilla puro (compatível com todos os navegadores modernos e legados).
+* **SVG Puro Integrado:** Todos os ícones e os mini-mapas dos corredores de cada andar são desenhados diretamente em código vetorial SVG embutido, sem dependência de fontes externas pesadas ou requisições adicionais de imagens.
 
 ---
 
