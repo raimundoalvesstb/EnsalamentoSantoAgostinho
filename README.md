@@ -1,15 +1,15 @@
 # 🏫 Ensalamento · Escola Santo Agostinho
 
 [![Acessar Sistema Online](https://img.shields.io/badge/Acessar-Sistema_Web-2ea44f?logo=github&logoColor=white)](https://raimundoalvesstb.github.io/EnsalamentoSantoAgostinho/)
-[![Versão](https://img.shields.io/badge/Vers%C3%A3o-2.0.0-blue.svg)]()
-[![Google Sheets](https://img.shields.io/badge/Dados-Google_Sheets_Din%C3%A2mico-34A853?logo=googlesheets&logoColor=white)]()
+[![Versão](https://img.shields.io/badge/Vers%C3%A3o-2.1.0-blue.svg)]()
+[![Base de Dados](https://img.shields.io/badge/Base_de_Dados-base.csv_Unificado-34A853?logo=csv&logoColor=white)]()
 [![Tecnologias](https://img.shields.io/badge/Tecnologias-HTML5%20%7C%20CSS3%20%7C%20JavaScript-orange.svg)]()
 [![Segurança](https://img.shields.io/badge/Seguran%C3%A7a-CSP%20Strict-blueviolet.svg)]()
 [![Licença](https://img.shields.io/badge/Licen%C3%A7a-MIT-yellow.svg)](./LICENSE)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-Raimundo_Alves-%230077B5?logo=linkedin&logoColor=white)](https://www.linkedin.com/in/raimundoalvesstb/)
 
 > **Sistema digital simples, rápido e visual para consulta de salas, horários e professores da Escola Santo Agostinho.**  
-> Criado para facilitar o dia a dia de professores, coordenadores, funcionários, alunos e famílias. Funciona direto no navegador do celular, computador, tablet ou TV da escola, sem precisar instalar nada, sem precisar de login e com sincronização automática com a planilha escolar.
+> Criado para facilitar o dia a dia de professores, coordenadores, funcionários, alunos e famílias. Funciona direto no navegador do celular, computador, tablet ou TV da escola, sem precisar instalar nada, sem precisar de login e com dados unificados e independentes mantidos em arquivo local CSV.
 
 ---
 
@@ -171,17 +171,19 @@ O projeto é estruturado em **arquivo único (*single-file architecture*)**, eli
 ```
 EnsalamentoSantoAgostinho/
 ├── index.html          # Sistema completo (HTML5 estruturado, CSS3 responsivo e JS nativo)
+├── base.csv            # Base de dados oficial única (Ensalamento, Professores e Cronogramas)
 ├── demonstracao.mp4    # Vídeo tutorial passo a passo (MP4 720p HD didático)
 ├── README.md           # Documentação detalhada e manual de instruções
 ├── LICENSE             # Licença de código aberto MIT
-└── .gitignore          # Arquivos excluídos do controle de versão
+└── .gitignore          # Arquivos excluídos do controle de versão (ignora Base.xlsx)
 ```
 
-### Principais Características Técnicas (v2.0.0)
+### Principais Características Técnicas (v2.1.0)
 
-* **Integração Dinâmica com Google Sheets:** Os dados de horários, turmas, professores e ensalamento são lidos em tempo real da planilha oficial pública do Google Docs (`gid=35603240`) via endpoint CSV nativo com CORS habilitado. Não há matrizes estáticas de dados fixas no código, garantindo manutenção com esforço zero de codificação.
+* **Base de Dados Unificada em `base.csv`:** Todas as informações de ensalamento (Manhã e Tarde), professores, disciplinas e cronogramas de aula residem no arquivo local `base.csv` no próprio repositório. O sistema lê os dados diretamente via requisição local (`same-origin`), garantindo independência total de serviços externos (como Google Drive/Docs), sem problemas de CORS ou quedas de conexão.
+* **Fácil Manutenção Humana:** O arquivo `base.csv` é organizado de forma altiva em 5 seções numeradas com cabeçalhos legíveis (`#`), permitindo que a coordenação edite horários ou professores facilmente pelo Excel ou qualquer editor de texto.
 * **Detecção Autônoma de Turno:** O sistema calcula de forma autônoma o turno ativo (Manhã: 07:30 às 12:45 | Tarde: 13:00 às 17:20) com corte inteligente às 12:45, adaptando salas, pisos e horários sem necessidade de intervenção do usuário.
-* **Estratégia de Cache *Stale-While-Revalidate*:** O sistema armazena a última versão da planilha no `localStorage` do navegador para abertura instantânea (mesmo offline) e dispara uma checagem em segundo plano para aplicar qualquer alteração feita na planilha sem recarregar a página.
+* **Estratégia de Cache *Stale-While-Revalidate*:** O sistema armazena a versão mais recente dos dados no `localStorage` do navegador para abertura instantânea a 0ms (mesmo offline) e sincroniza silenciosamente em segundo plano com o `base.csv`.
 * **Tecnologias Nativas:** HTML5 semântico, CSS3 moderno (Variáveis CSS, CSS Grid, Flexbox, `@media print`) e JavaScript Vanilla puro (compatível com todos os navegadores modernos e legados).
 * **SVG Puro Integrado:** Todos os ícones e os mini-mapas dos corredores de cada andar são desenhados diretamente em código vetorial SVG embutido, sem dependência de fontes externas pesadas ou requisições adicionais de imagens.
 

@@ -11,6 +11,8 @@ arqvs/
 # Documentos de apoio e referências internas
 docs/
 planejamento*
+Base.xlsx
+*.xlsx
 
 # Arquivos do sistema operacional
 Thumbs.db
